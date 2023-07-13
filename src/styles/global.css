@@ -1,0 +1,55 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+
+  font-family: 'Merriweather', serif;
+
+  color: var(--text-color);
+}
+
+#root {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  height: 100%;
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h3,
+h4 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+
+.container {
+  padding: 1rem 0;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  margin: auto;
+  font-size: 0.8rem;
+
+}

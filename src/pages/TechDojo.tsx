@@ -2,7 +2,7 @@ import React from 'react'
 
 const TechDojo = () => {
   return (
-    <div>TechDojo</div>
+    <div className='container'>TechDojo</div>
   )
 }
 

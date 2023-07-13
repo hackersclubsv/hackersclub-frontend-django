@@ -1,34 +1,25 @@
-import React, { useState } from 'react'
-import { routes } from '../../routes/routes'
 
-const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false);
+const Navbar = ({isLogin} : {isLogin: Boolean}) => {
   
   const loginComponent = (
     isLogin ? (
       <ul className="navbar-nav mb-2 mb-lg-0">
       <li className="nav-item">
-      <a className="nav-link" href="/">Username</a>
+      <a className="nav-link" href="/userprofile">Username</a>
       </li>
       <li className="nav-item">
-      <button className="nav-link" onClick={() => setIsLogin(false)}>Logout</button>
+      <button className="nav-link">Logout</button>
       </li>
     </ul> 
     ) : 
     (
       <ul className="navbar-nav mb-2 mb-lg-0">
         <li className="nav-item">
-        <button className="nav-link" onClick={() => setIsLogin(true)}>Login</button>
+        <a className="nav-link" href="/login">Login</a>
         </li>
       </ul>
     )
   )
-      
-  const navlist = routes.map((route, id) => (
-    <li className="nav-item" key={id}>
-      <a className="nav-link" href={route.path}>{route.name}</a>
-    </li> 
-  ))
 
   return (
     <nav className="navbar navbar-expand-lg bg-light">
@@ -39,7 +30,18 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {navlist}
+          <li className="nav-item">
+            <a className="nav-link" href='/'>Home</a>
+          </li> 
+          <li className="nav-item">
+            <a className="nav-link" href='/campusinfo'>Campus Info</a>
+          </li> 
+          <li className="nav-item">
+            <a className="nav-link" href='/careerdev'>Career Dev</a>
+          </li> 
+          <li className="nav-item">
+            <a className="nav-link" href='/techdojo'>Tech Dojo</a>
+          </li> 
           </ul>
           {loginComponent}
 
