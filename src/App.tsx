@@ -4,14 +4,9 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Navbar from './components/layout/Navbar';
 
-import Home from './pages/Home';
-import CampusInfo from './pages/CampusInfo';
-import CareerDev from './pages/CareerDev';
-import TechDojo from './pages/TechDojo';
-import Login from './pages/Login';
-import UserProfile from './pages/UserProfile';
+
 import Footer from './components/layout/Footer';
-import { exampleuser } from './dummy/exampleuser';
+import AppRouter from './routes/AppRouter';
 
 
 
@@ -22,19 +17,7 @@ function App() {
     <div className="app">
       <Navbar isLogin={isLogin} />
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/campusinfo' element={<CampusInfo />}/>
-          <Route path='/careerdev' element={<CareerDev />}/>
-          <Route path='/techdojo' element={<TechDojo />}/>
-          ( isLogin? (
-            <Route path='/userprofile' element={<UserProfile user={exampleuser} />}/>
-            <Route path='/logout' element={<Home />}/>
-          ) : (
-            <Route path='/login' element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-          ))
-          <Route path='/' element={<Home />}/>
-        </Routes>
+        <AppRouter isLogin={isLogin} setIsLogin={setIsLogin} />
     </BrowserRouter>
     <Footer />
     </div>

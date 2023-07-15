@@ -1,5 +1,3 @@
-import { PostDetails } from "../types/types";
-
 export const exampleposts = [
   {
     id: 1,

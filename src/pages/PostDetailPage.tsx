@@ -1,26 +1,26 @@
 import React from 'react';
 import { PostDetails } from '../types/types';
 
-const PostDetailPanel = (postDetail: PostDetails) => {
+const PostDetailPage = (props : {postDetail: PostDetails}) => {
   return (
     <div className="container">
       <div className="card">
         <div className="card-body">
-          <h2 className="card-title">{postDetail.title}</h2>
+          <h2 className="card-title">{props.postDetail.title}</h2>
           <p className="card-subtitle mb-2 text-body-secondary">
-            {postDetail.creator} | {postDetail.creator}
+            {props.postDetail.creator} | {props.postDetail.created}
           </p>
-          <p className="card-text">{postDetail.content}</p>
+          <p className="card-text">{props.postDetail.content}</p>
         </div>
-        <h3>Comments</h3>
+      </div>
         <ul className="list-group">
-          {postDetail.comments.map((comment) => (
-            <li className="list-group-item">{comment}</li>
+          <h3 className="list-group-item">Comments</h3>
+          {props.postDetail.comments.map((comment, id) => (
+            <li className="list-group-item" key={id}>{comment}</li>
           ))}
         </ul>
-      </div>
     </div>
   );
 };
 
-export default PostDetailPanel;
+export default PostDetailPage;

@@ -5,7 +5,7 @@ const PostCard = (props: PostItem) => {
   return (
     <div className="card">
       <div className="card-body">
-        <a href='/'>
+        <a href='/postdetail'>
           <h5 className="card-title">{props.title}</h5>
         </a>
       </div>

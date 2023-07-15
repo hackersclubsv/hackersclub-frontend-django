@@ -41,6 +41,9 @@ const Login = ({isLogin, setIsLogin} : loginProps) => {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
+        <div className='contianer'>
+          <a href="/register">Not on SV Hackers Club yet? Sign up!</a>
+        </div>
       </form>
     </div>
   );
