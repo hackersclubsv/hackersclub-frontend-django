@@ -11,6 +11,7 @@ import TechDojo from './pages/TechDojo';
 import Login from './pages/Login';
 import UserProfile from './pages/UserProfile';
 import Footer from './components/layout/Footer';
+import { exampleuser } from './dummy/exampleuser';
 
 
 
@@ -24,10 +25,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/campusinfo' element={<CampusInfo />}/>
-          <Route path='careerdev' element={<CareerDev />}/>
-          <Route path='TechDojo' element={<TechDojo />}/>
+          <Route path='/careerdev' element={<CareerDev />}/>
+          <Route path='/techdojo' element={<TechDojo />}/>
           ( isLogin? (
-            <Route path='/userprofile' element={<UserProfile/>}/>
+            <Route path='/userprofile' element={<UserProfile user={exampleuser} />}/>
             <Route path='/logout' element={<Home />}/>
           ) : (
             <Route path='/login' element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
