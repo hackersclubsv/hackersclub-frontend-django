@@ -10,8 +10,7 @@ const PostCard = (props: PostItem) => {
         </a>
       </div>
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">{props.creator}</li>
-        <li className="list-group-item">{props.created}</li>
+        <li className="list-group-item">Creator: {props.creator} | Created: {props.created} | Last Updated: {props.updated} | Category: {props.category}</li>
       </ul>
     </div>
   );
