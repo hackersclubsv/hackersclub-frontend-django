@@ -16,7 +16,10 @@ const PostDetailPage = (props : {postDetail: PostDetails}) => {
         <ul className="list-group">
           <h3 className="list-group-item">Comments</h3>
           {props.postDetail.comments.map((comment, id) => (
-            <li className="list-group-item" key={id}>{comment}</li>
+            <li className="list-group-item" key={id}>
+              <p>{comment.creator} | {comment.created}</p>
+              <p>{comment.content}</p>
+              </li>
           ))}
         </ul>
     </div>

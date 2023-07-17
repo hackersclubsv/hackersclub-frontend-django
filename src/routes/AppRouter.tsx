@@ -22,7 +22,7 @@ const AppRouter = (props: {
       <Route path="/careerdev" element={<CareerDev />} />
       <Route path="/techdojo" element={<TechDojo />} />
       ( isLogin ? (
-      <Route path="/userprofile" element={<UserProfile user={exampleuser} />} />
+      <Route path="/userprofile" element={<UserProfile user={exampleuser[0]} />} />
       <Route path="/logout" element={<Home />} />
       <Route path='/postdetail' element={<PostDetailPage postDetail={exampleposts[0]}/>} />
       ) : (

@@ -1,6 +1,5 @@
 import React from 'react';
 import PostCard from './PostCard';
-import { exampleposts } from '../../dummy/exampleposts';
 import { PostDetails } from '../../types/types';
 
 
