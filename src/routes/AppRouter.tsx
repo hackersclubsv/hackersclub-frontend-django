@@ -11,27 +11,28 @@ import PostDetailPage from '../pages/PostDetailPage';
 import { exampleposts } from '../dummy/exampleposts';
 import Register from '../pages/Register';
 
-const AppRouter = (props: {
-  isLogin: Boolean;
-  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/campusinfo" element={<CampusInfo />} />
       <Route path="/careerdev" element={<CareerDev />} />
-      <Route path="/techdojo" element={<TechDojo />} />
-      ( isLogin ? (
-      <Route path="/userprofile" element={<UserProfile user={exampleuser[0]} />} />
-      <Route path="/logout" element={<Home />} />
-      <Route path='/postdetail' element={<PostDetailPage postDetail={exampleposts[0]}/>} />
-      ) : (
+      <Route path="/techdojo" element={<TechDojo />} />(
+      <Route
+        path="/userprofile"
+        element={<UserProfile user={exampleuser[0]} />}
+      />
+      <Route
+        path="/postdetail"
+        element={<PostDetailPage postDetail={exampleposts[0]} />}
+      />
       <Route
         path="/login"
-        element={<Login isLogin={props.isLogin} setIsLogin={props.setIsLogin} />}
+        element={
+          <Login />
+        }
       />
-      <Route path='/register' element={<Register />} />
-      ))
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 };

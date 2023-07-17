@@ -12,7 +12,6 @@ import { User } from './hooks/useUser';
 
 function App() {
   const [user, setUser_] = useState<User | null>(null);
-  const [isLogin, setIsLogin]=useState<boolean>(false);
   // console.log(isLogin, " in app ts");
   const setUser = (user: User | null) => {
     setUser_(user);
@@ -21,9 +20,9 @@ function App() {
   return (
     <AuthContext.Provider value={{user, setUser}}>
       <div className="app">
-        <Navbar isLogin={isLogin} />
+        <Navbar />
         <BrowserRouter>
-          <AppRouter isLogin={isLogin} setIsLogin={setIsLogin} />
+          <AppRouter />
       </BrowserRouter>
       <Footer />
       </div>
