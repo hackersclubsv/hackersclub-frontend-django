@@ -1,6 +1,6 @@
 import { useAuth } from "../../hooks/useAuth";
 
-const Navbar = ({isLogin} : {isLogin: Boolean}) => {
+const Navbar = () => {
   
   const {user, logout} = useAuth();
   console.log("user in nav bar", user);

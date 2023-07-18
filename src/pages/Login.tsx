@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 
-type loginProps = {
-  isLogin: Boolean;
-  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Login = ({ isLogin, setIsLogin }: loginProps) => {
+const Login = () => {
   const { login } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -16,9 +11,9 @@ const Login = ({ isLogin, setIsLogin }: loginProps) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+      
       setEmail('');
       setPassword('');
-      setIsLogin(true);
      
     } catch (error) {
       console.log(error);
@@ -32,7 +27,6 @@ const Login = ({ isLogin, setIsLogin }: loginProps) => {
       email: 'john.doe@gmail.com'
     });    
   };
-  console.log(isLogin, " in login ts");
 
 
   return (
