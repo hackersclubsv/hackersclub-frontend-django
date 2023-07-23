@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import yup from 'yup';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -17,9 +18,12 @@ const Register = () => {
 
   const yupSchema = yup.object().shape({
     name: yup.string().required('Name is required'),
-    email: yup.string().email('Invalid email').required('Email is required'),
-    password: yup.string().required('Password is required'),
-    confirmPassword: yup.string().required('Confirm Password is required'),
+    email: 
+      yup.string().email('Invalid email')
+        .required('Email is required')
+        .matches(/@northeastern\.edu$/, 'Email must end with @northeastern.edu'),  
+    password: yup.string().required().min(6, "Password too short").max(20, "Password too long"),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Passwords must match').required('Confirm Password is required'),
   });
 
 
