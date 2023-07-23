@@ -1,10 +1,10 @@
 import React from 'react';
 import { PostDetails } from '../types/types';
 
-const PostDetailPage = (props : {postDetail: PostDetails}) => {
+const PostDetailPage = () => {
   return (
     <div className="container">
-      <div className="card">
+      {/* <div className="card">
         <div className="card-body">
           <h2 className="card-title">{props.postDetail.title}</h2>
           <p className="card-subtitle mb-2 text-body-secondary">
@@ -21,7 +21,7 @@ const PostDetailPage = (props : {postDetail: PostDetails}) => {
               <p>{comment.content}</p>
               </li>
           ))}
-        </ul>
+        </ul> */}
     </div>
   );
 };
