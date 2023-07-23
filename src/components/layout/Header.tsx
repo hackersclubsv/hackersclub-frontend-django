@@ -9,19 +9,15 @@ const Header = () => {
   
   const { userInfo } = useSelector((state : any) => state.auth);
 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const [logoutApiCall] = useLogoutMutation();
+  const [logoutApiCall, { isLoading }] = useLogoutMutation();
 
   const logoutHandler = async () => {
-  //   try {
-  //     await logoutApiCall().unwrap();
-  //     dispatch(logout());
-  //     navigate('/login');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
+    await logoutApiCall({}).unwrap();
+    dispatch(logout({}));
+    navigate('/');
   };
 
   return (
