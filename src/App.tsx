@@ -1,32 +1,20 @@
-import React, { useState } from 'react';
 import './styles/global.css';
-import { BrowserRouter, useLoaderData } from "react-router-dom";
-
-import Navbar from './components/layout/Navbar';
-
-
+import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import AppRouter from './routes/AppRouter';
-import { AuthContext } from './context/AuthContext';
-import { User } from './hooks/useUser';
+import { ToastContainer } from 'react-toastify';
+import { Container } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
 
-function App() {
-  const [user, setUser_] = useState<User | null>(null);
-  // console.log(isLogin, " in app ts");
-  const setUser = (user: User | null) => {
-    setUser_(user);
-  }
-  
+function App() {  
   return (
-    <AuthContext.Provider value={{user, setUser}}>
-      <div className="app">
-        <Navbar />
-        <BrowserRouter>
-          <AppRouter />
-      </BrowserRouter>
+    <div className='app'>
+      <Header />
+      <Container>
+        <ToastContainer />
+        <Outlet />
+      </Container>
       <Footer />
-      </div>
-    </AuthContext.Provider>
+    </div>
   );
 }
 

@@ -1,8 +1,8 @@
-import React from 'react'
+import Hero from "../components/common/Hero"
 
 const Home = () => {
   return (
-    <div className='container'>Home</div>
+    <Hero />
   )
 }
 

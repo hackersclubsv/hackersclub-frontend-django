@@ -1,18 +1,21 @@
-import React from 'react';
 import { PostItem } from '../../types/types';
+import { Card } from 'react-bootstrap';
 
 const PostCard = (props: PostItem) => {
   return (
-    <div className="card">
-      <div className="card-body">
-        <a href='/postdetail'>
-          <h5 className="card-title">{props.title}</h5>
-        </a>
-      </div>
-      <ul className="list-group list-group-flush">
-        <li className="list-group-item">Creator: {props.creator} | Created: {props.created} | Last Updated: {props.updated} | Category: {props.category}</li>
-      </ul>
-    </div>
+    <Card>
+      <Card.Body>
+        <Card.Title as="div">
+          <a href={`/postdetail/${props.id}`}>
+            <strong>{props.title}</strong>
+          </a>
+        </Card.Title>
+      </Card.Body>
+      <Card.Footer>
+        Creator: {props.creator} | Created: {props.created} | Last Updated:{' '}
+        {props.updated} | Category: {props.category}
+      </Card.Footer>
+    </Card>
   );
 };
 
