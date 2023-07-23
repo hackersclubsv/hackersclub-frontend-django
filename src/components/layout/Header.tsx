@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../../slices/usersSlice';
 import { logout } from '../../slices/authSlice';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   
@@ -18,6 +19,7 @@ const Header = () => {
     await logoutApiCall({}).unwrap();
     dispatch(logout({}));
     navigate('/');
+    toast.success('Logged out successfully');
   };
 
   return (

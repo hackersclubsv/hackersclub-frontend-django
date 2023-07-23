@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 const PostCard = (props: PostItem) => {
   return (
-    <Card>
+    <Card className='my-2'>
       <Card.Body>
         <Card.Title as="div">
           <a href={`/postdetail/${props.id}`}>

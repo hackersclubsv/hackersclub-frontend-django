@@ -1,20 +1,15 @@
 import React from 'react';
 import PostCard from './PostCard';
 import { PostDetails } from '../../types/types';
+import { Container } from 'react-bootstrap';
 
-
-const PostList = (props:{postlist : PostDetails[]}) => {
+const PostList = (props: { postlist: PostDetails[] }) => {
   return (
-    <div className="container">
-      {props.postlist.map(
-        (post) => (
-          <PostCard
-            key={post.id}
-            {...post}
-            />
-        )
-      )}
-    </div>
+    <Container className='my-5'>
+      {props.postlist.map((post) => (
+        <PostCard key={post.id} {...post} />
+      ))}
+    </Container>
   );
 };
 
