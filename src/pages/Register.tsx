@@ -38,12 +38,12 @@ const Register = () => {
         console.log(res);
         dispatch(setCredentials({ ...res }));
         navigate('/');
+        toast.success('Registered successfully');
       } catch (err: any) {
         err.data.username && toast.error(err.data.username[0]);
         err.data.email && toast.error(err.data.email[0]);
         err.data.password && toast.error(err.data.password[0]);
         err.data.bio && toast.error(err.data.bio[0]);
-
       }
     }
   };
@@ -53,22 +53,25 @@ const Register = () => {
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="my-2" controlId="username">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Name<em> *required</em></Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter name"
             value={username}
             onChange={(e) => setUserame(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="my-2" controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email Address<em> *required</em></Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
+            autoComplete="off"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -83,26 +86,33 @@ const Register = () => {
         </Form.Group>
 
         <Form.Group className="my-2" controlId="role">
-          <Form.Label>Role</Form.Label>
-          <Form.Control type="text" value="Student" disabled></Form.Control>
+          <Form.Label>Role<em> *required</em></Form.Label>
+          <Form.Control
+            type="text"
+            value="Student"
+            readOnly
+            disabled
+          ></Form.Control>
         </Form.Group>
 
         <Form.Group className="my-2" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Password<em> *required</em></Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group className="my-2" controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Confirm Password<em> *required</em></Form.Label>
           <Form.Control
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
