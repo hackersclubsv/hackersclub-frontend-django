@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
 
 const Register = () => {
   const [username, setUserame] = useState('');
@@ -16,16 +14,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bio, setBio] = useState('');
-
-  // const yupSchema = yup.object().shape({
-  //   name: yup.string().required('Name is required'),
-  //   email:
-  //     yup.string().email('Invalid email')
-  //       .required('Email is required')
-  //       .matches(/@northeastern\.edu$/, 'Email must end with @northeastern.edu'),
-  //   password: yup.string().required().min(6, "Password too short").max(20, "Password too long"),
-  //   confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Passwords must match').required('Confirm Password is required'),
-  // });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +43,7 @@ const Register = () => {
         err.data.email && toast.error(err.data.email[0]);
         err.data.password && toast.error(err.data.password[0]);
         err.data.bio && toast.error(err.data.bio[0]);
-        
+
       }
     }
   };

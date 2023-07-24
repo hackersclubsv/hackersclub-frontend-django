@@ -4,6 +4,7 @@ import { PostDetails } from '../types/types';
 const PostDetailPage = () => {
   return (
     <div className="container">
+      Post Detail Page
       {/* <div className="card">
         <div className="card-body">
           <h2 className="card-title">{props.postDetail.title}</h2>

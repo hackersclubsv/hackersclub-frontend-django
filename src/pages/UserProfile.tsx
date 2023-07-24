@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import FormContainer from '../components/common/FormContainer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useUpdateUserMutation } from '../slices/usersSlice';
 import { setCredentials } from '../slices/authSlice';
