@@ -1,33 +1,22 @@
 import { useState } from 'react';
 import './App.css';
 
-function App() {
-  const [data, setData] = useState([]);
-  const fetchData = () => {
-    fetch('http://localhost:4000')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      });
-  };
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login.js';
+import Register from './pages/RegisterFormik.js';
 
+const App = () => {
   return (
-    <div className='App'>
-      <h1> Welcome to Hackers Club Silicon Valley! </h1>{' '}
-      <button onClick={fetchData}> Click to Get Data </button>{' '}
-      <div>
-        {' '}
-        {data.map((singleData, index) => (
-          <ul key={index}>
-            <li> Title: {singleData.title} </li>{' '}
-            <li> User: {singleData.user} </li>{' '}
-            <li> Content: {singleData.content} </li>{' '}
-          </ul>
-        ))}{' '}
-      </div>{' '}
+    <div className="App">
+    <Router>
+      <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} /> 
+      </Routes>
+    </Router>
     </div>
   );
-}
+};
 
 export default App;
