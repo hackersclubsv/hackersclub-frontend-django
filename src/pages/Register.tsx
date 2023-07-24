@@ -52,11 +52,12 @@ const Register = () => {
     <FormContainer>
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
+        <p><em className='text-red'>*</em> is required.</p>
         <Form.Group className="my-2" controlId="username">
-          <Form.Label>Name<em> *required</em></Form.Label>
+          <Form.Label>Username<em className='text-red'>*</em></Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter username"
             value={username}
             onChange={(e) => setUserame(e.target.value)}
             required
@@ -64,7 +65,7 @@ const Register = () => {
         </Form.Group>
 
         <Form.Group className="my-2" controlId="email">
-          <Form.Label>Email Address<em> *required</em></Form.Label>
+          <Form.Label>Email Address<em className='text-red'>*</em></Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -75,28 +76,8 @@ const Register = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className="my-2" controlId="bio">
-          <Form.Label>Bio</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group className="my-2" controlId="role">
-          <Form.Label>Role<em> *required</em></Form.Label>
-          <Form.Control
-            type="text"
-            value="Student"
-            readOnly
-            disabled
-          ></Form.Control>
-        </Form.Group>
-
         <Form.Group className="my-2" controlId="password">
-          <Form.Label>Password<em> *required</em></Form.Label>
+          <Form.Label>Password<em className='text-red'>*</em></Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
@@ -106,7 +87,7 @@ const Register = () => {
           ></Form.Control>
         </Form.Group>
         <Form.Group className="my-2" controlId="confirmPassword">
-          <Form.Label>Confirm Password<em> *required</em></Form.Label>
+          <Form.Label>Confirm Password<em className='text-red'>*</em></Form.Label>
           <Form.Control
             type="password"
             placeholder="Confirm password"
@@ -114,6 +95,14 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           ></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="my-2" controlId="tandc">
+          <Form.Check
+            type="checkbox"
+            label="I agree to the Terms and Conditions"
+            required
+          ></Form.Check>
         </Form.Group>
 
         <Button type="submit" variant="primary" className="mt-3">

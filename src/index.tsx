@@ -22,6 +22,7 @@ import Register from './pages/Register';
 import { Provider } from 'react-redux';
 import store from './store';
 import PrivateRoute from './components/layout/PrivateRoute';
+import ForgetPassword from './pages/ForgetPassword';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
         <Route path="/postdetail" element={<PostDetail />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/forgetpassword" element={<ForgetPassword />} />
       <Route path="/register" element={<Register />} />
     </Route>
   )
