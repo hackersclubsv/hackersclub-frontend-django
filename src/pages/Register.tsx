@@ -11,28 +11,28 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 const Register = () => {
-  const [name, setName] = useState('');
+  const [username, setUserame] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [bio, setBio] = useState('');
 
-  const yupSchema = yup.object().shape({
-    name: yup.string().required('Name is required'),
-    email: 
-      yup.string().email('Invalid email')
-        .required('Email is required')
-        .matches(/@northeastern\.edu$/, 'Email must end with @northeastern.edu'),  
-    password: yup.string().required().min(6, "Password too short").max(20, "Password too long"),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Passwords must match').required('Confirm Password is required'),
-  });
-
+  // const yupSchema = yup.object().shape({
+  //   name: yup.string().required('Name is required'),
+  //   email:
+  //     yup.string().email('Invalid email')
+  //       .required('Email is required')
+  //       .matches(/@northeastern\.edu$/, 'Email must end with @northeastern.edu'),
+  //   password: yup.string().required().min(6, "Password too short").max(20, "Password too long"),
+  //   confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Passwords must match').required('Confirm Password is required'),
+  // });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();
 
-  const { userInfo } = useSelector((state : any) => state.auth);
+  const { userInfo } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     if (userInfo) {
@@ -40,72 +40,92 @@ const Register = () => {
     }
   }, [navigate, userInfo]);
 
-  const submitHandler = async (e: { preventDefault: () => void; }) => {
+  const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
+        const res = await register({ username, email, password, bio }).unwrap();
+        console.log(res);
         dispatch(setCredentials({ ...res }));
         navigate('/');
       } catch (err: any) {
-        toast.error(err?.data?.message || err.error);
+        err.data.username && toast.error(err.data.username[0]);
+        err.data.email && toast.error(err.data.email[0]);
+        err.data.password && toast.error(err.data.password[0]);
+        err.data.bio && toast.error(err.data.bio[0]);
+        
       }
     }
   };
+
   return (
     <FormContainer>
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
-        <Form.Group className='my-2' controlId='name'>
+        <Form.Group className="my-2" controlId="username">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type='name'
-            placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="Enter name"
+            value={username}
+            onChange={(e) => setUserame(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='email'>
+        <Form.Group className="my-2" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
-            type='email'
-            placeholder='Enter email'
+            type="email"
+            placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='password'>
+        <Form.Group className="my-2" controlId="bio">
+          <Form.Label>Bio</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="my-2" controlId="role">
+          <Form.Label>Role</Form.Label>
+          <Form.Control type="text" value="Student" disabled></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="my-2" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type='password'
-            placeholder='Enter password'
+            type="password"
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className='my-2' controlId='confirmPassword'>
+        <Form.Group className="my-2" controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            type='password'
-            placeholder='Confirm password'
+            type="password"
+            placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='primary' className='mt-3'>
+        <Button type="submit" variant="primary" className="mt-3">
           Register
         </Button>
 
         {isLoading && <Loader />}
       </Form>
 
-      <Row className='py-3'>
+      <Row className="py-3">
         <Col>
           Already have an account? <Link to={`/login`}>Login</Link>
         </Col>

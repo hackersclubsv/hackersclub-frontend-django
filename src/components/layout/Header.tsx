@@ -2,7 +2,6 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from '../../slices/usersSlice';
 import { logout } from '../../slices/authSlice';
 import { toast } from 'react-toastify';
 
@@ -13,10 +12,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logoutApiCall, { isLoading }] = useLogoutMutation();
 
   const logoutHandler = async () => {
-    await logoutApiCall({}).unwrap();
     dispatch(logout({}));
     navigate('/');
     toast.success('Logged out successfully');
@@ -49,7 +46,7 @@ const Header = () => {
                   </LinkContainer>
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id='username'>
+                  <NavDropdown title={userInfo.username} id='username'>
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
