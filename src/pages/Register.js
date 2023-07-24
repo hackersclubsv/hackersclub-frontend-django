@@ -1,93 +1,214 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { TextField, Button } from '@mui/material';
-import * as yup from 'yup';
-
-// define validation schema
-const schema = yup.object().shape({
-  username: yup.string().required().max(10, 'Username must be at most 10 characters'),
-  email: yup.string().required().email().matches(/@northeastern\.edu$/, 'Email must be a valid northeastern.edu email'),
-  password: yup.string().required().min(8, 'Password must be at least 8 characters').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      'Password must contain at least one upper case, one lower case, one digit, and one special char'
-    ),
-  bio: yup.string().required().max(150, 'Bio must be at most 150 characters'),
-  });
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import axios from "axios";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import validationSchema from "../validations/RegisterForm.js";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [bio, setBio] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-
-    // Form validation can go here
-    const user = { username, password, email, bio, avatar };
+  const submitForm = async (values, formikHelpers) => {
     try {
-      await schema.validate(user);
-      axios.post('http://localhost:4000/users/register', { username, password, email })
-      .then(response => {
-        console.log(response.data);
-        // You can perform actions based on the response here, such as updating the UI to show success, storing the token, etc.
-      })
-      .catch(error => {
-        console.error(error);
-        // Handle error here, such as showing an error message to the user
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) =>
+        formData.append(key, value),
+      );
+      const res = await axios.post(
+        "http://localhost:4000/users/register",
+        formData,
+      );
+      console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
+      formikHelpers.resetForm();
+    } catch (err) {
+      console.log(err.response.data);
+      setErrors({
+        api: err.response.data || "An error occurred. Please try again.",
       });
-  } catch (err) {
-    console.error(err);
-  }
-  };
-
-const handleFileChange = (e) => {
-  const file = e.target.files[0];
-  if (file && file.size < 5000000) { // 5MB
-    setAvatar(file);
-    } else {
-      console.error('File too big');
-      // Handle error here, such as showing an error message to the user 
+    } finally {
+      formikHelpers.setSubmitting(false);
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+      email: "",
+      bio: "",
+      avatar: null,
+      role: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: submitForm,
+  });
+
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <TextField
-        label="Bio"
-        value={bio}
-        onChange={(e) => setBio(e.target.value)}
-        required
-      />
-      <input
-        accept="image/*"
-        type="file"
-        onChange={handleFileChange}
-        required
-      />
-      <Button type="submit">Register</Button>
-    </form>
+    <Container component="main" maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h4">
+          Register
+        </Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="username"
+            name="username"
+            label="Username"
+            autoComplete="username"
+            autoFocus
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
+          />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="confirmPassword"
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            autoComplete="current-password"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.confirmPassword &&
+              Boolean(formik.errors.confirmPassword)
+            }
+            helperText={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="email"
+            name="email"
+            label="Email"
+            autoComplete="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="bio"
+            name="bio"
+            label="Bio"
+            autoComplete="A Description of Yourself"
+            placeholder="A Description of Yourself"
+            multiline
+            value={formik.values.bio}
+            onChange={formik.handleChange}
+            error={formik.touched.bio && Boolean(formik.errors.bio)}
+            helperText={formik.touched.bio && formik.errors.bio}
+          />
+
+          <FormControl fullWidth margin="normal">
+            <InputLabel disabled variant="filled" id="role-label" shrink>
+              Choose your identity...
+            </InputLabel>
+            <Select
+              labelId="role-label"
+              id="role"
+              value={formik.values.role}
+              onChange={(event) => {
+                formik.setFieldValue("role", event.target.value);
+              }}
+              error={formik.touched.role && Boolean(formik.errors.role)}
+            >
+              <MenuItem value={"Default"}>Default</MenuItem>
+              <MenuItem value={"Faculty"}>Faculty</MenuItem>
+            </Select>
+          </FormControl>
+          <label htmlFor="avatar">
+            <input
+              style={{ display: "none" }}
+              id="avatar"
+              name="avatar"
+              type="file"
+              onChange={(event) => {
+                formik.setFieldValue("avatar", event.currentTarget.files[0]);
+              }}
+            />
+            <Button
+              color="primary"
+              variant="outlined"
+              component="span"
+              sx={{
+                my: 2,
+              }}
+            >
+              Upload avatar
+            </Button>
+            {formik.touched.avatar && Boolean(formik.errors.avatar) && (
+              <Alert sx={{ mb: 2 }} severity="error">
+                {formik.errors.avatar}
+              </Alert>
+            )}
+          </label>
+
+          {errors.api && (
+            <Alert sx={{ mb: 2 }} severity="error">
+              {errors.api}
+            </Alert>
+          )}
+
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            disabled={formik.isSubmitting}
+          >
+            Register
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
 export default Register;
-

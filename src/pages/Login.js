@@ -114,10 +114,11 @@ export default function Login() {
             variant="contained"
             color="primary"
             disabled={formik.isSubmitting}
+            sx={{ fontWeight: 'bold' }}
           >
             login
           </Button>
-          <Grid container> 
+          <Grid container mt={1}> 
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?

@@ -4,7 +4,7 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login.js';
-import Register from './pages/RegisterFormik.js';
+import Register from './pages/Register.js';
 
 const App = () => {
   return (
