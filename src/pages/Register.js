@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import {
@@ -13,11 +13,61 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import * as yup from "yup";
 import validationSchema from "../validations/RegisterForm.js";
 
 const Register = () => {
   const [errors, setErrors] = useState({});
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isVerified, setVerified] = useState(false);
 
+  const [verifyDisabled, setVerifyDisabled] = useState(false);
+  const [verifyCountdown, setVerifyCountdown] = useState(60);
+  const [checkDisabled, setCheckDisabled] = useState(false);
+  const [checkCountdown, setCheckCountdown] = useState(60);
+
+  useEffect(() => {
+    if (verifyDisabled && verifyCountdown > 0) {
+      setTimeout(() => setVerifyCountdown(verifyCountdown - 1), 1000);
+    } else if (verifyCountdown === 0) {
+      setVerifyDisabled(false);
+      setVerifyCountdown(60);
+    }
+  }, [verifyDisabled, verifyCountdown]);
+
+  useEffect(() => {
+    if (checkDisabled && checkCountdown > 0) {
+      setTimeout(() => setCheckCountdown(checkCountdown - 1), 1000);
+    } else if (checkCountdown === 0) {
+      setCheckDisabled(false);
+      setCheckCountdown(60);
+    }
+  }, [checkDisabled, checkCountdown]);
+  const sendVerificationEmail = async (email) => {
+    try {
+      await axios.post("http://localhost:4000/verify/send-verification-email", {
+        email,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const checkVerificationCode = async (email, code) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/verify/verify-verification-code",
+        { email, code },
+      );
+      if (res.data.message === "Email verified") {
+        setVerified(true);
+      } else {
+        setErrors({ api: res.data.message });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const submitForm = async (values, formikHelpers) => {
     try {
       const formData = new FormData();
@@ -129,6 +179,40 @@ const Register = () => {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              sendVerificationEmail(formik.values.email);
+              setVerifyDisabled(true);
+            }}
+            disabled={verifyDisabled}
+          >
+            {verifyDisabled ? `Send Code (${verifyCountdown})` : "Send Code"}
+          </Button>
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="verificationCode"
+            name="verificationCode"
+            label="Verification Code"
+            value={verificationCode}
+            onChange={(event) => setVerificationCode(event.target.value)}
+          />
+
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              checkVerificationCode(formik.values.email, verificationCode);
+              setCheckDisabled(true);
+            }}
+            disabled={checkDisabled}
+          >
+            {checkDisabled ? `Verify (${checkCountdown})` : "Verify"}
+          </Button>
 
           <TextField
             variant="outlined"
@@ -201,7 +285,7 @@ const Register = () => {
             variant="contained"
             fullWidth
             type="submit"
-            disabled={formik.isSubmitting}
+            disabled={formik.isSubmitting || !isVerified}
           >
             Register
           </Button>
