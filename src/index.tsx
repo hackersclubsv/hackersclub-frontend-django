@@ -33,8 +33,8 @@ const router = createBrowserRouter(
       <Route path="/techdojo" element={<TechDojo />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/postdetail" element={<PostDetail />} />
       </Route>
+        <Route path="/postdetail" element={<PostDetail />} />
       <Route path="/login" element={<Login />} />
       <Route path="/forgetpassword" element={<ForgetPassword />} />
       <Route path="/register" element={<Register />} />

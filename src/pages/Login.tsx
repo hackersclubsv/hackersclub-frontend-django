@@ -42,10 +42,12 @@ const Login = () => {
   return (
     <FormContainer>
       <h1>Sign In</h1>
-
+      <p>
+        <em className="text-red">*</em> is required.
+      </p>
       <Form onSubmit={submitHandler}>
         <Form.Group className="my-2" controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email Address<em className="text-red">*</em></Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -55,7 +57,7 @@ const Login = () => {
         </Form.Group>
 
         <Form.Group className="my-2" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Password<em className="text-red">*</em></Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
@@ -81,9 +83,9 @@ const Login = () => {
           Don't have an account ? <Link to="/register">Register</Link>
         </Col>
       </Row>
-        <Row className="py-0">
-          <Link to={`/forgetpassword`}>Forgot Password?</Link>
-        </Row>
+      <Row className="py-0">
+        <Link to={`/forgetpassword`}>Forgot your password?</Link>
+      </Row>
     </FormContainer>
   );
 };
