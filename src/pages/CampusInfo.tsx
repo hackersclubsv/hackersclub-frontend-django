@@ -1,13 +1,19 @@
-import React from 'react'
-import PostList from '../components/common/PostList'
-import { exampleposts } from '../static_data/exampleposts'
+import { Container } from "react-bootstrap"
+import Sidebar from "../components/common/Sidebar"
+import WikiContent from "../components/common/WikiContent"
+import { useState } from "react";
+
+import { sidebarData } from "../components/common/sidebarData";
 
 
 const CampusInfo = () => {
+  const [content, setContent] = useState('');
+
   return (
-    <div className='container'>
-      <PostList postlist={exampleposts} /> 
-    </div>
+    <Container className="wiki-layout">
+      <Sidebar setContent={setContent} />
+      <WikiContent content={content} />
+    </Container>
   )
 }
 

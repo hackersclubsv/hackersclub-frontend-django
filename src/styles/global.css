@@ -33,6 +33,23 @@ h2,h3,h4,h5,h6 {
   font-weight: 900;
 }
 
+.wiki-layout {
+  display: grid;
+  grid-template-columns: 25% auto;
+  height: 100%;
+}
+
+.sidebar {
+  align-items: center;
+  padding-top: 1rem;
+  font-size: 1rem;
+}
+
+.wiki-content {
+  padding: 1rem 2rem;
+  height: 100%;
+}
+
 .text-red {
   color: red;
 }
