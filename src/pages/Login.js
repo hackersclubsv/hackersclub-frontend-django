@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import {
   Alert,
@@ -12,9 +12,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import jwt_decode from "jwt-decode";
+import { UserContext } from "../contexts/UserContext.js";
 
 // define validation schema
 const validationSchema = yup.object({
@@ -22,22 +25,28 @@ const validationSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
-const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-  setSubmitting(true);
-  try {
-    const res = await axios.post("http://localhost:4000/users/login", values);
-    console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
-  } catch (err) {
-    console.error(err);
-    setErrors({
-      api: err.response.data || "An error occurred. Please try again.",
-    });
-  } finally {
-    setSubmitting(false);
-  }
-};
 export default function Login() {
+  const { setUser } = useContext(UserContext);
   const [rememberMe, setRememberMe] = useState(false); // <-- state for our Checkbox
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    setSubmitting(true);
+    try {
+      const res = await axios.post("http://localhost:4000/users/login", values);
+      localStorage.setItem("token", res.data.token);
+      const decodedToken = jwt_decode(res.data.token);
+      setUser(decodedToken);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      setErrors({
+        api: err.response.data || "An error occurred. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -50,6 +59,7 @@ export default function Login() {
   const handleRememberMeChange = (event) => {
     setRememberMe(event.target.checked);
   };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -106,21 +116,22 @@ export default function Login() {
             label="Remember me"
           />
           {formik.errors.api && (
-            <Alert severity="error">{formik.errors.api}</Alert>
+            <Alert severity="error" sx={{ marginBottom: 1}} >{formik.errors.api}</Alert>
           )}
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            disabled={formik.isSubmitting}
-            sx={{ fontWeight: 'bold' }}
+            loadingIndicator="Now logging"
+            loading={formik.isSubmitting}
+            sx={{ fontWeight: "bold" }}
           >
             login
-          </Button>
-          <Grid container mt={1}> 
+          </LoadingButton>
+          <Grid container mt={1}>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/verify/forgot-password" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

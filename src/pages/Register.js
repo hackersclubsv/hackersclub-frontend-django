@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
-import {
-  Alert,
-  Box,
-  Button,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import * as yup from "yup";
+import { Box, Button, Container, Typography } from "@mui/material";
 import validationSchema from "../validations/RegisterForm.js";
+import UserFields from "../components/UserFields.js";
 
 const Register = () => {
   const [errors, setErrors] = useState({});
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerified, setVerified] = useState(false);
-
   const [verifyDisabled, setVerifyDisabled] = useState(false);
   const [verifyCountdown, setVerifyCountdown] = useState(60);
   const [checkDisabled, setCheckDisabled] = useState(false);
@@ -59,7 +47,7 @@ const Register = () => {
         "http://localhost:4000/verify/verify-verification-code",
         { email, code },
       );
-      if (res.data.message === "Email verified") {
+      if (res.status === 200) {
         setVerified(true);
       } else {
         setErrors({ api: res.data.message });
@@ -118,168 +106,29 @@ const Register = () => {
           Register
         </Typography>
         <form onSubmit={formik.handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="username"
-            name="username"
-            label="Username"
-            autoComplete="username"
-            autoFocus
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
+          <UserFields
+            formik={formik}
+            showUsername={true}
+            showPassword={true}
+            showConfirmPassword={true}
+            showEmail={true}
+            showEmailVerify={true}
+            showEmailCheck={true}
+            showBio={true}
+            showRoleSelector={true}
+            showAvatarUpload={true}
+            verifyDisabled={verifyDisabled}
+            verifyCountdown={verifyCountdown}
+            setVerifyDisabled={setVerifyDisabled}
+            sendVerificationEmail={sendVerificationEmail}
+            verificationCode={verificationCode}
+            setVerificationCode={setVerificationCode}
+            checkDisabled={checkDisabled}
+            checkCountdown={checkCountdown}
+            setCheckDisabled={setCheckDisabled}
+            checkVerificationCode={checkVerificationCode}
+            errors={errors}
           />
-
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            autoComplete="current-password"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.confirmPassword &&
-              Boolean(formik.errors.confirmPassword)
-            }
-            helperText={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            autoComplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              sendVerificationEmail(formik.values.email);
-              setVerifyDisabled(true);
-            }}
-            disabled={verifyDisabled}
-          >
-            {verifyDisabled ? `Send Code (${verifyCountdown})` : "Send Code"}
-          </Button>
-
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="verificationCode"
-            name="verificationCode"
-            label="Verification Code"
-            value={verificationCode}
-            onChange={(event) => setVerificationCode(event.target.value)}
-          />
-
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              checkVerificationCode(formik.values.email, verificationCode);
-              setCheckDisabled(true);
-            }}
-            disabled={checkDisabled}
-          >
-            {checkDisabled ? `Verify (${checkCountdown})` : "Verify"}
-          </Button>
-
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="bio"
-            name="bio"
-            label="Bio"
-            autoComplete="A Description of Yourself"
-            placeholder="A Description of Yourself"
-            multiline
-            value={formik.values.bio}
-            onChange={formik.handleChange}
-            error={formik.touched.bio && Boolean(formik.errors.bio)}
-            helperText={formik.touched.bio && formik.errors.bio}
-          />
-
-          <FormControl fullWidth margin="normal">
-            <InputLabel disabled variant="filled" id="role-label" shrink>
-              Choose your identity...
-            </InputLabel>
-            <Select
-              labelId="role-label"
-              id="role"
-              value={formik.values.role}
-              onChange={(event) => {
-                formik.setFieldValue("role", event.target.value);
-              }}
-              error={formik.touched.role && Boolean(formik.errors.role)}
-            >
-              <MenuItem value={"Default"}>Default</MenuItem>
-              <MenuItem value={"Faculty"}>Faculty</MenuItem>
-            </Select>
-          </FormControl>
-          <label htmlFor="avatar">
-            <input
-              style={{ display: "none" }}
-              id="avatar"
-              name="avatar"
-              type="file"
-              onChange={(event) => {
-                formik.setFieldValue("avatar", event.currentTarget.files[0]);
-              }}
-            />
-            <Button
-              color="primary"
-              variant="outlined"
-              component="span"
-              sx={{
-                my: 2,
-              }}
-            >
-              Upload avatar
-            </Button>
-            {formik.touched.avatar && Boolean(formik.errors.avatar) && (
-              <Alert sx={{ mb: 2 }} severity="error">
-                {formik.errors.avatar}
-              </Alert>
-            )}
-          </label>
-
-          {errors.api && (
-            <Alert sx={{ mb: 2 }} severity="error">
-              {errors.api}
-            </Alert>
-          )}
-
           <Button
             color="primary"
             variant="contained"
