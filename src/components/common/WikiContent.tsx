@@ -4,9 +4,9 @@ import { Container, Alert } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import getting_started from '../../static_data/wiki/getting_started.md';
-import campus_introduction from '../../static_data/wiki/campus_introduction.md';
-import transportation from '../../static_data/wiki/transportation.md';
+import getting_started from '../../assets/wiki/getting_started.md';
+import campus_introduction from '../../assets/wiki/campus_introduction.md';
+import transportation from '../../assets/wiki/transportation.md';
 
 const WikiContent = (props: { content: string }) => {
   const [content, setContent] = useState('');
@@ -39,9 +39,9 @@ const WikiContent = (props: { content: string }) => {
       )}
       <Alert variant="light" className='wiki-info'>
           <p> 
-            Have questions? <a href="/techdojo">Discuss with others!</a> <br />
+            Have questions? <a href="/community">Discuss with others</a> or <a href='/about'>Contact Us!</a> <br />
             Wanna contribute to this post?   
-            <a href="/">Create pull request to our GitHub!</a>
+            <a href="https://github.com/hackersclubsv/hackersclub-frontend-django/tree/main/src/assets/wiki">Create pull request to our GitHub!</a>
           </p>
       </Alert>
     </Container>

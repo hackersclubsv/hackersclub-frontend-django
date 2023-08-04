@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { welcomeimage } from '../../static_data/welcome';
-import { welcomemessage } from '../../static_data/welcome';
+import { welcomeimage } from '../../assets/page_contents/welcome';
+import { welcomemessage } from '../../assets/page_contents/welcome';
 
 import { useSelector } from 'react-redux';
 import PostList from './PostList';

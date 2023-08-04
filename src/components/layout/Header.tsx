@@ -29,19 +29,24 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
-                <LinkContainer to='/campusinfo'>
+                <LinkContainer to='/'>
                     <Nav.Link>
-                      Campus Info
+                      Home
                     </Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to='/careerdev'>
+                  <LinkContainer to='/resources'>
                     <Nav.Link>
-                      Career Dev
+                      Resources
                     </Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to='/techdojo'>
+                  <LinkContainer to='/community'>
                     <Nav.Link>
-                      Tech Dojo
+                      Community
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/about'>
+                    <Nav.Link>
+                      About
                     </Nav.Link>
                   </LinkContainer>
               {userInfo ? (

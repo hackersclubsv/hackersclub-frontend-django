@@ -12,9 +12,9 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Home from './pages/Home';
-import CampusInfo from './pages/CampusInfo';
-import CareerDev from './pages/CareerDev';
-import TechDojo from './pages/TechDojo';
+import Resources from './pages/Resources';
+import Community from './pages/Community';
+import About from './pages/About';
 import Login from './pages/Login';
 import UserProfile from './pages/UserProfile';
 import PostDetail from './pages/PostDetail';
@@ -28,9 +28,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
-      <Route path="/campusinfo" element={<CampusInfo />} />
-      <Route path="/careerdev" element={<CareerDev />} />
-      <Route path="/techdojo" element={<TechDojo />} />
+      <Route path="/resources" element={<Resources />} />
+      <Route path="/community" element={<Community />} />
+      <Route path="/about" element={<About />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<UserProfile />} />
       </Route>

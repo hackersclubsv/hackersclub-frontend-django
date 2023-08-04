@@ -35,9 +35,4 @@ export const sidebarData = [
     path: '/campus-safety',
     content: 'campus_safety',
   },
-  {
-    title: 'Contact Us',
-    path: '/contact-us',
-    content: 'contact_us',
-  },
 ];
