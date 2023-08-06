@@ -7,7 +7,7 @@ import { Container, Card, ListGroup } from 'react-bootstrap';
 const PostDetailPage = () => {
   return (
     <Container className="my-5">
-      <h3 className="my-5">Post Detail</h3>
+      <h2 className="my-5">Post Detail</h2>
       <Card>
         <Card.Body>
           <Card.Title>{exampleposts[0].title}</Card.Title>
@@ -18,7 +18,7 @@ const PostDetailPage = () => {
         </Card.Body>
         </Card>
 
-        <h3 className="my-5">Comments</h3>
+        <h2 className="my-5">Comments</h2>
         <ListGroup variant="flush" className='my-5'>
           {exampleposts[0].comments.map((comment, id) => (
             <ListGroup.Item key={id}>
