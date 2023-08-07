@@ -23,6 +23,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import PrivateRoute from './components/layout/PrivateRoute';
 import ForgetPassword from './pages/ForgetPassword';
+import VarifyEmail from './pages/VarifyEmail';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,11 +34,12 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<UserProfile />} />
-      </Route>
         <Route path="/postdetail" element={<PostDetail />} />
+      </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/forgetpassword" element={<ForgetPassword />} />
       <Route path="/register" element={<Register />} />
+      <Route path='/verify-email' element={<VarifyEmail />} />
     </Route>
   )
 );

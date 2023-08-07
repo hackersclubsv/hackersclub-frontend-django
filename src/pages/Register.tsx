@@ -7,16 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import { Formik } from 'formik';
+import { Formik, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const Register = () => {
-  const initialValues = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
 
   const registerSchema = Yup.object().shape({
     username: Yup.string()
@@ -46,7 +41,7 @@ const Register = () => {
     }
   }, [navigate, userInfo]);
 
-  const submitHandler = async (values: typeof initialValues) => {
+  const submitHandler = async (values : {username: String, email: String, password: String}) => {
 
     const submitValues = {
       username: values.username,
@@ -55,34 +50,47 @@ const Register = () => {
     };
     console.log(submitValues);
     try {
-      const res = await register(submitValues).unwrap();
-      console.log(res);
-      dispatch(setCredentials({ ...res }));
-      navigate('/');
-      toast.success('Registered successfully');
-    } catch (err: any) {
-      err.data.username && toast.error(err.data.username[0]);
-      err.data.email && toast.error(err.data.email[0]);
-      err.data.password && toast.error(err.data.password[0]);
-      err.data.bio && toast.error(err.data.bio[0]);
+      axios.post('http://localhost:8000/api/register/', submitValues)
+      .then((response) => {
+        console.log(response.data);
+        navigate('/verify-email');
+      }, (error) => {
+        console.log(error.response);
+        const errorResponse = error.response.data;
+        errorResponse.detail && toast.error(errorResponse.detail);
+        errorResponse.username && toast.error(errorResponse.username[0]);
+        errorResponse.email && toast.error(errorResponse.email[0]);
+        errorResponse.password && toast.error(errorResponse.password[0]);
+      })
+      // .then((response) => {
+      //   const userInfo = {access: response.data.access, refresh: response.data.refresh, username: response.data.username};
+      //   dispatch(setCredentials({...userInfo}));
+      //   navigate('/verify-email');
+    } catch (error) {
+      console.log(error);
     }
   };
+
+
 
   return (
     <FormContainer>
       <h1>Register</h1>
+
       <Formik
         validationSchema={registerSchema}
-        // onSubmit={submitHandler}
-        onSubmit={
-          (values, actions) => {
-            setTimeout(() => {
-              submitHandler(values);
-              actions.setSubmitting(false);
-            }, 1000);
-          }
+        onSubmit={submitHandler}
+        // onSubmit={(values) => {
+        //   console.log(values);
+
+        // }}
+        initialValues={{
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
         }
-        initialValues={initialValues}
+        }
       >
         {({
           values,
@@ -91,7 +99,7 @@ const Register = () => {
           handleChange,
           handleBlur
         }) => (
-          <Form>
+          <FormikForm>
             <p>
               <em className="text-red">*</em> is required.
             </p>
@@ -194,7 +202,7 @@ const Register = () => {
             </Button>
 
             {isLoading && <Loader />}
-          </Form>
+          </FormikForm>
         )}
       </Formik>
 

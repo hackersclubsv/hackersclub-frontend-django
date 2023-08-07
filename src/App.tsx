@@ -10,8 +10,8 @@ function App() {
     <div className='app'>
       <Header />
       <Container>
-        <ToastContainer />
         <Outlet />
+        <ToastContainer />
       </Container>
       <Footer />
     </div>
