@@ -7,6 +7,7 @@ import { useLoginMutation } from '../slices/usersSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/layout/Loader';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,16 +28,51 @@ const Login = () => {
 
   const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try {
-      const res = await login({ email, password }).unwrap();
-      console.log(res);
-      dispatch(setCredentials({ ...res }));
+    const userInfo = {access: '', refresh: '', username: '', profile_pic: ''};
+
+    console.log("start getting token");
+    axios.post('http://localhost:8000/api/token/', {
+      email: email,
+      password: password,
+    })
+    .then((response) => {
+      console.log(response);
+      userInfo.access = response.data.access;
+      userInfo.refresh = response.data.refresh;
+      return axios.get('http://localhost:8000/api/users/', {
+         headers: {
+          Authorization: `Bearer ${userInfo.access}`,
+        },})
+    }, (error) => {
+      console.log(error.response.data);
+      const errorResponse = error.response.data;
+      errorResponse.email && toast.error(errorResponse.email[0]);
+      errorResponse.password && toast.error(errorResponse.password[0]);
+      errorResponse.non_field_errors && toast.error(errorResponse.non_field_errors[0]);
+      errorResponse.detail && toast.error(errorResponse.detail);
+    })
+    .then((response) => {
+      const profile = response?.data[0];
+      userInfo.username = profile.username;
+      userInfo.profile_pic = profile.profile_picture;
       navigate('/');
       toast.success('Logged in successfully');
-    } catch (err: any) {
-      console.log(err);
-      err.data.detail && toast.error(err.data.detail);
-    }
+      dispatch(setCredentials({...userInfo}));
+    });
+
+    //dispatch(setCredentials({ ...userInfo }));
+    
+    // try {
+    //   const res = await login({ email, password }).unwrap();
+    //   console.log(res);
+    //   dispatch(setCredentials({ ...res }));
+    //   navigate('/');
+    //   toast.success('Logged in successfully');
+    // } catch (err: any) {
+    //   console.log(err);
+    //   err && toast.error(err);
+    // }
+    
   };
 
   return (

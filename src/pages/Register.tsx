@@ -47,6 +47,7 @@ const Register = () => {
   }, [navigate, userInfo]);
 
   const submitHandler = async (values: typeof initialValues) => {
+
     const submitValues = {
       username: values.username,
       email: values.email,
@@ -72,7 +73,15 @@ const Register = () => {
       <h1>Register</h1>
       <Formik
         validationSchema={registerSchema}
-        onSubmit={submitHandler}
+        // onSubmit={submitHandler}
+        onSubmit={
+          (values, actions) => {
+            setTimeout(() => {
+              submitHandler(values);
+              actions.setSubmitting(false);
+            }, 1000);
+          }
+        }
         initialValues={initialValues}
       >
         {({
