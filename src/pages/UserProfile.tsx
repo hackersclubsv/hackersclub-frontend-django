@@ -1,127 +1,99 @@
-import { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import FormContainer from '../components/common/FormContainer';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useUpdateUserMutation } from '../slices/usersSlice';
-import { setCredentials } from '../slices/authSlice';
-import { toast } from 'react-toastify';
-import Loader from '../components/layout/Loader';
+import axios from 'axios'
+import { useEffect, useState } from 'react';
+import { Container, Image, Col, Row, Card } from 'react-bootstrap';
 
-const UserProfile = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [bio, setBio] = useState('');
+const Profile = () => {
+  const userInfo = localStorage.getItem('userInfo');
+  const access = userInfo ? JSON.parse(userInfo).access : null;
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { userInfo } = useSelector((state: any) => state.auth);
-
-  const [updateUser, {isLoading}] = useUpdateUserMutation();
+  const [profile, setProfile] = useState({
+    username: '',
+    email: '',
+    bio: '',
+    profile_pic: '',
+  });
 
   useEffect(() => {
-      setUsername(userInfo.username);
-      setBio(userInfo.bio);
-  }, [userInfo.setUsername, userInfo.setBio]);
+    axios.get('http://localhost:8000/api/users/', {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    })
+    .then((response) => {
+      const profile = response?.data[0];
+      setProfile({
+        username: profile.username,
+        email: profile.email,
+        bio: profile.bio,
+        profile_pic: profile.profile_picture,
+      });
+    }, (error) => {
+      console.log(error.response.data);
+    });
+  }, [access]);
 
-  const submitHandler = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
-    } else {
-      try {
-        const res = await updateUser({
-          username,
-          password,
-          bio,
-        }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        toast.success('Profile updated successfully');
-        navigate('/');
-      } catch (err: any) {
-        toast.error(err?.data?.message || err.error);
-      }
-    }
-  };
+  const handleEdit = () => {
+    console.log('edit');
+  }
+  
+  
   return (
-    <FormContainer>
-      <h1>Update Profile</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group className="my-2" controlId="username">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <Container className='my-5'>
+      <h1>Profile</h1>
+      <Row className='gutters-sm'>
+        <Col md={4} className='mb-3'>
+          <Card>
+            <Card.Body>
+              <div className='d-flex flex-column align-items-center text-center'>
+                <Image src={profile.profile_pic} width={200} height={200} roundedCircle />
+                <div className='mt-3'>
+                  <h4>{profile.username} <i className="bi bi-pencil-fill" onClick={handleEdit}></i></h4>
+                  <p className='text-secondary mb-1'>{profile.email}</p>
+                  <p className='text-muted font-size-sm'>{profile.bio}</p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={8}>
+          <Card className='mb-3'>
+            <Card.Body>
+              <Row>
+                <Col sm={3}>
+                  <h6 className='mb-0'>Email</h6>
+                </Col>
+                <Col sm={9} className='text-secondary'>
+                  {profile.email}
+                </Col>
+              </Row>
+              <hr />
+              <Row>
+                <Col sm={3}>
+                  <h6 className='mb-0'>Bio</h6>
+                </Col>
+                <Col sm={9} className='text-secondary'>
+                  {profile.bio}
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+          <Card className='mb-3'>
+            <ul className='list-group list-group-flush'>
+              <li className='list-group-item d-flex justify-content-between align-items-center flex-wrap'>
+                <h6 className='mb-0'>Posts</h6>
+                <span className='text-secondary'>0</span>
+              </li>
+              <li className='list-group-item d-flex justify-content-between align-items-center flex-wrap'>
+                <h6 className='mb-0'>Comments</h6>
+                <span className='text-secondary'>0</span>
+              </li>
+            </ul>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
 
-        <Form.Group className="my-2" controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={userInfo.email}
-            disabled
-          ></Form.Control>
-        </Form.Group>
+  )
+}
 
-        <Form.Group className="my-2" controlId="created">
-          <Form.Label>Created</Form.Label>
-          <Form.Control
-            type="text"
-            value={userInfo.created}
-            disabled
-          ></Form.Control>
-        </Form.Group>
-        
-        <Form.Group className="my-2" controlId="bio">
-          <Form.Label>Bio</Form.Label>
-          <Form.Control
-            type="textarea"
-            value={userInfo.bio}
-            onChange={(e) => setBio(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        
-        <Form.Group className="my-2" controlId="role">
-          <Form.Label>Role</Form.Label>
-          <Form.Control
-            type="text"
-            value={userInfo.role}
-            disabled
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group className="my-2" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group className="my-2" controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        {isLoading && <Loader />}
-        <Button type="submit" variant="primary" className="mt-3">
-          Update
-        </Button>
-      </Form>
-    </FormContainer>
-  );
-};
-
-export default UserProfile;
+export default Profile

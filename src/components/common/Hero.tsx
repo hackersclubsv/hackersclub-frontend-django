@@ -12,7 +12,13 @@ const Hero = () => {
   return (
     <Container className="my-5">
       <Container>
-        <h2>Welcome to Silicon Valley Hackers Club!</h2>
+        <Row className="justify-content-md-center mt-5">
+          <h2 className='my-2'>Latest Posts</h2>
+          <PostList postlist={exampleposts} />
+        </Row>
+      </Container>
+      <Container>
+        <h2 className='my-5'>Welcome to Silicon Valley Hackers Club!</h2>
         <Row className="justify-content-md-center mt-5">
           <Col xs={6} md={4} className="card p-5 my-2">
             <img src={welcomeimage} alt="welcome" className="img-fluid" />
@@ -24,14 +30,6 @@ const Hero = () => {
           </Col>
         </Row>
       </Container>
-      {userInfo && (
-        <Container>
-          <Row className="justify-content-md-center mt-5">
-            <h2>Latest Posts</h2>
-            <PostList postlist={exampleposts} />
-          </Row>
-        </Container>
-      )}
     </Container>
   );
 };
