@@ -28,7 +28,7 @@ const Login = () => {
 
   const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const userInfo = {access: '', refresh: '', username: '', profile_pic: ''};
+    const userInfo = {access_token: '', refresh_token: '', username: '', profile_pic: ''};
 
     console.log("start getting token");
     axios.post('http://localhost:8000/api/token/', {
@@ -37,11 +37,11 @@ const Login = () => {
     })
     .then((response) => {
       console.log(response);
-      userInfo.access = response.data.access;
-      userInfo.refresh = response.data.refresh;
+      userInfo.access_token = response.data.access;
+      userInfo.refresh_token = response.data.refresh;
       return axios.get('http://localhost:8000/api/users/', {
          headers: {
-          Authorization: `Bearer ${userInfo.access}`,
+          Authorization: `Bearer ${userInfo.access_token}`,
         },})
     }, (error) => {
       console.log(error.response.data);
