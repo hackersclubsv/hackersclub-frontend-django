@@ -41,7 +41,7 @@ const Register = () => {
     }
   }, [navigate, userInfo]);
 
-  const submitHandler = async (values : {username: String, email: String, password: String}) => {
+  const submitHandler = async (values : {username: string, email: string, password: string}) => {
 
     const submitValues = {
       username: values.username,
@@ -53,6 +53,7 @@ const Register = () => {
       axios.post('http://localhost:8000/api/register/', submitValues)
       .then((response) => {
         console.log(response.data);
+        localStorage.setItem('email', values.email);
         navigate('/verify-email');
       }, (error) => {
         console.log(error.response);
