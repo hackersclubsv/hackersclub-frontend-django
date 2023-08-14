@@ -28,4 +28,8 @@ export const sidebarData = [
     title: 'Campus Safety',
     content: 'campus_safety',
   },
+  {
+    title: 'FAQ',
+    content: 'frequently_asked_question',
+  },
 ];

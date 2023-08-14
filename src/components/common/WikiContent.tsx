@@ -7,10 +7,12 @@ import remarkGfm from 'remark-gfm';
 import getting_started from '../../assets/wiki/getting_started.md';
 import campus_introduction from '../../assets/wiki/campus_introduction.md';
 import transportation from '../../assets/wiki/transportation.md';
+import frequently_asked_question from '../../assets/wiki/frequently_asked_question.md';
+
 
 const WikiContent = (props: { content: string }) => {
   const [content, setContent] = useState('');
-  const contents: any = { getting_started, campus_introduction, transportation };
+  const contents: any = { getting_started, campus_introduction, transportation, frequently_asked_question };
   const file_name = props.content;
   console.log(file_name);
 
