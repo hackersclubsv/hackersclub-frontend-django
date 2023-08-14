@@ -16,13 +16,18 @@ const authSlice = createSlice({
       console.log(state.userInfo);
       localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
     },
-    logout: (state, action) => {
+    refreshTokenSuccess: (state, action) => {
+      // Update tokens in state
+      state.userInfo.access_token = action.payload.access;
+      state.userInfo.refresh_token = action.payload.refresh;
+    },
+    logout: (state) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, refreshTokenSuccess, logout } = authSlice.actions;
 
 export default authSlice.reducer;
