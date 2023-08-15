@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Typography, Link, Alert } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -9,7 +9,11 @@ import transportation from '../../assets/wiki/transportation.md';
 
 const WikiContent = ({ content: fileName }) => {
   const [content, setContent] = useState('');
-  const contents = { getting_started, campus_introduction, transportation };
+  const contents = useMemo(() => ({
+    getting_started,
+    campus_introduction,
+    transportation,
+  }), []);
 
   useEffect(() => {
     if (!fileName) {

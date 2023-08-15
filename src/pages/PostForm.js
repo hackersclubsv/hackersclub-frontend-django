@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import Editor from "../components/Editor.js";
-import axios from "axios";
 
 const PostForm = ({ initialPost = {}, onSave }) => {
   // Hooks for form fields, initial values are from props or empty strings.
