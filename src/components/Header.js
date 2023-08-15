@@ -16,7 +16,7 @@ import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "Community", "Events", "About"];
+const pages = ["Home", "Resources", "Community", "About"];
 const settings = ["Profile", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
         setUser(null);
 
         // navigate to logout route or main route as per your decision after logging out
-        navigate("/");
+        navigate("/home");
         break;
       // other cases...
     }
@@ -72,18 +72,18 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/home"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
+              letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
-            HC
+            SV Hackers Club
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -116,7 +116,10 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page}
+                  component={Link}
+                  to={`/${page.toLowerCase()}`}
+                  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -140,12 +143,21 @@ function ResponsiveAppBar() {
           >
             HC
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+              mr: 4,
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
+                component={Link}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                to={`/${page.toLowerCase()}`}
+                sx={{ my: 2, mr: 1, fontWeight: 700, color: "white", display: "block" }}
               >
                 {page}
               </Button>
@@ -176,7 +188,12 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={() => handleUserMenuClick(setting)}>
+                  <MenuItem
+                    key={setting}
+                    component={Link}
+                    to={`/${setting.toLowerCase()}`}
+                    onClick={() => handleUserMenuClick(setting)}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
