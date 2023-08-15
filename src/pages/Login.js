@@ -34,8 +34,8 @@ export default function Login() {
     setSubmitting(true);
     try {
       const res = await axios.post("http://localhost:4000/users/login", values);
-      localStorage.setItem("token", res.data.token);
-      const decodedToken = jwt_decode(res.data.token);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      const decodedToken = jwt_decode(res.data.accessToken);
       setUser(decodedToken);
       navigate("/");
     } catch (err) {
