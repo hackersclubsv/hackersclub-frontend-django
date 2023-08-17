@@ -12,8 +12,9 @@ import About from "./pages/About.js";
 import PostDetail from "./pages/PostDetail.js";
 import MainLayout from "./pages/MainLayout.js";
 import PostForm from "./pages/PostForm.js";
-import UserUpdate from "./pages/ProfileUpdate.js";
+import UserUpdate from "./pages/ProfileUpdateTest.js";
 import UserProvider from "./contexts/UserContext";
+import Profile from "./pages/Profile.js";
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/users/:userId" element={<UserUpdate />} />
+              <Route path="/profile" element={<Profile />} />
               <Route
                 path="/verify/forgot-password"
                 element={<ForgotPassword />}

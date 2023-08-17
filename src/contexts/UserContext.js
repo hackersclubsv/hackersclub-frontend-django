@@ -13,9 +13,11 @@ const UserProvider = ({ children }) => {
       const fetctUser = async () => {
         try {
           const decoded = jwt_decode(token);
-          // const response = await axios.get(`http://localhost:4000/users/${decoded.id}`);
-          // setUser(...decoded, ...response.data);
-          setUser(decoded);
+          const response = await axios.get(`http://localhost:4000/users/${decoded.user.id}`);
+          console.log("This is from UserContext ",response.data);
+          setUser(response.data);
+          // console.log("This is ",user);
+          // setUser(decoded);
         } catch (err) {
           console.log("Error decoding token", err);
           // localStorage.removeItem("token");

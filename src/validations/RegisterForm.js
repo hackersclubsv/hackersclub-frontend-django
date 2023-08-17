@@ -25,13 +25,13 @@ const validationSchema = yup.object().shape({
   confirmPassword: yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match')
     .required('Confirm Password is required'),
-  avatar: yup.mixed().required('Please upload an Avatar').test(
-    "fileSize",
-    "File too large",
-    (value) => value && value.size <= 5242880 // 5MB
-  ),
-  bio: yup.string('Enter your Bio').required('Bio is required').max(150, "Bio should not exceed 150 characters"),
-  role: yup.string('Select your role').required('Role is required'),
+  // avatar: yup.mixed().required('Please upload an Avatar').test(
+  //   "fileSize",
+  //   "File too large",
+  //   (value) => value && value.size <= 5242880 // 5MB
+  // ),
+  // bio: yup.string('Enter your Bio').required('Bio is required').max(150, "Bio should not exceed 150 characters"),
+  // role: yup.string('Select your role').required('Role is required'),
 });
 
 export default validationSchema;

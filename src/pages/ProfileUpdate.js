@@ -81,7 +81,7 @@ const ProfileUpdate = () => {
             showEmailVerify={false}
             showEmailCheck={false}
             showBio={true}
-            showRoleSelector={true}
+            showRoleSelector={false}
             showAvatarUpload={true}
             errors={errors}
           />

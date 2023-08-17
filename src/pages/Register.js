@@ -84,9 +84,9 @@ const Register = () => {
       password: "",
       confirmPassword: "",
       email: "",
-      bio: "",
-      avatar: null,
-      role: "",
+      // bio: "",
+      // avatar: null,
+      // role: "",
     },
     validationSchema: validationSchema,
     onSubmit: submitForm,
@@ -114,9 +114,9 @@ const Register = () => {
             showEmail={true}
             showEmailVerify={true}
             showEmailCheck={true}
-            showBio={true}
-            showRoleSelector={true}
-            showAvatarUpload={true}
+            showBio={false}
+            showRoleSelector={false}
+            showAvatarUpload={false}
             verifyDisabled={verifyDisabled}
             verifyCountdown={verifyCountdown}
             setVerifyDisabled={setVerifyDisabled}
