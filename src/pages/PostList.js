@@ -1,16 +1,20 @@
 import * as React from "react";
+import { formatDistanceToNow } from "date-fns";
+import { useTheme } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
 import {
   Box,
   Button,
   Card,
   CardContent,
   Container,
-  Pagination,
-  Typography,
+  Divider,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Pagination,
+  Select,
+  Typography,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Axios from "axios";
@@ -21,6 +25,7 @@ const Posts = () => {
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
   const [posts, setPosts] = React.useState([]);
+  const theme = useTheme();
 
   const navigate = useNavigate();
   const handleCardClick = (id) => {
@@ -36,6 +41,7 @@ const Posts = () => {
         },
       });
       setPosts(res.data.posts);
+      console.log(res.data.posts);
       setTotalPages(res.data.totalItems);
     } catch (err) {
       console.log(err);
@@ -53,8 +59,8 @@ const Posts = () => {
 
   return (
     <Container maxWidth="xl">
-      <Box sx={{ my: 4 }}>
-        <Box 
+      <Box sx={{ my: 2 }}>
+        <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -62,50 +68,99 @@ const Posts = () => {
             mb: 2,
           }}
         >
-        <Stack spacing={2} direction="row">
-          <Button variant="outlined">Category1</Button>
-          <Button variant="outlined">Category2</Button>
-          <Button variant="outlined">Category3</Button>
-        </Stack>
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel id="demo-select-small-label">Sort</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            label="Sort"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>7 days</MenuItem>
-            <MenuItem value={20}>All time</MenuItem>
-            <MenuItem value={30}>Latest</MenuItem>
-          </Select>
-        </FormControl>
+          <Stack spacing={2} direction="row">
+            <Button variant="outlined">Category1</Button>
+            <Button variant="outlined">Category2</Button>
+            <Button variant="outlined">Category3</Button>
+          </Stack>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-small-label">Sort</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              label="Sort"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>7 days</MenuItem>
+              <MenuItem value={20}>All time</MenuItem>
+              <MenuItem value={30}>Latest</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <Box
           sx={{
-            bgcolor: "#cfe8fc",
+            bgcolor: alpha(theme.palette.primary.light, 0.5),
             height: "auto",
             justifyContent: "center",
             alignItems: "center",
-            padding: "0 20px",
+            padding: "1px 10px",
             borderRadius: "20px",
           }}
         >
           {posts.map((post, index) => (
-            <Card key={index} sx={{ mb: 4 }}>
+            <Card key={index} sx={{ my: 2 }}>
               <Link
                 to={`/posts/${post._id}`}
                 onClick={() => handleCardClick(post.id)}
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  width: "100%",
+                }}
               >
-                <CardContent>
-                  <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-                    {post.title}
+                <Box
+                  sx={{
+                    flex: 1,
+                    padding: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography>{post.commentIds.length} Comments</Typography>
+                </Box>
+
+                <Divider orientation="vertical" flexItem />
+
+                <Box sx={{ flex: 6, 
+                  padding: 2,
+                  display: "flex",
+                }}>
+                  <Typography variant="h6">{post.title}</Typography>
+                </Box>
+
+                <Divider orientation="vertical" flexItem />
+
+                <Box
+                  sx={{
+                    flex: 1,
+                    padding: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography>Author: {post.author}</Typography>
+                </Box>
+
+                <Divider orientation="vertical" flexItem />
+
+                <Box
+                  sx={{
+                    flex: 2,
+                    padding: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography>
+                    {formatDistanceToNow(new Date(post.created))} ago
                   </Typography>
-                  <Typography variant="body2">{post.author}</Typography>
-                </CardContent>
+                </Box>
               </Link>
             </Card>
           ))}
@@ -129,6 +184,5 @@ const Posts = () => {
     </Container>
   );
 };
-
 
 export default Posts;
