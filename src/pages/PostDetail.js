@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Axios from 'axios';
+import axios from '../api/axios';
 import { useParams } from 'react-router-dom';
 import { Box, Card, CardContent, Typography, List, ListItem, Divider, Container } from '@mui/material';
 
@@ -12,9 +12,9 @@ function PostDetail() {
   React.useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await Axios.get(`http://localhost:4000/posts/${postId}`); // Replace with your actual API URL
+        const response = await axios.get(`/posts/${postId}`); // Replace with your actual API URL
         setPost(response.data);
-        const commentsResponse = await Axios.get(`http://localhost:4000/comments/commentsByPost/${postId}`); 
+        const commentsResponse = await axios.get(`/comments/commentsByPost/${postId}`); 
         setComments(commentsResponse.data);
       } catch (err) {
         console.error(err);

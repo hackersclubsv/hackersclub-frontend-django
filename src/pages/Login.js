@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import {
   Alert,
   Box,
@@ -32,7 +32,7 @@ export default function Login() {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
-      const res = await axios.post("http://localhost:4000/users/login", values);
+      const res = await axios.post("/users/login", values);
       localStorage.setItem("accessToken", res.data.accessToken);
       const decodedToken = jwt_decode(res.data.accessToken);
       setUser(decodedToken);

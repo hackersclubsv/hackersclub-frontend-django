@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, TextField } from "@mui/material";
-import axios from "axios";
+import axios from "../api/axios";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import AvatarUpload from "../components/AvatarUpload";
@@ -54,7 +54,7 @@ const UpdateProfile = () => {
   };
   const handleUpdateProfile = async () => {
     const response = await axios.patch(
-      `http://localhost:4000/users/${user._id}`,
+      `/users/${user._id}`,
       {
         ...formData,
         socialLinks: socialLinksData,

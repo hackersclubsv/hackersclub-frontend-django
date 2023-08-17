@@ -17,7 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import Axios from "axios";
+import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const POSTS_PER_PAGE = 20;
@@ -33,7 +33,7 @@ const Posts = () => {
   };
   const fetchPosts = async (page) => {
     try {
-      const res = await Axios.get(`http://localhost:4000/posts`, {
+      const res = await axios.get(`/posts`, {
         params: {
           page: page,
           limit: POSTS_PER_PAGE,

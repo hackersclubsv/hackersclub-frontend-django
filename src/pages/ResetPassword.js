@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { Button, TextField, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const ResetPassword = () => {
     const token = new URLSearchParams(location.search).get("token");
 
     try {
-      const res = await axios.post("http://localhost:4000/verify/reset-password", { token, newPassword: password });
+      const res = await axios.post("/verify/reset-password", { token, newPassword: password });
       setMessage(res.data.message);
     } catch (err) {
       console.error(err);

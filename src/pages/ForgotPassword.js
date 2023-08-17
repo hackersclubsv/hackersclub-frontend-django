@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 
 const ForgotPassword = () => {
@@ -11,7 +11,7 @@ const ForgotPassword = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/verify/forgot-password",
+        "/verify/forgot-password",
         { email },
       );
       setMessage(res.data.message);

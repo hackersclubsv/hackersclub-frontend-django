@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
+import axios from "../api/axios";
 import { Box, Button, Container, Typography } from "@mui/material";
 import validationSchema from "../validations/RegisterForm.js";
 import UserFields from "../components/UserFields.js";
@@ -33,7 +33,7 @@ const Register = () => {
   }, [checkDisabled, checkCountdown]);
   const sendVerificationEmail = async (email) => {
     try {
-      await axios.post("http://localhost:4000/verify/send-verification-email", {
+      await axios.post("/verify/send-verification-email", {
         email,
       });
     } catch (err) {
@@ -44,7 +44,7 @@ const Register = () => {
   const checkVerificationCode = async (email, code) => {
     try {
       const res = await axios.post(
-        "http://localhost:4000/verify/verify-verification-code",
+        "/verify/verify-verification-code",
         { email, code },
       );
       if (res.status === 200) {
@@ -63,7 +63,7 @@ const Register = () => {
         formData.append(key, value),
       );
       const res = await axios.post(
-        "http://localhost:4000/users/register",
+        "/users/register",
         formData,
       );
       console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user

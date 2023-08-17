@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
+import axios from "../api/axios";
 import { Box, Button, Container, Typography } from "@mui/material";
 import UserFields from "../components/UserFields.js";
 import { useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ const ProfileUpdate = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/users/${userId}`);
+        const res = await axios.get(`/users/${userId}`);
         setUser(res.data);
         // console.log(user)
         // console.log(res.data)

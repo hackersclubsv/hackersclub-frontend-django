@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
-import axios from "axios";
+import axios from "../api/axios";
 import { Button, Slider } from "@mui/material";
 
 function AvatarUpload({ user }) {
@@ -27,7 +27,7 @@ function AvatarUpload({ user }) {
     try {
       const response = await axios({
         method: "patch",
-        url: `http://localhost:4000/users/${user._id}/upload`,
+        url: `/users/${user._id}/upload`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
