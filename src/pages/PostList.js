@@ -99,6 +99,60 @@ const Posts = () => {
             borderRadius: "20px",
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+              my: 2,
+              px: 2,
+            }}
+          >
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Comments
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flex: 6,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Title
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Author
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flex: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Created
+            </Typography>
+          </Box>
           {posts.map((post, index) => (
             <Card key={index} sx={{ my: 2 }}>
               <Link
@@ -125,10 +179,7 @@ const Posts = () => {
 
                 <Divider orientation="vertical" flexItem />
 
-                <Box sx={{ flex: 6, 
-                  padding: 2,
-                  display: "flex",
-                }}>
+                <Box sx={{ flex: 6, padding: 2, display: "flex" }}>
                   <Typography variant="h6">{post.title}</Typography>
                 </Box>
 
@@ -137,7 +188,7 @@ const Posts = () => {
                 <Box
                   sx={{
                     flex: 1,
-                    padding: 2,
+                    // padding: 2,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
