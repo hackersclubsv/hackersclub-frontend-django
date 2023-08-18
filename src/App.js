@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import axios from "./api/axios";
+import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login.js";
@@ -16,7 +15,7 @@ import PostForm from "./pages/PostForm.js";
 import UserUpdate from "./pages/ProfileUpdateTest.js";
 import UserProvider from "./contexts/UserContext";
 import Profile from "./pages/Profile.js";
-import { UserContext } from "./contexts/UserContext";
+import Reauthenticate from "./services/Reauthenticate.js";
 
 const theme = createTheme({
   palette: {
@@ -26,24 +25,10 @@ const theme = createTheme({
   },
 });
 const App = () => {
-  const { setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    const reauthenticate = async () => {
-      try {
-        const res = await axios.post("/users/refresh", {}, { withCredentials: true });
-        setUser({
-          accessToken: res.data.accessToken,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    reauthenticate();
-  }, []);
-
   return (
-    <ThemeProvider theme={theme}>
+    <UserProvider>
+      <Reauthenticate />
+      <ThemeProvider theme={theme}>
         <div className="App">
           <Router>
             <MainLayout>
@@ -70,7 +55,8 @@ const App = () => {
             </MainLayout>
           </Router>
         </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 };
 

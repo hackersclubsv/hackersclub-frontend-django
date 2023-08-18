@@ -30,6 +30,7 @@ function ResponsiveAppBar() {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+    console.log(user);
     setAnchorElUser(event.currentTarget);
   };
 
