@@ -14,6 +14,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { UserContext } from "../contexts/UserContext";
 import Instagram from "@mui/icons-material/Instagram";
+import CustomAvatar from "../components/CustomAvatar";
 
 const Profile = () => {
   const  { user }  = useContext(UserContext);
@@ -49,9 +50,8 @@ const Profile = () => {
                 mx="auto"
                 textAlign="center"
               >
-                <Avatar
-                  alt="usnm"
-                  src={user.avatar}
+                <CustomAvatar
+                  user={user}
                   sx={{ width: 150, height: 150 }}
                 />
                 <Box mt={2}>

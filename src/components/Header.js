@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import CustomAvatar from "./CustomAvatar";
 
 const pages = ["Home", "Resources", "Community", "About"];
 const settings = ["Profile",  "Logout" ];
@@ -177,7 +177,7 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <CustomAvatar user={user} />
                 </IconButton>
               </Tooltip>
               <Menu
