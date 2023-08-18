@@ -15,9 +15,10 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 
 const pages = ["Home", "Resources", "Community", "About"];
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = ["Profile",  "Logout" ];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,14 +36,13 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const handleUserMenuClick = (setting) => {
+  const handleUserMenuClick = async (setting) => {
     handleCloseUserMenu();
     console.log(user);
 
     switch (setting) {
       case "Logout":
         // perform logout operations here (also update your backend accordingly)
-        localStorage.removeItem("token");
         setUser(null);
 
         // navigate to logout route or main route as per your decision after logging out
@@ -116,10 +116,12 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page}
+                <MenuItem
+                  key={page}
                   component={Link}
                   to={`/${page.toLowerCase()}`}
-                  onClick={handleCloseNavMenu}>
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -157,7 +159,13 @@ function ResponsiveAppBar() {
                 component={Link}
                 onClick={handleCloseNavMenu}
                 to={`/${page.toLowerCase()}`}
-                sx={{ my: 2, mr: 1, fontWeight: 700, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  mr: 1,
+                  fontWeight: 700,
+                  color: "white",
+                  display: "block",
+                }}
               >
                 {page}
               </Button>

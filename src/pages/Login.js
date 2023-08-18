@@ -32,10 +32,13 @@ export default function Login() {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
-      const res = await axios.post("/users/login", values);
-      localStorage.setItem("accessToken", res.data.accessToken);
+      const res = await axios.post("/users/login", values, { withCredentials: true});
+      // localStorage.setItem("accessToken", res.data.accessToken);
       const decodedToken = jwt_decode(res.data.accessToken);
-      setUser(decodedToken);
+      setUser({
+        ...decodedToken,
+        accessToken: res.data.accessToken,
+      })
       navigate("/");
     } catch (err) {
       console.error(err);

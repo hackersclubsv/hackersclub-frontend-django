@@ -1,5 +1,6 @@
-import React from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React, { useContext, useEffect } from "react";
+import axios from "./api/axios";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
@@ -15,6 +16,7 @@ import PostForm from "./pages/PostForm.js";
 import UserUpdate from "./pages/ProfileUpdateTest.js";
 import UserProvider from "./contexts/UserContext";
 import Profile from "./pages/Profile.js";
+import { UserContext } from "./contexts/UserContext";
 
 const theme = createTheme({
   palette: {
@@ -24,36 +26,50 @@ const theme = createTheme({
   },
 });
 const App = () => {
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const reauthenticate = async () => {
+      try {
+        const res = await axios.post("/users/refresh", {}, { withCredentials: true });
+        setUser({
+          accessToken: res.data.accessToken,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    reauthenticate();
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-    <UserProvider>
-      <div className="App">
-        <Router>
-          <MainLayout>
-            <Routes>
-              <Route path="/home" element={<Home />} />
-              <Route path="/resources" element={<Resources />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/posts/:postId" element={<PostDetail />} />
-              <Route path="/posts/create-post" element={<PostForm />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/users/:userId" element={<UserUpdate />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route
-                path="/verify/forgot-password"
-                element={<ForgotPassword />}
-              />
-              <Route
-                path="/verify/reset-password"
-                element={<ResetPassword />}
-              />
-            </Routes>
-          </MainLayout>
-        </Router>
-      </div>
-    </UserProvider>
+        <div className="App">
+          <Router>
+            <MainLayout>
+              <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/community" element={<Community />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/posts/:postId" element={<PostDetail />} />
+                <Route path="/posts/create-post" element={<PostForm />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/users/:userId" element={<UserUpdate />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route
+                  path="/verify/forgot-password"
+                  element={<ForgotPassword />}
+                />
+                <Route
+                  path="/verify/reset-password"
+                  element={<ResetPassword />}
+                />
+              </Routes>
+            </MainLayout>
+          </Router>
+        </div>
     </ThemeProvider>
   );
 };
