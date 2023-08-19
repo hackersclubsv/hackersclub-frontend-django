@@ -27,10 +27,6 @@ const Posts = () => {
   const [posts, setPosts] = React.useState([]);
   const theme = useTheme();
 
-  const navigate = useNavigate();
-  const handleCardClick = (id) => {
-    navigate(`/posts/${id}`);
-  };
   const fetchPosts = async (page) => {
     try {
       const res = await axios.get(`/posts`, {
@@ -157,8 +153,7 @@ const Posts = () => {
           {posts.map((post, index) => (
             <Card key={index} sx={{ my: 2 }}>
               <Link
-                to={`/posts/${post._id}`}
-                onClick={() => handleCardClick(post.id)}
+                to={`/posts/${post.slug}`}
                 style={{
                   textDecoration: "none",
                   color: "inherit",

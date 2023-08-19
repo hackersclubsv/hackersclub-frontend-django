@@ -22,7 +22,7 @@ const theme = createTheme({
     primary: {
       main: "#e3bd8d",
     },
-  },
+  }
 });
 const App = () => {
   return (
@@ -37,7 +37,7 @@ const App = () => {
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/posts/:postId" element={<PostDetail />} />
+                <Route path="/posts/:slug" element={<PostDetail />} />
                 <Route path="/posts/create-post" element={<PostForm />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

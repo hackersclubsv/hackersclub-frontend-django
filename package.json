@@ -24,6 +24,7 @@
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
@@ -55,7 +56,5 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
-
-"proxy": "http://localhost:4000"
-
+  "proxy": "http://localhost:4000"
 }

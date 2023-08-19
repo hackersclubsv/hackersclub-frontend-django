@@ -1,10 +1,20 @@
-import * as React from 'react';
-import axios from '../api/axios';
-import { useParams } from 'react-router-dom';
-import { Box, Card, CardContent, Typography, List, ListItem, Divider, Container } from '@mui/material';
+import * as React from "react";
+import axios from "../api/axios";
+import { useParams } from "react-router-dom";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  List,
+  ListItem,
+  Typography,
+} from "@mui/material";
+import PostView from "../components/PostDetail";
 
-function PostDetail() {
-  const { postId } = useParams();
+function Post() {
+  const { slug } = useParams();
   const [post, setPost] = React.useState(null);
   const [comments, setComments] = React.useState([]);
 
@@ -12,51 +22,45 @@ function PostDetail() {
   React.useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/posts/${postId}`); // Replace with your actual API URL
+        const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
         setPost(response.data);
-        const commentsResponse = await axios.get(`/comments/commentsByPost/${postId}`); 
+        const commentsResponse = await axios.get(
+          `/comments/commentsByPost/${response.data._id}`,
+        );
         setComments(commentsResponse.data);
       } catch (err) {
         console.error(err);
       }
     };
     fetchPost();
-  }, [postId]);
+  }, [slug]);
 
   // Returning a loading text while the API request is ongoing
   if (!post) {
-    return <Typography variant="h2">Loading...</Typography>
+    return <Typography variant="h2">Loading...</Typography>;
   }
 
   return (
     <Container maxWidth="xl">
-    <Box sx={{ my: 4 }}>
-      <Card sx={{ mb: 4 }}>
-        <CardContent>
-          <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-            {post.title}
-          </Typography>
-          <Typography variant="body2">
-            {post.text}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Typography variant="h6" component="div" sx={{ mb: 2 }}>
-        Comments
-      </Typography>
-      <List>
-        {comments.map((comment, index) => (
-          <React.Fragment key={index}>
-            <ListItem>
-              <Typography variant="body1">{comment.text}</Typography> {/* Adjust this based on your comment object structure */}
-            </ListItem>
-            <Divider component="li" />
-          </React.Fragment>
-        ))}
-      </List>
-    </Box>
-  </Container>
+      <Box sx={{ my: 4 }}>
+        <PostView post={post} />
+        <Typography variant="h6" component="div" sx={{ mb: 2 }}>
+          Comments
+        </Typography>
+        <List>
+          {comments.map((comment, index) => (
+            <React.Fragment key={index}>
+              <ListItem>
+                <Typography variant="body1">{comment.text}</Typography>{" "}
+                {/* Adjust this based on your comment object structure */}
+              </ListItem>
+              <Divider component="li" />
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
+    </Container>
   );
 }
 
-export default PostDetail;
+export default Post;
