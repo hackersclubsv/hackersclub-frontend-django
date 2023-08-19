@@ -109,9 +109,10 @@ const Posts = () => {
             }}
           >
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               sx={{
-                flex: 1,
+                fontWeight: "bold",
+                flex: 0.8,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -168,13 +169,13 @@ const Posts = () => {
                 <Box
                   sx={{
                     flex: 1,
-                    padding: 2,
-                    display: "flex",
+                    padding: 0,
+                    display: { xs: "none", sm: "flex" },
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <Typography>{post.commentIds.length} Comments</Typography>
+                  <Typography>{post.commentIds.length}</Typography>
                 </Box>
 
                 <Divider orientation="vertical" flexItem />
@@ -189,7 +190,7 @@ const Posts = () => {
                   sx={{
                     flex: 1,
                     // padding: 2,
-                    display: "flex",
+                    display: { xs: "none", sm: "flex" },
                     alignItems: "center",
                     justifyContent: "center",
                   }}
@@ -203,7 +204,7 @@ const Posts = () => {
                   sx={{
                     flex: 2,
                     padding: 1,
-                    display: "flex",
+                    display: { xs: "none", sm: "flex" },
                     alignItems: "center",
                     justifyContent: "center",
                   }}

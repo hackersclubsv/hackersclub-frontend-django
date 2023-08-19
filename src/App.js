@@ -20,7 +20,7 @@ import Reauthenticate from "./services/Reauthenticate.js";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ce5777",
+      main: "#e3bd8d",
     },
   },
 });
