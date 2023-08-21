@@ -16,12 +16,12 @@ import { UserContext } from "../contexts/UserContext";
 import Instagram from "@mui/icons-material/Instagram";
 import CustomAvatar from "../components/CustomAvatar";
 
+const handleClick = (url) => {
+  console.info("Icon click");
+  window.open(url, "_blank");
+};
 const Profile = () => {
-  const  { user }  = useContext(UserContext);
-  const handleClick = () => {
-    console.info("Icon click");
-    console.log(user);
-  };
+  const { user } = useContext(UserContext);
   if (!user) {
     return <div>loading...</div>;
   }
@@ -50,10 +50,7 @@ const Profile = () => {
                 mx="auto"
                 textAlign="center"
               >
-                <CustomAvatar
-                  user={user}
-                  sx={{ width: 150, height: 150 }}
-                />
+                <CustomAvatar user={user} sx={{ width: 150, height: 150 }} />
                 <Box mt={2}>
                   <Typography variant="h5" gutterBottom>
                     {user.username}
@@ -64,15 +61,15 @@ const Profile = () => {
                 </Box>
                 <Box mt={2}>
                   <Button
-                    onClick={handleClick}
+                    onClick={() =>handleClick(user.socialLinks.linkedin)}
                     startIcon={<LinkedInIcon />}
                   ></Button>
                   <Button
-                    onClick={handleClick}
+                    onClick={() =>handleClick(user.socialLinks.github)}
                     startIcon={<GitHubIcon />}
                   ></Button>
                   <Button
-                    onClick={handleClick}
+                    onClick={() =>handleClick(user.socialLinks.Instagram)}
                     startIcon={<InstagramIcon />}
                   ></Button>
                 </Box>
@@ -93,9 +90,7 @@ const Profile = () => {
             >
               <Box mt={2}>
                 <Typography variant="h5">About Me</Typography>
-                <Typography variant="body1">
-                  {user.bio}
-                </Typography>
+                <Typography variant="body1">{user.bio}</Typography>
               </Box>
 
               <Box mt={2}>
