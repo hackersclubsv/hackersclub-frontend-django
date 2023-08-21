@@ -102,6 +102,7 @@ const Posts = () => {
               justifyContent: "space-between",
               my: 2,
               px: 2,
+              display: { xs: "none", sm: "flex" },
             }}
           >
             <Typography
@@ -117,8 +118,9 @@ const Posts = () => {
               Comments
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               sx={{
+                fontWeight: "bold",
                 flex: 6,
                 display: "flex",
                 alignItems: "center",
@@ -128,8 +130,9 @@ const Posts = () => {
               Title
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               sx={{
+                fontWeight: "bold",
                 flex: 1,
                 display: "flex",
                 alignItems: "center",
@@ -139,8 +142,9 @@ const Posts = () => {
               Author
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               sx={{
+                fontWeight: "bold",
                 flex: 2,
                 display: "flex",
                 alignItems: "center",
