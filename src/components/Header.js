@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../App.js";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,20 +11,21 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import CustomAvatar from "./CustomAvatar";
 
 const pages = ["Home", "Resources", "Community", "About"];
-const settings = ["Profile",  "Logout" ];
+const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const { dispatch } = useContext(ThemeContext);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -205,6 +207,9 @@ function ResponsiveAppBar() {
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
+                <MenuItem onClick={() => dispatch({ type: "SWITCH_THEME" })}>
+                  <Typography textAlign="center">Switch Theme</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           ) : (
