@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -32,13 +32,15 @@ export default function Login() {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
-      const res = await axios.post("/users/login", values, { withCredentials: true});
+      const res = await axios.post("/users/login", values, {
+        withCredentials: true,
+      });
       // localStorage.setItem("accessToken", res.data.accessToken);
       const decodedToken = jwt_decode(res.data.accessToken);
       setUser({
         ...decodedToken,
         accessToken: res.data.accessToken,
-      })
+      });
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -62,7 +64,6 @@ export default function Login() {
     setRememberMe(event.target.checked);
   };
 
-
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -73,8 +74,21 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Login
+        <Typography
+          component="h1"
+          variant="h4"
+          gutterBottom="true"
+          sx={{ fontWeight: 'bold', color: "grey.700" }}
+        >
+          Welcome back 👏
+        </Typography>
+        <Typography
+          component="h2"
+          variant="body1"
+          gutterBottom="true"
+          sx={{ color: "grey.800" }} // Adjust the color as you like
+        >
+          Please enter your email and password 
         </Typography>
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -107,6 +121,7 @@ export default function Login() {
             helperText={formik.touched.password && formik.errors.password}
             disabled={formik.isSubmitting}
           />
+          {/* Checkbox for remember me, but I don't think we need it
           <FormControlLabel
             control={
               <Checkbox
@@ -117,8 +132,11 @@ export default function Login() {
             }
             label="Remember me"
           />
+          */}
           {formik.errors.api && (
-            <Alert severity="error" sx={{ marginBottom: 1}} >{formik.errors.api}</Alert>
+            <Alert severity="error" sx={{ marginBottom: 1 }}>
+              {formik.errors.api}
+            </Alert>
           )}
           <LoadingButton
             type="submit"
