@@ -1,5 +1,6 @@
 import {
   Alert,
+  Box,
   Button,
   FormControl,
   InputLabel,
@@ -7,7 +8,8 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-
+import SendIcon from "@mui/icons-material/Send";
+import KeyIcon from "@mui/icons-material/Key";
 const UserFields = ({
   formik,
   showUsername,
@@ -85,60 +87,82 @@ const UserFields = ({
         }
       />
     )}
-    {showEmail && (
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        id="email"
-        name="email"
-        label="Email"
-        autoComplete="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-      />
-    )}
-    {showEmailVerify && (
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => {
-          sendVerificationEmail(formik.values.email);
-          setVerifyDisabled(true);
-        }}
-        disabled={verifyDisabled}
-      >
-        {verifyDisabled ? `Send Code (${verifyCountdown})` : "Send Code"}
-      </Button>
-    )}
-    {showEmailCheck && (
-      <>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      {showEmail && (
         <TextField
           variant="outlined"
           margin="normal"
           fullWidth
-          id="verificationCode"
-          name="verificationCode"
-          label="Verification Code"
-          value={verificationCode}
-          onChange={(event) => setVerificationCode(event.target.value)}
+          id="email"
+          name="email"
+          label="Email"
+          autoComplete="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          sx={{ my: 2, marginRight: 1, flexBasis: "auto", flexGrow: 1 }}
         />
-
+      )}
+      {showEmailVerify && (
         <Button
           color="primary"
           variant="contained"
+          sx={{ width: "140px", height: "56px", mx: 1 }}
+          startIcon={<SendIcon />}
           onClick={() => {
-            checkVerificationCode(formik.values.email, verificationCode);
-            setCheckDisabled(true);
+            sendVerificationEmail(formik.values.email);
+            setVerifyDisabled(true);
           }}
-          disabled={checkDisabled}
+          disabled={verifyDisabled}
         >
-          {checkDisabled ? `Verify (${checkCountdown})` : "Verify"}
+          {verifyDisabled ? `Code (${verifyCountdown})` : "Code"}
         </Button>
-      </>
-    )}
+      )}
+    </Box>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      {showEmailCheck && (
+        <>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="verificationCode"
+            name="verificationCode"
+            label="Verification Code"
+            sx={{ my: 1, marginRight: 1, flexBasis: "auto", flexGrow: 1 }}
+            value={verificationCode}
+            onChange={(event) => setVerificationCode(event.target.value)}
+          />
+
+          <Button
+            color="primary"
+            variant="contained"
+            sx={{ width: "140px", height: "56px", mx: 1 }}
+            startIcon={<KeyIcon />}
+            onClick={() => {
+              checkVerificationCode(formik.values.email, verificationCode);
+              setCheckDisabled(true);
+            }}
+            disabled={checkDisabled}
+          >
+            {checkDisabled ? `Verify (${checkCountdown})` : "Verify"}
+          </Button>
+        </>
+      )}
+    </Box>
     {showBio && (
       <TextField
         variant="outlined"
