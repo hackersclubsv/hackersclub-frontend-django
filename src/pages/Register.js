@@ -43,10 +43,10 @@ const Register = () => {
 
   const checkVerificationCode = async (email, code) => {
     try {
-      const res = await axios.post(
-        "/verify/verify-verification-code",
-        { email, code },
-      );
+      const res = await axios.post("/verify/verify-verification-code", {
+        email,
+        code,
+      });
       if (res.status === 200) {
         setVerified(true);
       } else {
@@ -62,10 +62,7 @@ const Register = () => {
       Object.entries(values).forEach(([key, value]) =>
         formData.append(key, value),
       );
-      const res = await axios.post(
-        "/users/register",
-        formData,
-      );
+      const res = await axios.post("/users/register", formData);
       console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
       formikHelpers.resetForm();
     } catch (err) {
@@ -102,9 +99,24 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography
+          component="h1"
+          variant="h4"
+          gutterBottom="true"
+          sx={{ fontWeight: "bold", color: "grey.700" }}
+        >
           Register
         </Typography>
+        <Typography
+          component="h2"
+          variant="body1"
+          gutterBottom="true"
+          sx={{ color: "grey.800" }} // Adjust the color as you like
+        >
+          Please verify your Northeastern email before proceeding to
+          register.
+        </Typography>
+
         <form onSubmit={formik.handleSubmit}>
           <UserFields
             formik={formik}
