@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm';
 import getting_started from '../../assets/wiki/getting_started.md';
 import campus_introduction from '../../assets/wiki/campus_introduction.md';
 import transportation from '../../assets/wiki/transportation.md';
+import academic_resources from '../../assets/wiki/academic_resources.md';
+import student_services from '../../assets/wiki/student_services.md';
 
 const WikiContent = ({ content: fileName }) => {
   const [content, setContent] = useState('');
@@ -13,6 +15,8 @@ const WikiContent = ({ content: fileName }) => {
     getting_started,
     campus_introduction,
     transportation,
+    academic_resources,
+    student_services,
   }), []);
 
   useEffect(() => {
