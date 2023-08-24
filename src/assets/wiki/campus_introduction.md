@@ -5,6 +5,10 @@ In addition to our exceptional academic resources, we offer a range of amenities
  
 If you need to get in touch with us, our address is 75 E Santa Clara St. and 4 N 2nd St., San Jose, CA 95113 (phone: 408-229-2292, fax:669-245-3600).
  
-Our classrooms are located on the 9th and 10th floors of 4 N 2nd Tower and the 10th floor of 75 E Santa Clara Tower.
+Our classrooms are located on:
+
+• the 9th and 10th floors of 4 N 2nd Tower
+
+• the Welcome Center on the 1st floor of 75 E Santa Clara Tower 
  
 Our Reception and Visitors Welcome Center is located in Suite 150 of 75 E Santa Clara St. Tower, with the entrance accessible from the walkway between the two buildings.
