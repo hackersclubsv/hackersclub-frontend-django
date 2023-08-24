@@ -1,26 +1,19 @@
 ## Student Services and Advising Staff
 
+### Student Services Staff
+
+• Karen Chang Pryor
+
+Director of Student Services 
+
+Email: k.pryor@northeastern.edu
+
+
 • Hing Potter
 
 Assistant Director, Student Services
 
 h.potter@northeastern.edu 408.206.7627
-
-
-• Bryoni Lawrence
-
-Mindfulness Coordinator and Spiritual Advisor
-
-b.lawrence@northeastern.edu
-
-
-
-• Giscard Dimanche
-
-Senior International Student Advisor
-
-OGSSFSV@northeastern.edu 408.707.3849
-
 
 
 • Alexandra Pellillo
@@ -30,13 +23,38 @@ Global Learner Support Specialist
 a.pellillo@northeastern.edu
 
 
+• Samantha Aladana
+
+Wellness Program Specialist 
+
+s.aldana@northeastern.edu
+
+
+#### Office of Global Services
+
+• Giscard Dimanche
+
+Senior International Student Advisor
+
+OGSSFSV@northeastern.edu 408.707.3849
+
 
 • Juan Taitague
 
-Assistant International Student and Scholar Advisor
+International Student and Scholar Advisor
 
 j.taitague@northeastern.edu
 
+
+
+#### Khoury College of Computer Science
+
+
+• Anna Olson
+
+Associate Director of Graduate Advising & Student Services
+
+a.olson@northeastern.edu
 
 
 • Vivian Guerrero
@@ -46,6 +64,7 @@ Associate Director-Graduate Advising (West Coast) for KCCS
 v.guerrero@northeastern.edu
 
 
+#### College of Professional Studies
 
 • Sweeny Youkane
 
@@ -54,49 +73,24 @@ Academic and Professional Advising (West Coast) for CPS
 s.youkhane@northeastern.edu
 
 
+#### College of Engineering
 
-• Miner "Michelle" Liang
+• Kimberly Wright
 
-Academic Advisor & Program Manager (West Coast) for COE
+Academic Advisor 
 
-m.liang@northeastern.edu
-
-
-
-• Drew Ochengco
-
-Co-op Coordinator for COE
-
-a.ochengco@northeastern.edu
+ki.wright@northeastern.edu
 
 
+• Erica Hatzievgenakis
 
-## Career & Business Development
+Assistant Co-Op Coordinator 
 
-
-• Andrei Coso
-
-Director, Strategic Partnerships
-
-a.coso@northeastern.edu 628.629.6205
+e.hatzievgenakis@northeastern.edu
 
 
 
-• Gloria Hunt
-
-Business Development Manager
-
-ma.hunt@northeastern.edu
-
-
-
-• Megan Powell
-
-Experiential Learning Specialist
-
-m.powell@northeastern.edu 510.593.9222
-
-
+## Career Services
 
 • Aboud Hammour
 
@@ -159,7 +153,7 @@ For immediate support, please email regionalhelp@northeastern.edu.
 
 For assistance with any WeWork device in the building, submit a support ticket on the App or Member site (members.wework.com).
 
-For additional ITS resources at Northeastern, visit the website at its.northeastern.edu/ 
+For additional ITS resources at Northeastern, visit the website at regionalhelp@northeastern.edu 
 
 ### Space and Event Reservation Requests
 
