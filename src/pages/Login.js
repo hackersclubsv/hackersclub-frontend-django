@@ -29,17 +29,50 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false); // <-- state for our Checkbox
   const navigate = useNavigate();
 
+{/* This is the Express backend version, but we're using django now
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
       const res = await axios.post("/users/login", values, {
-        withCredentials: true,
+        withCredentials: true, // <-- never affexts same-site requests, only cross-site; defaults to false, true then allows cookies to be sent;
       });
-      // localStorage.setItem("accessToken", res.data.accessToken);
       const decodedToken = jwt_decode(res.data.accessToken);
       setUser({
         ...decodedToken,
         accessToken: res.data.accessToken,
+      });
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      setErrors({
+        api: err.response.data || "An error occurred. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: handleSubmit,
+  });
+  */}
+
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    setSubmitting(true);
+    try {
+      const res = await axios.post("/token/", values, {
+      });
+      localStorage.setItem("accessToken", res.data.access);
+      localStorage.setItem("refreshToken", res.data.refresh);
+      const decodedToken = jwt_decode(res.data.access);
+      setUser({
+        ...decodedToken,
+        accessToken: res.data.access,
+        refreshToken: res.data.refresh,
       });
       navigate("/");
     } catch (err) {

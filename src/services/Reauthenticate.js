@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 const Reauthenticate = () => {
   const { setUser } = useContext(UserContext);
-
+{/*  This is the Express backend version, but we're using django now
   useEffect(() => {
     const reauthenticate = async () => {
       try {
@@ -25,7 +25,34 @@ const Reauthenticate = () => {
     };
     reauthenticate();
   }, []);
-
+  */}
+  useEffect(() => {
+    const reauthenticate = async () => {
+      try {
+        const refreshToken = localStorage.getItem("refreshToken"); 
+        const res = await axios.post(
+          "/token/refresh/",
+          {
+            refresh: refreshToken,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          },
+        );
+        const decoded = jwt_decode(res.data.access);
+        console.log(decoded);
+        const response = await axios.get(`/users/${decoded.user_id}`);
+        console.log(response.data);
+        setUser(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    reauthenticate();
+  }, []);
   return null;
 };
 
