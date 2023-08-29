@@ -5,7 +5,9 @@ import Community from "../pages/Community";
 import About from "../pages/About";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-
+{
+  /* This is just a page for funtionality testing, not used in current version */
+}
 const FullPageWrapper = () => (
   <ReactFullpage
     navigationTooltips={["Section 1", "Section 2", "Section 3"]}

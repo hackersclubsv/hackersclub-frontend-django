@@ -5,6 +5,10 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import AvatarUpload from "../components/AvatarUpload";
 
+{
+  /* This page is for updating user profile (a testing page) interact with Express backend.
+  * For Django backend, the User model need to be updated to support the new fields. */
+}
 const UpdateProfile = () => {
   const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({

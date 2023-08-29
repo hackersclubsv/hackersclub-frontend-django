@@ -75,7 +75,7 @@ export default function Login() {
         accessToken: res.data.access,
         refreshToken: res.data.refresh,
       });
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       setErrors({

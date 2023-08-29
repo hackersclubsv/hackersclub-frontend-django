@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "../api/axios";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-
+{
+  /* This page is for forgot password functionality, but the current backend (django) does not support this feature */
+}
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
