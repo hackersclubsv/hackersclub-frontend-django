@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "../api/axios";
 import {
   Alert,
@@ -25,11 +25,12 @@ const validationSchema = yup.object({
 });
 
 export default function Login() {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [rememberMe, setRememberMe] = useState(false); // <-- state for our Checkbox
   const navigate = useNavigate();
 
-{/* This is the Express backend version, but we're using django now
+  {
+    /* This is the Express backend version, but we're using django now
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
@@ -59,13 +60,13 @@ export default function Login() {
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
   });
-  */}
+  */
+  }
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
-      const res = await axios.post("/token/", values, {
-      });
+      const res = await axios.post("/token/", values, {});
       localStorage.setItem("accessToken", res.data.access);
       localStorage.setItem("refreshToken", res.data.refresh);
       const decodedToken = jwt_decode(res.data.access);
@@ -111,7 +112,7 @@ export default function Login() {
           component="h1"
           variant="h4"
           gutterBottom="true"
-          sx={{ fontWeight: 'bold', color: "grey.700" }}
+          sx={{ fontWeight: "bold", color: "grey.700" }}
         >
           Welcome back 👏
         </Typography>
@@ -121,7 +122,7 @@ export default function Login() {
           gutterBottom="true"
           sx={{ color: "grey.800" }} // Adjust the color as you like
         >
-          Please enter your email and password 
+          Please enter your email and password
         </Typography>
         <form onSubmit={formik.handleSubmit}>
           <TextField

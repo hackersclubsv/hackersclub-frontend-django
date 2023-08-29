@@ -4,8 +4,9 @@ import { UserContext } from "../contexts/UserContext";
 import jwt_decode from "jwt-decode";
 
 const Reauthenticate = () => {
-  const { setUser } = useContext(UserContext);
-{/*  This is the Express backend version, but we're using django now
+  const { user, setUser } = useContext(UserContext);
+  {
+    /*  This is the Express backend version, but we're using django now
   useEffect(() => {
     const reauthenticate = async () => {
       try {
@@ -25,11 +26,18 @@ const Reauthenticate = () => {
     };
     reauthenticate();
   }, []);
-  */}
+  */
+  }
+  // Listen for changes in user object
+  useEffect(() => {
+    console.log("User changed: ", user);
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
   useEffect(() => {
     const reauthenticate = async () => {
       try {
-        const refreshToken = localStorage.getItem("refreshToken"); 
+        const refreshToken = localStorage.getItem("refreshToken");
+        console.log("Got refreshToken from localStorage");
         const res = await axios.post(
           "/token/refresh/",
           {
@@ -42,10 +50,13 @@ const Reauthenticate = () => {
             withCredentials: false,
           },
         );
+        if (res.data.refresh) {
+          localStorage.setItem("refreshToken", res.data.refresh);
+          console.log("Got new refreshToken from server");
+        }
         const decoded = jwt_decode(res.data.access);
-        console.log(decoded);
         const response = await axios.get(`/users/${decoded.user_id}`);
-        console.log(response.data);
+        console.log("request the user profile", response.data);
         setUser(response.data);
       } catch (err) {
         console.error(err);
