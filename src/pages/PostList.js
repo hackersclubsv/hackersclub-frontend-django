@@ -36,8 +36,9 @@ const Posts = () => {
           // Add any other parameters here
         },
       });
-      setPosts(res.data.posts);
-      console.log(res.data.posts);
+      // django api 
+      setPosts(res.data);
+      console.log("res: ",res);
       setTotalPages(res.data.totalItems);
     } catch (err) {
       console.log(err);
@@ -174,7 +175,7 @@ const Posts = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography>{post.commentIds.length}</Typography>
+                  {/* <Typography>{post.commentIds.length}</Typography> */}
                 </Box>
 
                 <Divider orientation="vertical" flexItem />
@@ -209,7 +210,7 @@ const Posts = () => {
                   }}
                 >
                   <Typography>
-                    {formatDistanceToNow(new Date(post.created))} ago
+                    {formatDistanceToNow(new Date(post.created_at))} ago
                   </Typography>
                 </Box>
               </Link>
