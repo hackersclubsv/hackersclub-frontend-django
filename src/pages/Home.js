@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import { Box, Card, Container, Grid, Typography,CardMedia,CardContent } from "@mui/material";
-import PostsList from "./PostList";
+import PostsList from "../components/PostList";
 import { welcomeimage } from "../assets/page_contents/welcome";
 import { welcomemessage } from "../assets/page_contents/welcome";
-import "./Home.css";
 
 function Home() {
   const { user } = useContext(UserContext);
