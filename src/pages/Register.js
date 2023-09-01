@@ -62,7 +62,7 @@ const Register = () => {
       Object.entries(values).forEach(([key, value]) =>
         formData.append(key, value),
       );
-      const res = await axios.post("/users/register", formData);
+      const res = await axios.post("/register", formData);
       console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
       formikHelpers.resetForm();
     } catch (err) {

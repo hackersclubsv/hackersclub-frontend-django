@@ -83,11 +83,11 @@ const App = () => {
                 <Route path="users/:userId" element={<UserUpdate />} />
                 <Route path="profile" element={<Profile />} />
                 <Route
-                  path="verify/forgot-password"
+                  path="user/forgot-password"
                   element={<ForgotPassword />}
                 />
                 <Route
-                  path="verify/reset-password"
+                  path="user/reset-password"
                   element={<ResetPassword />}
                 />
               </Route>
