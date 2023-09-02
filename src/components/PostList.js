@@ -175,7 +175,7 @@ const Posts = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <Typography>{post.commentIds.length}</Typography> */}
+                  <Typography>{post.total_comments}</Typography>
                 </Box>
 
                 <Divider orientation="vertical" flexItem />
@@ -195,7 +195,7 @@ const Posts = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography>Author: {post.author}</Typography>
+                  <Typography>{post.author}</Typography>
                 </Box>
 
                 <Divider orientation="vertical" flexItem />
