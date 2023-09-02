@@ -4,7 +4,7 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import { useFormik } from "formik";
-import validationSchema from "../validations/ResetPwForm.js";
+import validationSchema from "../services/validations/ResetPwForm.js";
 
 const ResetPassword = () => {
   const [message, setMessage] = useState("");

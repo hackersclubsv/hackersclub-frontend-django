@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "../api/axios";
 import { Box, Button, Container, Typography } from "@mui/material";
-import validationSchema from "../validations/RegisterForm.js";
+import validationSchema from "../services/validations/RegisterForm.js";
 import UserFields from "../components/UserFields.js";
 
 const Register = () => {
