@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../App.js";
+import { ThemeContext } from "../config/ThemeConfig.js";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";

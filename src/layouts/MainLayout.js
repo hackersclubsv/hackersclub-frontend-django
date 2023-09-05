@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../App.js";
+import { ThemeContext } from "../config/ThemeConfig.js";
 import { ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
