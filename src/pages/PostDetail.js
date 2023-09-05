@@ -11,8 +11,8 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import PostView from "../components/PostDetail";
-import Comment from "../components/Comment";
+import PostView from "../components/PostBody";
+import Comment from "../components/CommentBody";
 
 function Post() {
   const { slug } = useParams();
@@ -29,10 +29,9 @@ function Post() {
         const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
         setPost(response.data);
         const commentsResponse = await axios.get(
-          "/comments/", // Django current only supports get all comments
+          `/comments/getCommentsByPostSlug/?slug=${slug}`, // Django current only supports get all comments
         );
         setComments(commentsResponse.data);
-        console.log(commentsResponse.data);
       } catch (err) {
         console.error(err);
       }
