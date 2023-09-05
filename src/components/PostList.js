@@ -20,24 +20,33 @@ import Stack from "@mui/material/Stack";
 import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const POSTS_PER_PAGE = 20;
+const POSTS_PER_PAGE = 20; // This is for Express backend, the Django backend has builtin pagination, so we don't need this
 const Posts = () => {
   const [page, setPage] = React.useState(1);
+  const [category, setCategory] = React.useState(null);
   const [totalPages, setTotalPages] = React.useState(0);
   const [posts, setPosts] = React.useState([]);
   const theme = useTheme();
+  // The categories should be fetched from the backend dynamically, but as we only have 3 categories, we can hardcode them here
+  const categories = [
+    { id: null, name: "All" },
+    { id: 2, name: "Campus Life" },
+    { id: 3, name: "Job Hunting" },
+    { id: 4, name: "Tech Dojo" },
+  ];
 
   const fetchPosts = async (page) => {
     try {
       const res = await axios.get(`/posts`, {
         params: {
           page: page,
-          limit: POSTS_PER_PAGE,
+          // limit: POSTS_PER_PAGE,
           // Add any other parameters here
+          ...(category && { category_id: category }),
         },
       });
-      // django api 
-      setPosts(res.data);
+      // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
+      setPosts(res.data.results);
       console.log("res: ",res);
       setTotalPages(res.data.totalItems);
     } catch (err) {
@@ -48,7 +57,7 @@ const Posts = () => {
   // Fetch posts when page number changes
   React.useEffect(() => {
     fetchPosts(page);
-  }, [page]);
+  }, [page, category]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -66,9 +75,14 @@ const Posts = () => {
           }}
         >
           <Stack spacing={2} direction="row">
-            <Button variant="outlined">Category1</Button>
-            <Button variant="outlined">Category2</Button>
-            <Button variant="outlined">Category3</Button>
+            {categories.map(({ id, name }) => (
+              <Button
+                variant={id === category ? "contained" : "outlined"} // If the category is selected, change the variant to "contained"
+                onClick={() => setCategory(id)} // Set the category when the button is clicked
+              >
+                {name}
+              </Button>
+            ))}
           </Stack>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
             <InputLabel id="demo-select-small-label">Sort</InputLabel>
