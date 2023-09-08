@@ -77,9 +77,9 @@ export default function Login() {
       });
       navigate("/home");
     } catch (err) {
-      console.error(err);
+      console.error(err.response.data);
       setErrors({
-        api: err.response.data || "An error occurred. Please try again.",
+        api: err.response.data.detail || "An error occurred. Please try again.",
       });
     } finally {
       setSubmitting(false);
@@ -125,6 +125,11 @@ export default function Login() {
           Please enter your email and password
         </Typography>
         <form onSubmit={formik.handleSubmit}>
+        {formik.errors.api && (
+          <Alert severity="error" sx={{ marginBottom: 1 }}>
+            {formik.errors.api}
+          </Alert>
+        )}
           <TextField
             variant="outlined"
             margin="normal"
@@ -167,11 +172,6 @@ export default function Login() {
             label="Remember me"
           />
           */}
-          {formik.errors.api && (
-            <Alert severity="error" sx={{ marginBottom: 1 }}>
-              {formik.errors.api}
-            </Alert>
-          )}
           <LoadingButton
             type="submit"
             fullWidth
@@ -185,7 +185,7 @@ export default function Login() {
           </LoadingButton>
           <Grid container mt={1}>
             <Grid item xs>
-              <Link href="/verify/forgot-password" variant="body2">
+              <Link href="/user/forgot-password" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

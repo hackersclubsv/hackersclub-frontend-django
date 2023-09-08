@@ -11,7 +11,8 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import PostView from "../components/PostDetail";
+import PostView from "../components/PostBody";
+import Comment from "../components/CommentBody";
 
 function Post() {
   const { slug } = useParams();
@@ -19,13 +20,16 @@ function Post() {
   const [comments, setComments] = React.useState([]);
 
   // Fetch post details
+  {
+    /* `/comments/commentsByPost/${response.data._id}`}, */
+  } // This is Express backend version
   React.useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
         setPost(response.data);
         const commentsResponse = await axios.get(
-          `/comments/commentsByPost/${response.data._id}`,
+          `/comments/getCommentsByPostSlug/?slug=${slug}`, // Django current only supports get all comments
         );
         setComments(commentsResponse.data);
       } catch (err) {
@@ -48,15 +52,22 @@ function Post() {
           Comments
         </Typography>
         <List>
-          {comments.map((comment, index) => (
-            <React.Fragment key={index}>
-              <ListItem>
-                <Typography variant="body1">{comment.text}</Typography>{" "}
-                {/* Adjust this based on your comment object structure */}
-              </ListItem>
-              <Divider component="li" />
-            </React.Fragment>
-          ))}
+          {/* We apply depth = 1 nesting to comments */}
+          {/* Only map over root comments (i.e. comments without a parent) */}
+          {comments
+            .filter((comment) => comment.parent === null)
+            .map((rootComment, index) => (
+              <React.Fragment key={index}>
+                <Comment comment={rootComment} />
+                {comments
+                  .filter((reply) => reply.parent === rootComment.id)
+                  .map((reply, index) => (
+                    <Box key={index} ml={4}>
+                      <Comment comment={reply} />
+                    </Box>
+                  ))}
+              </React.Fragment>
+            ))}
         </List>
       </Box>
     </Container>
