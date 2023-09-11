@@ -4,28 +4,20 @@ export const SidebarData = [
     content: 'getting_started',
   },
   {
-    title: 'Campus Introduction',
-    content: 'campus_introduction',
+    title: 'Campus Useful Links',
+    content: 'campus_useful_links',
   },
   {
-    title: 'Transportation',
-    content: 'transportation',
+    title: 'Learning Resources',
+    content: 'learning_resources',
   },
   {
-    title: 'Academic Resources',
-    content: 'academic_resources',
+    title: 'Useful Job-Hunting Sites',
+    content: 'useful_jobHunting_sites',
   },
   {
-    title: 'Student Services',
-    content: 'student_services',
-  },
-  {
-    title: 'Student Life',
-    content: 'student_life',
-  },
-  {
-    title: 'Campus Safety',
-    content: 'campus_safety',
+    title: 'SV Hackers Club',
+    content: 'SV_hackers_club',
   },
   {
     title: 'FAQ',
