@@ -1,6 +1,6 @@
 import React, { createContext, useMemo, useReducer, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
 import ResetPassword from "./components/ResetPassword.js";
@@ -32,6 +32,7 @@ const App = () => {
             <Routes>
               <Route path="/fullpagetest/" element={<FullPageTest />} />
               <Route path="*" element={<MainLayout />}>
+                <Route index element={<Home />} />
                 <Route path="home" element={<Home />} />
                 <Route path="resources" element={<Resources />} />
                 <Route path="community" element={<Community />} />
