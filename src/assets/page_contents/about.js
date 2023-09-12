@@ -67,5 +67,10 @@ export const members = [
     name: "Fia Yin",
     position: "Member",
     role: "Frontend",
+  },
+  {
+    name: "Jiamin Chen",
+    position: "Member",
+    role: "PM, UIUX Design",
   }
 ]

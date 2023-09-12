@@ -5,8 +5,6 @@ import {
   CardContent,
   Container,
   Grid,
-  List,
-  ListItem,
   Typography,
 } from '@mui/material';
 import {
@@ -26,7 +24,7 @@ const About = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           minHeight: '80vh',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#ffffff',
           padding: '2rem',
           marginTop: '2rem',
         }}
@@ -51,7 +49,7 @@ const About = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           minHeight: '80vh',
-          backgroundColor: '#ffffff',
+          backgroundColor: '#f5f5f5',
           padding: '2rem',
         }}
       >
@@ -76,7 +74,7 @@ const About = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           minHeight: '80vh',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#ffffff',
           padding: '2rem',
         }}
       >
@@ -101,7 +99,7 @@ const About = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           minHeight: '80vh',
-          backgroundColor: '#ffffff',
+          backgroundColor: '#f5f5f5',
           padding: '2rem',
         }}
       >
@@ -117,9 +115,9 @@ const About = () => {
                     {item.name}
                   </Typography>
                   <Typography variant="body1">
-                    Position: {item.position}
+                    {item.position}
                   </Typography>
-                  <Typography variant="body1">Role: {item.role}</Typography>
+                  <Typography variant="body1">{item.role}</Typography>
                   {item.contact && (
                     <Typography variant="body1">
                       Contact: {item.contact}
@@ -141,7 +139,7 @@ const About = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           minHeight: '80vh',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#ffffff',
           padding: '2rem',
         }}
       >
@@ -154,17 +152,19 @@ const About = () => {
           Whether you're looking to enhance your skills, make new friends, or
           contribute to meaningful projects, SV Hackers Club is the place to be!
         </Typography>
-        <Typography variant="h5">
-          Please fill out this form to join us:{' '}
+        <Typography variant="body1">
+          Please fill out this form to join us:
           <a href="https://forms.office.com/r/QgR7MwX0ZN">Google Form</a>
         </Typography>
+        <Box>
+          <img width={300} src='QRCode_Fall2023.png' alt="QRCode" />
+        </Box>
 
         <Typography variant="h4" gutterBottom mt={4}>
           Connect With Us
         </Typography>
         <Typography variant="body1">
-          Stay updated on our latest events, workshops, and activities by
-          following us on [Social Media Links]. For inquiries, feel free to
+          Stay updated on our latest events, workshops, and activities by checking our website, as well as campus newsletters. For inquiries, feel free to
           reach out to us at{' '}
           <a href="mailto: hackersclubsv@gmail.com.">
             hackersclubsv@gmail.com.
@@ -172,11 +172,11 @@ const About = () => {
         </Typography>
         <Typography variant="body1">
           Remember, at SV Hackers Club, the only limit is your imagination. Join
-          us and let's [ Slogan or Catchphrase] together!
+          us and let's unleash the power of coding together!
         </Typography>
       </Box>
 
-      <Box textAlign="right" mt={3}>
+      <Box textAlign='right' >
         <Typography variant="h6">
           <strong>Stay Inspired. Stay Curious. Stay SV Hackers Club.</strong>
         </Typography>
