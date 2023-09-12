@@ -7,7 +7,7 @@ import getting_started from '../../assets/wiki/getting_started.md';
 import campus_introduction from '../../assets/wiki/campus_introduction.md';
 import transportation from '../../assets/wiki/transportation.md';
 import academic_resources from '../../assets/wiki/academic_resources.md';
-import student_services from '../../assets/wiki/student_services.md';
+import study_materials from '../../assets/wiki/study_materials.md';
 
 const WikiContent = ({ content: fileName }) => {
   const [content, setContent] = useState('');
@@ -16,7 +16,7 @@ const WikiContent = ({ content: fileName }) => {
     campus_introduction,
     transportation,
     academic_resources,
-    student_services,
+    study_materials,
   }), []);
 
   useEffect(() => {

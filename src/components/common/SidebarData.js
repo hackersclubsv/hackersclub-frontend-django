@@ -16,8 +16,8 @@ export const SidebarData = [
     content: 'academic_resources',
   },
   {
-    title: 'Student Services',
-    content: 'student_services',
+    title: 'Study Materials',
+    content: 'study_materials',
   },
   {
     title: 'Student Life',
