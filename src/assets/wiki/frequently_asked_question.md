@@ -1,44 +1,31 @@
-<<<<<<< HEAD
-## Q: How many colleges we have in San Jose Campus?
+### Frequently Asked Questions (FAQ)
 
-We have three colleges:
+**Q1: What is SV Hackers Club?**
+SV Hackers Club is a student interest group recognized by Northeastern University at the Silicon Valley campus. We are a community of tech enthusiasts and coders who come together to learn, collaborate, and innovate in the field of technology.
 
-• College of Professional Studies
+**Q2: Who can join SV Hackers Club?**
+Our club is open to all students, regardless of your skill level or major. Whether you're a beginner eager to learn or an experienced coder, you're welcome to be a part of our community.
 
-• College of Engineer
+**Q3: What activities does SV Hackers Club organize?**
+We organize a variety of activities, including workshops, hackathons, networking events, and tech talks. Our goal is to provide opportunities for skill development, collaboration, and hands-on experience in the tech industry.
 
-• Khoury College
+**Q4: How can I become a member of SV Hackers Club?**
+Becoming a member is easy! Just visit our "Join Us" section on the website, and you'll find all the information and steps to become a part of our community.
 
-## Q: When and How should i make payment for my tuition?
-For tuition, payment questions, please visit [BILLING & PAYMENTS](https://studentfinance.northeastern.edu/billing-payments/billing-faq/) for Billing and Payment information.
+**Q5: Are there any membership fees?**
+No, SV Hackers Club membership is completely free. We believe in making tech education and collaboration accessible to all students.
 
+**Q6: What are the benefits of joining SV Hackers Club?**
+By joining our club, you gain access to a supportive community, skill-building opportunities, networking events, and the chance to work on exciting tech projects. It's a great way to enhance your learning and boost your tech career.
 
-## Q: How can I get IT support for technical issues?
-Please send email at: regionalhelp@northeastern.edu
+**Q7: Can I join if I'm not a tech major?**
+Absolutely! We welcome students from all backgrounds. Tech skills are valuable in many fields, and our club is a place to learn, explore, and apply technology regardless of your major.
 
+**Q8: How can I stay updated on club events and activities?**
+You can stay informed about our events, workshops, and activities by following us on our social media channels, such as [Social Media Links]. Additionally, check out our "Upcoming Events" section on the website for the latest updates.
 
-## Q: How can I get involved in campus activities and clubs?
-You can get involved in campus activities and clubs by attending club fairs, checking out the SV campus's [club directory](https://studentlife.bayarea.northeastern.edu/student-interest-groups/), and reaching out to club leaders. Joining clubs is a great way to meet new people who share similar interests.
+**Q9: What should I bring to a hackathon or workshop?**
+For hackathons, bring your laptop and any specific tools or software required for the event. Workshops may have different requirements, which we will specify in event announcements. A curious and open mindset is also a must!
 
-
-## Q: What is the campus community like?
-The campus community at Northeastern University's San Jose campus is diverse and inclusive. Students come from various backgrounds and cultures, creating a dynamic and enriching environment for learning and collaboration.
-
-
-## Q: What are the housing options near San Jose?
-Students are responsible for finding their own accommodations; university-sponsored housing is not available. For information about local housing options and general questions about relocating to the Bay Area, please visit our [Relocating to Silicon Valley](https://siliconvalley.northeastern.edu/student-resources/relocating-to-silicon-valley/) page.
-
-
-=======
-
-#### What is the cost of tuition?
-For tuition rates and fees, please visit the [Student Financial Services Tuition and Fees](https://studentfinance.northeastern.edu/billing-payments/tuition-and-fees/#_ga=2.138498611.1833683067.1691948482-1943276909.1665751281) page.
-
-#### What are the housing options near San Jose?
-Students are responsible for finding their own accommodations; university-sponsored housing is not available. For information about local housing options and general questions about relocating to the Bay Area, please visit our [Relocating to Silicon Valley](https://siliconvalley.northeastern.edu/student-resources/relocating-to-silicon-valley/) page.
-
-#### Campus Resources
-Please visit the [Student Life](https://studentlife.bayarea.northeastern.edu/#_ga=2.138498611.1833683067.1691948482-1943276909.1665751281) page to view events, resources, and updates from our San Jose campus team. And join our Yammer community page for Northeastern in Silicon Valley to connect with peers, join conversations, and see important community announcements.
-
-#### add more later
->>>>>>> 2d8c8262ae938ed0632fea39cdab6cea074eafcc
+**Q10: How can I contact SV Hackers Club for more information?**
+If you have any questions or need further information, feel free to reach out to us at [Contact Email]. We're here to help and excited to welcome new members.
