@@ -6,7 +6,7 @@ LinkedIn: [LinkedIn](https://www.linkedin.com/) - Build your professional networ
 
 Handshake: [Handshake](https://app.joinhandshake.com/stu) - Access job postings, internships, and career services tailored to students and recent graduates. Connect with employers seeking top talent.
 
-Indeed: [Indeed](https://www.indeed.com/) is a popular job search engine that aggregates job listings from various sources. It offers a wide range of job opportunities across different industries.
+Indeed: [Indeed](https://www.indeed.com/) - Find wide range of job opportunities across different industries.
 
 Job Search Engines: Utilize job search engines to browse a vast number of job listings from various industries and locations.
 
