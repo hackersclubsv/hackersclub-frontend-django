@@ -86,7 +86,7 @@ const Posts = () => {
               </Button>
             ))}
           </Stack>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <FormControl sx={{ m: 1, minWidth: 120, display: 'none' }} size="small">
             <InputLabel id="demo-select-small-label">Sort</InputLabel>
             <Select
               labelId="demo-select-small-label"
