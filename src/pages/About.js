@@ -1,100 +1,188 @@
 import React from 'react';
-import { Box, Container, List, ListItem, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import {
+  headMessage,
+  ourGoal,
+  benefits,
+  logoIntro,
+  members,
+} from '../assets/page_contents/about';
 
 const About = () => {
   return (
-    <Container maxWidth="md">
+    <Container>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          backgroundColor: '#ffffff',
+          padding: '2rem',
+          marginTop: '2rem',
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          About Us
+        </Typography>
+        <Typography variant="body1">{headMessage}</Typography>
         <Box my={4}>
-            <Typography variant="h4" gutterBottom>
-                About Us
-            </Typography>
-            <Typography variant="body1">
-                Welcome to SV Hackers Club, a Student Interest Group ratified and recognized 
-                by Northeastern University at the Silicon Valley campus! We are a dynamic and 
-                passionate community of like-minded individuals who share a common interest 
-                in coding. Whether you're an enthusiastic beginner or a seasoned expert, 
-                our club offers a platform to learn, collaborate, and thrive.
-            </Typography>
-
-            <Typography variant="h4" gutterBottom mt={4}>
-                What We Offer
-            </Typography>
-            <List>
-                {[
-                    {
-                        title: "Engaging Workshops:", 
-                        description: "Our club regularly hosts insightful workshops led by industry experts. "+
-                                    "Learn the latest trends, tools, and techniques in software developing that will give you a competitive edge."
-                    },
-                    {
-                        title: "Networking Opportunities:", 
-                        description: "Connect with fellow members who share your passion. Network, collaborate, "+
-                                    "and create lasting friendships with individuals who are as driven as you are."
-                    },
-                    {
-                        title: "Hackathons and Challenges:", 
-                        description: "Put your skills to the test by participating in our exciting hackathons and challenges. "+
-                                    "Apply what you've learned, solve real-world problems, and showcase your creativity."
-                    },
-                    { 
-                        title: "Inclusive Community:", 
-                        description: "We embrace diversity and welcome individuals from all backgrounds. "+
-                                    "SV Hackers Club is a safe space where everyone's ideas and perspectives are valued."
-                    }
-                ].map(item => (
-                    <ListItem key={item.title} >
-                        <Typography variant="body1"><strong>{item.title}</strong> {item.description}</Typography>
-                    </ListItem>
-                ))}
-            </List>
-
-            <Typography variant=" h4" gutterBottom mt={4}>
-                Our Goal
-            </Typography>
-            <List>
-                {[
-                    {
-                        title: "A project-based mutual learning environment:",
-                        description: "Elevate students’ software development and programming skills, and gain proficiency in diverse tech stacks."
-                    },
-                    {
-                        title: "Bridging the gap between students and alumni, as well as those with co-op experience:",
-                        description: "Fostering lasting and meaningful connections and offering support and advice on job-hunting."
-                    }
-                ].map(item => (
-                    <ListItem key={item.title}>
-                        <Typography variant="body1"><strong>{item.title}</strong> {item.description}</Typography>
-                    </ListItem>
-                ))}
-            </List>
-
-            <Typography variant="h4" gutterBottom mt={4}>
-                Join Us Now
-            </Typography>
-            <Typography variant="body1">
-                Ready to embark on an exciting journey with SV Hackers Club? Join us today and unlock a world of opportunities in [Relevant Field/Area]. 
-                Whether you're looking to enhance your skills, make new friends, or contribute to meaningful projects, [Club Name] is the place to be!
-            </Typography>
-
-            <Typography variant="h4" gutterBottom mt={4}>
-                Connect With Us
-            </Typography>
-            <Typography variant="body1">
-                Stay updated on our latest events, workshops, and activities by following us on [Social Media Links]. 
-                For inquiries, feel free to reach out to us at [Contact Email].
-            </Typography>
-            <Typography variant="body1">
-                Remember, at SV Hackers Club, the only limit is your imagination. Join us and let's [ Slogan or Catchphrase] together!
-            </Typography>
-
-            <Box textAlign="right" mt={3}>
-                <Typography variant="h6">
-                    <strong>Stay Inspired. Stay Curious. Stay SV Hackers Club.</strong>
-                </Typography>
-            </Box>
+          <Typography variant="h4" gutterBottom>
+            Our Logo and Concept
+          </Typography>
+          <Typography variant="body1">
+            <img src={logoIntro.img} alt="logoIntro" />
+          </Typography>
         </Box>
-    </Container>
-  )
-}
+      </Box>
 
-export default About
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          backgroundColor: '#f5f5f5',
+          padding: '2rem',
+        }}
+      >
+        <Typography variant="h4" gutterBottom mt={4}>
+          Our Goal
+        </Typography>
+        <Grid container spacing={2}>
+          {ourGoal.map((item, id) => (
+            <Grid item xs={12} key={id}>
+              <Typography variant="h5" gutterBottom>
+                {item.title}
+              </Typography>
+              <Typography variant="body1">{item.description}</Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          backgroundColor: '#ffffff',
+          padding: '2rem',
+        }}
+      >
+        <Typography variant="h4" gutterBottom mt={4}>
+          Benefits
+        </Typography>
+        <Grid container spacing={2}>
+          {benefits.map((item, id) => (
+            <Grid item xs={12} sm={12} lg={6} key={id}>
+              <Typography variant="h5" gutterBottom>
+                {item.title}
+              </Typography>
+              <Typography variant="body1">{item.description}</Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          backgroundColor: '#f5f5f5',
+          padding: '2rem',
+        }}
+      >
+        <Typography variant="h4" gutterBottom mt={4}>
+          Our Team
+        </Typography>
+        <Grid container spacing={2}>
+          {members.map((item, id) => (
+            <Grid item xs={12} sm={6} lg={4} key={id}>
+              <Card sx={{ height: '100%' }}>
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    {item.name}
+                  </Typography>
+                  <Typography variant="body1">
+                    {item.position}
+                  </Typography>
+                  <Typography variant="body1">{item.role}</Typography>
+                  {item.contact && (
+                    <Typography variant="body1">
+                      Contact: {item.contact}
+                    </Typography>
+                  )}
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+        <Typography variant="h5" mt={4}>
+          And other members...Waiting for you to join us!
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          backgroundColor: '#ffffff',
+          padding: '2rem',
+        }}
+      >
+        <Typography variant="h4" gutterBottom mt={4}>
+          Join Us Now
+        </Typography>
+        <Typography variant="body1">
+          Ready to embark on an exciting journey with SV Hackers Club? Join us
+          today and unlock a world of opportunities in Software Development.
+          Whether you're looking to enhance your skills, make new friends, or
+          contribute to meaningful projects, SV Hackers Club is the place to be!
+        </Typography>
+        <Typography variant="body1">
+          Please fill out this form to join us:
+          <a href="https://forms.office.com/r/QgR7MwX0ZN">Google Form</a>
+        </Typography>
+        <Box>
+          <img width={300} src='QRCode_Fall2023.png' alt="QRCode" />
+        </Box>
+
+        <Typography variant="h4" gutterBottom mt={4}>
+          Connect With Us
+        </Typography>
+        <Typography variant="body1">
+          Stay updated on our latest events, workshops, and activities by checking our website, as well as campus newsletters. For inquiries, feel free to
+          reach out to us at{' '}
+          <a href="mailto: hackersclubsv@gmail.com.">
+            hackersclubsv@gmail.com.
+          </a>
+        </Typography>
+        <Typography variant="body1">
+          Remember, at SV Hackers Club, the only limit is your imagination. Join
+          us and let's unleash the power of coding together!
+        </Typography>
+      </Box>
+
+      <Box textAlign='right' >
+        <Typography variant="h6">
+          <strong>Stay Inspired. Stay Curious. Stay SV Hackers Club.</strong>
+        </Typography>
+      </Box>
+    </Container>
+  );
+};
+
+export default About;
