@@ -26,7 +26,6 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const { dispatch } = useContext(ThemeContext);
 
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -46,9 +45,9 @@ function ResponsiveAppBar() {
       case "Logout":
         // perform logout operations here (also update your backend accordingly)
         setUser(null);
-
-        // navigate to logout route or main route as per your decision after logging out
-        navigate("/home");
+        // remove tokens from localStorage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         break;
       // other cases...
     }
@@ -56,7 +55,11 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  React.useEffect(() => {
+    if (user === null) {
+      navigate("/home");
+    }
+  }, [user]);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

@@ -13,7 +13,7 @@ const MainLayout = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }} >
       <Header />
-      <Box sx={{ flexGrow:1 }}><Outlet /></Box>
+      <Box sx={{ flexGrow:1 }}><Outlet /></Box> {/* Outlet is a placeholder for the child routes, like <Login /> */}
       <Footer sx={{ marginTop: "auto" }}/>
       </Box>
     </ThemeProvider>

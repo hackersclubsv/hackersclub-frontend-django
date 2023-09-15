@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
 import Sidebar from "../components/common/Sidebar";
 import WikiContent from "../components/common/WikiContent";
 import { useState } from "react";
@@ -8,6 +8,7 @@ const Resources = () => {
 
   return (
     <Container maxWidth="lg">
+      <Box mt={4}> {/* mt = margin top, add to the Grid and its component above (Header) */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
           <Sidebar setContent={setContent} />
@@ -16,6 +17,7 @@ const Resources = () => {
           <WikiContent content={content} />
         </Grid>
       </Grid>
+      </Box>
     </Container>
   );
 }
