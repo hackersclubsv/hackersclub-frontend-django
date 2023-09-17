@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Alert, Box, Link, Typography } from "@mui/material";
+import { Alert, Box, Card, Link, Paper, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -9,6 +9,10 @@ import learning_resources from "../../assets/wiki/learning_resources.md";
 import useful_jobHunting_sites from "../../assets/wiki/useful_jobHunting_sites.md";
 import SV_hackers_club from "../../assets/wiki/SV_hackers_club.md";
 import frequently_asked_question from "../../assets/wiki/frequently_asked_question.md";
+import housing_in_sv from "../../assets/wiki/housing_in_sv.md";
+import places_to_visit from "../../assets/wiki/places_to_visit.md";
+import foods_near_campus from "../../assets/wiki/foods_near_campus.md";
+import tech_attractions_in_SV from "../../assets/wiki/tech_attractions_in_SV.md";
 
 const WikiContent = ({ content: fileName }) => {
   const [content, setContent] = useState("");
@@ -20,6 +24,10 @@ const WikiContent = ({ content: fileName }) => {
       useful_jobHunting_sites,
       SV_hackers_club,
       frequently_asked_question,
+      housing_in_sv,
+      places_to_visit,
+      foods_near_campus,
+      tech_attractions_in_SV,
     }),
     [],
   );
@@ -65,6 +73,9 @@ const WikiContent = ({ content: fileName }) => {
           </Link>
         </Typography>
       </Alert>
+
+
+
     </Box>
   );
 };

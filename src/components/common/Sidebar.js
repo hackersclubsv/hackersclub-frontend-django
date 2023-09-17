@@ -5,7 +5,7 @@ import { SidebarData } from './SidebarData';
 const Sidebar = ({ setContent }) => {
   return (
     <Container>
-      <Box width={200}>
+      <Box width={250}>
         <List>
           {SidebarData.map((item, index) => (
             <ListItem button key={index} onClick={() => setContent(item.content)}>

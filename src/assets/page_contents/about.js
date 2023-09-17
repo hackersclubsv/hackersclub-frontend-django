@@ -54,17 +54,17 @@ export const members = [
     role: "Backend",
   },
   {
-    name: "Venni Yu",
+    name: "Wen Yu",
     position: "Member",
     role: "Frontend",
   },
   {
-    name: "Fiona Xiong",
+    name: "Qiwen Xiong",
     position: "Member",
     role: "Frontend",
   },
   {
-    name: "Fia Yin",
+    name: "Jie Yin",
     position: "Member",
     role: "Frontend",
   },
