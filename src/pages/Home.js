@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
-import { Box, Card, Container, Grid, Typography,CardMedia,CardContent } from "@mui/material";
+import { Box, Card, Container, Grid, Typography,CardMedia,CardContent, CardActions, Button } from "@mui/material";
 import PostsList from "../components/PostList";
-import { welcomeimage } from "../assets/page_contents/welcome";
 import { welcomemessage } from "../assets/page_contents/welcome";
 
 function Home() {
@@ -18,14 +17,14 @@ function Home() {
           Welcome to Silicon Valley Hackers Club!
         </Typography>
       </Box>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12} md={4}>
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item xs={6} md={2}>
           <Card elevation={3}>
             <CardMedia
               component="img"
               alt="welcome"
-              image={welcomeimage}
-              style={{ height: "auto", display: "block", maxWidth: "100%" }}
+              image="SVHC_LOGO_500.png"
+              style={{ display: "block", height: "100%", width: "100%" }}
             />
           </Card>
         </Grid>
@@ -38,6 +37,11 @@ function Home() {
                 </Typography>
               ))}
             </CardContent>
+            <CardActions>
+              <Button size="small" color="primary">
+                <a href="/about">Learn More</a>
+              </Button>
+            </CardActions>
           </Card>
         </Grid>
       </Grid>

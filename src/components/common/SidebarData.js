@@ -16,6 +16,22 @@ export const SidebarData = [
     content: 'useful_jobHunting_sites',
   },
   {
+    title: 'Housing in SV',
+    content: 'housing_in_sv',
+  },
+  {
+    title: 'Places to Visit',
+    content: 'places_to_visit',
+  },
+  {
+    title: 'Foods near Campus',
+    content: 'foods_near_campus',
+  },
+  {
+    title: 'Tech Attractions in SV',
+    content: 'tech_attractions_in_SV',
+  },
+  {
     title: 'SV Hackers Club',
     content: 'SV_hackers_club',
   },

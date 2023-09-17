@@ -10,10 +10,10 @@ const Resources = () => {
     <Container maxWidth="lg">
       <Box mt={4}> {/* mt = margin top, add to the Grid and its component above (Header) */}
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={3}>
+        <Grid container xs={12} md={4}>
           <Sidebar setContent={setContent} />
         </Grid>
-        <Grid item xs={12} sm={9}>
+        <Grid container xs={12} md={8}>
           <WikiContent content={content} />
         </Grid>
       </Grid>

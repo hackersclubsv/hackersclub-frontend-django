@@ -153,8 +153,8 @@ const About = () => {
           contribute to meaningful projects, SV Hackers Club is the place to be!
         </Typography>
         <Typography variant="body1">
-          Please fill out this form to join us:
-          <a href="https://forms.office.com/r/QgR7MwX0ZN">Google Form</a>
+          Please fill out this form to join us: 
+          <a href="https://forms.office.com/r/QgR7MwX0ZN"> MS Form</a>
         </Typography>
         <Box>
           <img width={300} src='QRCode_Fall2023.png' alt="QRCode" />
@@ -164,11 +164,11 @@ const About = () => {
           Connect With Us
         </Typography>
         <Typography variant="body1">
-          Stay updated on our latest events, workshops, and activities by checking our website, as well as campus newsletters. For inquiries, feel free to
-          reach out to us at{' '}
+          Stay updated on our latest events, workshops, and activities by checking our website, as well as following us on <a href='https://www.eventbrite.com/o/silicon-valley-hackers-club-71377518443'>Eventbrite</a>. For inquiries, feel free to
+          reach out to us at: {' '}  
           <a href="mailto: hackersclubsv@gmail.com.">
-            hackersclubsv@gmail.com.
-          </a>
+            hackersclubsv@gmail.com
+          </a>.
         </Typography>
         <Typography variant="body1">
           Remember, at SV Hackers Club, the only limit is your imagination. Join
