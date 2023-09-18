@@ -10,16 +10,16 @@ const Register = () => {
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerified, setVerified] = useState(false);
   const [verifyDisabled, setVerifyDisabled] = useState(false);
-  const [verifyCountdown, setVerifyCountdown] = useState(60);
+  const [verifyCountdown, setVerifyCountdown] = useState(0);
   const [checkDisabled, setCheckDisabled] = useState(false);
-  const [checkCountdown, setCheckCountdown] = useState(60);
+  const [checkCountdown, setCheckCountdown] = useState(0);
 
   useEffect(() => {
     if (verifyDisabled && verifyCountdown > 0) {
       setTimeout(() => setVerifyCountdown(verifyCountdown - 1), 1000);
     } else if (verifyCountdown === 0) {
       setVerifyDisabled(false);
-      setVerifyCountdown(60);
+      // setVerifyCountdown(60);
     }
   }, [verifyDisabled, verifyCountdown]);
 
@@ -28,14 +28,19 @@ const Register = () => {
       setTimeout(() => setCheckCountdown(checkCountdown - 1), 1000);
     } else if (checkCountdown === 0) {
       setCheckDisabled(false);
-      setCheckCountdown(60);
+      // setCheckCountdown(60);
     }
   }, [checkDisabled, checkCountdown]);
-  const sendVerificationEmail = async (email) => {
+  const sendVerificationEmail = async (email, username, password) => {
     try {
-      await axios.post("/verify/send-verification-email", {
+      const res = await axios.post("/register/", {
         email,
+        username,
+        password,
       });
+      if (res.status === 200) {
+        console.log(res.data);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -43,11 +48,12 @@ const Register = () => {
 
   const checkVerificationCode = async (email, code) => {
     try {
-      const res = await axios.post("/verify/verify-verification-code", {
+      const res = await axios.post("/register/verify_email/", {
         email,
-        code,
+        'otp':code,
       });
       if (res.status === 200) {
+        console.log(res.data);
         setVerified(true);
       } else {
         setErrors({ api: res.data.message });
@@ -114,7 +120,7 @@ const Register = () => {
           sx={{ color: "grey.800" }} // Adjust the color as you like
         >
           Please verify your Northeastern email before proceeding to
-          register.
+          login.
         </Typography>
 
         <form onSubmit={formik.handleSubmit}>
@@ -141,6 +147,7 @@ const Register = () => {
             checkVerificationCode={checkVerificationCode}
             errors={errors}
           />
+          {/* don't need it temporarily 
           <Button
             color="primary"
             variant="contained"
@@ -150,6 +157,7 @@ const Register = () => {
           >
             Register
           </Button>
+          */}
         </form>
       </Box>
     </Container>
