@@ -2,6 +2,7 @@ import * as React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material/styles";
+import { Add } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -29,6 +30,7 @@ const Posts = () => {
   const [totalPages, setTotalPages] = React.useState(0);
   const [posts, setPosts] = React.useState([]);
   const theme = useTheme();
+  const navigate = useNavigate();
   // The categories should be fetched from the backend dynamically, but as we only have 3 categories, we can hardcode them here
   const categories = [
     { id: null, name: "All" },
@@ -86,7 +88,12 @@ const Posts = () => {
               </Button>
             ))}
           </Stack>
-          <FormControl sx={{ m: 1, minWidth: 120, display: 'none' }} size="small">
+
+          {/* The selector is hidden, need to check the backend */}
+          <FormControl
+            sx={{ m: 1, minWidth: 120, display: "none" }}
+            size="small"
+          >
             <InputLabel id="demo-select-small-label">Sort</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -101,6 +108,14 @@ const Posts = () => {
               <MenuItem value={30}>Latest</MenuItem>
             </Select>
           </FormControl>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Add />}
+            onClick={() => navigate("/posts/create-post")}
+          >
+            New 
+          </Button>
         </Box>
         {/* Start of the posts list */}
 
@@ -113,16 +128,24 @@ const Posts = () => {
         >
           <Grid container spacing={2} alignItems="center" sx={{ padding: 1 }}>
             <Grid item xs={1} sm={1}>
-              <Typography sx={{ textAlign: "center", color: "text.secondary"}}>Comments</Typography>
+              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>
+                Comments
+              </Typography>
             </Grid>
             <Grid item xs={7} sm={7}>
-              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>Title</Typography>
+              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>
+                Title
+              </Typography>
             </Grid>
             <Grid item xs={2} sm={2}>
-              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>Author</Typography>
+              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>
+                Author
+              </Typography>
             </Grid>
             <Grid item xs={2} sm={2}>
-              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>Created</Typography>
+              <Typography sx={{ textAlign: "center", color: "text.secondary" }}>
+                Created
+              </Typography>
             </Grid>
           </Grid>
           {posts.map((post, index) => (
@@ -146,7 +169,11 @@ const Posts = () => {
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs={1} sm={1}>
                     <Box display="flex" justifyContent="center">
-                      <Typography sx={{ color: alpha(theme.palette.primary.dark, 0.9) }}>{post.total_comments}</Typography>
+                      <Typography
+                        sx={{ color: alpha(theme.palette.primary.dark, 0.9) }}
+                      >
+                        {post.total_comments}
+                      </Typography>
                     </Box>
                   </Grid>
                   <Grid item xs={7} sm={7}>
@@ -182,6 +209,7 @@ const Posts = () => {
             color="primary"
             variant="outlined"
             shape="rounded"
+            size="large"
             page={page}
             onChange={handleChange}
           />
