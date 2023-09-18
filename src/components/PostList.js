@@ -48,8 +48,8 @@ const Posts = () => {
         },
       });
       // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
-      setPosts(res.data.results);
-      console.log("res: ", res);
+      // @Sep.18, but now their response structure is the same
+      setPosts(res.data);
       setTotalPages(res.data.totalItems);
     } catch (err) {
       console.log(err);
