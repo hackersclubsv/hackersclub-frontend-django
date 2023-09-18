@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "../api/axios";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Typography } from "@mui/material";
 import validationSchema from "../services/validations/RegisterForm.js";
 import UserFields from "../components/UserFields.js";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [errors, setErrors] = useState({});
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerified, setVerified] = useState(false);
   const [verifyDisabled, setVerifyDisabled] = useState(false);
-  const [verifyCountdown, setVerifyCountdown] = useState(60);
+  const [verifyCountdown, setVerifyCountdown] = useState(0);
   const [checkDisabled, setCheckDisabled] = useState(false);
-  const [checkCountdown, setCheckCountdown] = useState(60);
+  const [checkCountdown, setCheckCountdown] = useState(0);
+  const navigate = useNavigate();
+  // Success message
+  const [message, setMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("");
 
   useEffect(() => {
     if (verifyDisabled && verifyCountdown > 0) {
       setTimeout(() => setVerifyCountdown(verifyCountdown - 1), 1000);
     } else if (verifyCountdown === 0) {
       setVerifyDisabled(false);
-      setVerifyCountdown(60);
+      // setVerifyCountdown(60);
     }
   }, [verifyDisabled, verifyCountdown]);
 
@@ -28,27 +33,39 @@ const Register = () => {
       setTimeout(() => setCheckCountdown(checkCountdown - 1), 1000);
     } else if (checkCountdown === 0) {
       setCheckDisabled(false);
-      setCheckCountdown(60);
+      // setCheckCountdown(60);
     }
   }, [checkDisabled, checkCountdown]);
-  const sendVerificationEmail = async (email) => {
-    try {
-      await axios.post("/verify/send-verification-email", {
-        email,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  const sendVerificationEmail = async (email, username, password) => {
+    formik.submitForm();
+    // Logic changed, now this btn works as submit btn (reigster btn)
+    // try {
+    //   const res = await axios.post("/register/", {
+    //     email,
+    //     username,
+    //     password,
+    //   });
+    //   if (res.status === 200) {
+    //     console.log(res.data);
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   const checkVerificationCode = async (email, code) => {
     try {
-      const res = await axios.post("/verify/verify-verification-code", {
+      const res = await axios.post("/register/verify_email/", {
         email,
-        code,
+        otp: code,
       });
       if (res.status === 200) {
         setVerified(true);
+        setMessage(res.data.status);
+        setAlertSeverity("success");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       } else {
         setErrors({ api: res.data.message });
       }
@@ -62,9 +79,11 @@ const Register = () => {
       Object.entries(values).forEach(([key, value]) =>
         formData.append(key, value),
       );
-      const res = await axios.post("/register", formData);
-      console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
-      formikHelpers.resetForm();
+      const res = await axios.post("/register/", formData);
+      // console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
+      // formikHelpers.resetForm();
+      setMessage(res.data.status);
+      setAlertSeverity("success");
     } catch (err) {
       console.log(err.response.data);
       setErrors({
@@ -113,10 +132,14 @@ const Register = () => {
           gutterBottom="true"
           sx={{ color: "grey.800" }} // Adjust the color as you like
         >
-          Please verify your Northeastern email before proceeding to
-          register.
+          Please verify your Northeastern email before proceeding to login.
         </Typography>
 
+        {message && (
+          <Alert severity={alertSeverity} sx={{ marginTop: 2 }}>
+            {message}
+          </Alert>
+        )}
         <form onSubmit={formik.handleSubmit}>
           <UserFields
             formik={formik}
@@ -141,6 +164,7 @@ const Register = () => {
             checkVerificationCode={checkVerificationCode}
             errors={errors}
           />
+          {/* don't need it temporarily
           <Button
             color="primary"
             variant="contained"
@@ -150,6 +174,7 @@ const Register = () => {
           >
             Register
           </Button>
+          */}
         </form>
       </Box>
     </Container>

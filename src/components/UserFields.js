@@ -110,19 +110,20 @@ const UserFields = ({
           sx={{ my: 2, marginRight: 1, flexBasis: "auto", flexGrow: 1 }}
         />
       )}
+        {/* disable the icon startIcon={<SendIcon />} */}
+          
       {showEmailVerify && (
         <Button
           color="primary"
           variant="contained"
           sx={{ width: "140px", height: "56px", mx: 1 }}
-          startIcon={<SendIcon />}
           onClick={() => {
-            sendVerificationEmail(formik.values.email);
+            sendVerificationEmail(formik.values.email, formik.values.username, formik.values.password);
             setVerifyDisabled(true);
           }}
           disabled={verifyDisabled}
         >
-          {verifyDisabled ? `Code (${verifyCountdown})` : "Code"}
+          {verifyDisabled ? `Register (${verifyCountdown})` : "Register"}
         </Button>
       )}
     </Box>
