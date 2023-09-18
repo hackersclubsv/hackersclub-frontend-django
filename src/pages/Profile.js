@@ -59,7 +59,8 @@ const Profile = () => {
                     {user.caption}
                   </Typography>
                 </Box>
-                <Box mt={2}>
+                {/* Need to add social links to user model in Backend first */}
+                <Box mt={2} display='none'>
                   <Button
                     onClick={() =>handleClick(user.socialLinks.linkedin)}
                     startIcon={<LinkedInIcon />}
@@ -95,17 +96,17 @@ const Profile = () => {
 
               <Box mt={2}>
                 <Typography variant="h5">Current Classes</Typography>
-                <Chip label="INFO 6205" variant="outlined" />
-                <Chip label="INFO 6250" variant="outlined" />
+                <Chip label="INFO XXXX" variant="outlined" />
+                <Chip label="INFO XXXX" variant="outlined" />
               </Box>
 
               <Box mt={2}>
                 <Typography variant="h5">Program</Typography>
-                <Chip label="Infomation Systems" variant="outlined" />
+                <Chip label="XXXX XXXX" variant="outlined" />
               </Box>
               <Box mt={2}>
                 <Typography variant="h5">Admission</Typography>
-                <Chip label="2023 Spring" variant="outlined" />
+                <Chip label="202X XXXX" variant="outlined" />
               </Box>
             </Box>
           </Grid>
