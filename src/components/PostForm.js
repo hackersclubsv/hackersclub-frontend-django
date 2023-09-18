@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import Editor from "../components/Editor.js";
 import axios from "../api/axios.js";
+import { useNavigate } from "react-router-dom";
 
 const PostForm = ({ initialPost = {}, onSave }) => {
   // Hooks for form fields, initial values are from props or empty strings.
@@ -17,6 +18,7 @@ const PostForm = ({ initialPost = {}, onSave }) => {
   const [categoryId, setCategoryId] = useState(initialPost.categoryId || "");
   const [tags, setTags] = useState(initialPost.input_tags || []);
   const [value, setValue] = useState(initialPost.text || "**Hello world!!!**");
+  const navigate = useNavigate();
 
   // Handler for the Submit button
   const handleSubmit = async (e) => {
@@ -40,11 +42,7 @@ const PostForm = ({ initialPost = {}, onSave }) => {
       if (response.status === 200 || response.status === 201) {
         // This will be triggered if the post was successful,
         // you can add any process you want to happen after a successful post like clearing the form
-        console.log("Post was successful", response.data);
-        setTitle("");
-        setCategoryId("");
-        setTags([]);
-        setValue("**Hello world!!!**");
+        navigate("/community");
       }
     } catch (e) {
       console.error(e);
@@ -74,6 +72,7 @@ const PostForm = ({ initialPost = {}, onSave }) => {
               variant="outlined"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
+              helperText="Choose a category. Can't leave empty."
             />
           </Grid>
           <Grid item xs={6}>
@@ -83,7 +82,7 @@ const PostForm = ({ initialPost = {}, onSave }) => {
               variant="outlined"
               value={tags.join(",")}
               onChange={(e) => setTags(e.target.value.split(","))}
-              helperText="Enter tags comma separated."
+              helperText="Enter tags comma separated. Can't leave empty."
             />
           </Grid>
           <Grid item xs={12}>
