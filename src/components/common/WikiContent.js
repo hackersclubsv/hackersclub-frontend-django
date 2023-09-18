@@ -7,7 +7,7 @@ import getting_started from '../../assets/wiki/getting_started.md';
 import campus_useful_links from '../../assets/wiki/campus_useful_links.md';
 import learning_resources from '../../assets/wiki/learning_resources.md';
 import useful_jobHunting_sites from '../../assets/wiki/useful_jobHunting_sites.md';
-import SV_hackers_club from '../../assets/wiki/SV_hackers_club.md';
+import event_hackers_club from '../../assets/wiki/event_hackers_club.md';
 import frequently_asked_question from '../../assets/wiki/frequently_asked_question.md';
 
 const WikiContent = ({ content: fileName }) => {
@@ -17,7 +17,7 @@ const WikiContent = ({ content: fileName }) => {
     campus_useful_links,
     learning_resources,
     useful_jobHunting_sites,
-    SV_hackers_club,
+    event_hackers_club,
     frequently_asked_question,
   }), []);
 

@@ -16,8 +16,8 @@ export const SidebarData = [
     content: 'useful_jobHunting_sites',
   },
   {
-    title: 'SV Hackers Club',
-    content: 'SV_hackers_club',
+    title: 'Events in Hackers Club',
+    content: 'event_hackers_club',
   },
   {
     title: 'FAQ',
