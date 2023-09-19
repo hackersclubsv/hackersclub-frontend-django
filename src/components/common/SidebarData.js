@@ -32,8 +32,8 @@ export const SidebarData = [
     content: 'tech_attractions_in_SV',
   },
   {
-    title: 'SV Hackers Club',
-    content: 'SV_hackers_club',
+    title: 'Events in Hackers Club',
+    content: 'event_hackers_club',
   },
   {
     title: 'FAQ',
