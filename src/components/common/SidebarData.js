@@ -16,6 +16,7 @@ export const SidebarData = [
     content: 'useful_jobHunting_sites',
   },
   {
+<<<<<<< HEAD
     title: 'Housing in SV',
     content: 'housing_in_sv',
   },
@@ -32,6 +33,8 @@ export const SidebarData = [
     content: 'tech_attractions_in_SV',
   },
   {
+=======
+>>>>>>> 804efe7c2e32ff17313624443bc8ef8efdbef0b5
     title: 'Events in Hackers Club',
     content: 'event_hackers_club',
   },
