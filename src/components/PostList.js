@@ -35,6 +35,7 @@ const Posts = () => {
     { id: 3, name: "Job Hunting" },
     { id: 4, name: "Tech Dojo" },
   ];
+  const [sortValue, setSortValue] = useState("10");
 
   const fetchPosts = useCallback(async (page) => {
     try {
@@ -79,6 +80,7 @@ const Posts = () => {
           <Stack spacing={2} direction="row">
             {categories.map(({ id, name }) => (
               <Button
+                key={id}
                 variant={id === category ? "contained" : "outlined"} // If the category is selected, change the variant to "contained"
                 onClick={() => setCategory(id)} // Set the category when the button is clicked
               >
@@ -97,6 +99,8 @@ const Posts = () => {
               labelId="demo-select-small-label"
               id="demo-select-small"
               label="Sort"
+              value={sortValue}
+              onChange={(e) => setSortValue(e.target.value)}
             >
               <MenuItem value="">
                 <em>None</em>
