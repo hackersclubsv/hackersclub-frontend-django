@@ -16,7 +16,7 @@ import { format, parseISO } from "date-fns";
 const PostDetail = ({ post }) => {
   const formattedDate = format(parseISO(post.created_at), "Ppp");
   return (
-    <Card sx={{ paddingBottom: "2em", marginBottom: "2em"}}> 
+    <Card sx={{ paddingBottom: "2em", marginBottom: "2em" }}>
       <CardHeader
         title={post.title}
         subheader={`Author: ${post.author}, Created: ${formattedDate}`}
@@ -67,6 +67,9 @@ const PostDetail = ({ post }) => {
                   {children}
                 </code>
               );
+            },
+            img({ node, ...props }) {
+              return <img {...props} alt="" style={{ maxWidth: "100%" }} />;
             },
           }}
         />

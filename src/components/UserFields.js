@@ -8,7 +8,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import KeyIcon from "@mui/icons-material/Key";
 const UserFields = ({
   formik,
