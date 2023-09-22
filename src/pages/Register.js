@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "../api/axios";
-import { Alert, Box, Button, Container, Typography } from "@mui/material";
+import { Alert, Box,  Container, Typography } from "@mui/material";
 import validationSchema from "../services/validations/RegisterForm.js";
 import UserFields from "../components/UserFields.js";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [errors, setErrors] = useState({});
   const [verificationCode, setVerificationCode] = useState("");
-  const [isVerified, setVerified] = useState(false);
+  // isVerified is used to determine if the user has verified their email, but currently not used
+  const [setVerified] = useState(false);
   const [verifyDisabled, setVerifyDisabled] = useState(false);
   const [verifyCountdown, setVerifyCountdown] = useState(0);
   const [checkDisabled, setCheckDisabled] = useState(false);

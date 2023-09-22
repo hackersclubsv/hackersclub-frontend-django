@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Container, Typography, Link } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 function Footer() {
     return (
@@ -19,10 +19,11 @@ function Footer() {
                     {' Hackers Club. All rights reserved.'}
                 </Typography>
                 <Typography variant="body2" align="center" sx={{ mt: 1 }}>
-                    {/* Replace href with your actual page urls */}
+                    {/* Replace href when we have the links  
                     <Link color="inherit" href="/page-url-1/">Link 1</Link> {' | '}
                     <Link color="inherit" href="/page-url-2/">Link 2</Link> {' | '}
                     <Link color="inherit" href="/page-url-3/">Link 3</Link>
+                    */}
                 </Typography>
             </Container>
         </Box>

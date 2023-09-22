@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState, useCallback } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material/styles";
@@ -6,10 +6,7 @@ import { Add } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
   Container,
-  Divider,
   FormControl,
   Grid,
   InputLabel,
@@ -18,17 +15,17 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { Face, Message, Schedule, TextFields } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
 import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const POSTS_PER_PAGE = 20; // This is for Express backend, the Django backend has builtin pagination, so we don't need this
+//const POSTS_PER_PAGE = 20; // This is for Express backend, the Django backend has builtin pagination, so we don't need this
 const Posts = () => {
-  const [page, setPage] = React.useState(1);
-  const [category, setCategory] = React.useState(null);
-  const [totalPages, setTotalPages] = React.useState(0);
-  const [posts, setPosts] = React.useState([]);
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState(null);
+  // totalPages is currently not used, but it can be used to show the total number of pages in the pagination component
+  // const [totalPages, setTotalPages] = useState(0);
+  const [posts, setPosts] = useState([]);
   const theme = useTheme();
   const navigate = useNavigate();
   // The categories should be fetched from the backend dynamically, but as we only have 3 categories, we can hardcode them here
@@ -39,7 +36,7 @@ const Posts = () => {
     { id: 4, name: "Tech Dojo" },
   ];
 
-  const fetchPosts = async (page) => {
+  const fetchPosts = useCallback(async (page) => {
     try {
       const res = await axios.get(`/posts`, {
         params: {
@@ -51,17 +48,18 @@ const Posts = () => {
       });
       // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
       // @Sep.18, but now their response structure is the same
-      setPosts(res.data);
-      setTotalPages(res.data.totalItems);
+      // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
+      setPosts(res.data.results);
+      // setTotalPages(res.data.totalItems);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [category, setPosts]);
 
   // Fetch posts when page number changes
-  React.useEffect(() => {
+  useEffect(() => {
     fetchPosts(page);
-  }, [page, category]);
+  }, [page, category, fetchPosts]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -114,7 +112,7 @@ const Posts = () => {
             startIcon={<Add />}
             onClick={() => navigate("/posts/create-post")}
           >
-            New 
+            New
           </Button>
         </Box>
         {/* Start of the posts list */}

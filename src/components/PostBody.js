@@ -69,7 +69,7 @@ const PostDetail = ({ post }) => {
               );
             },
             img({ node, ...props }) {
-              return <img {...props} style={{ maxWidth: "100%" }} />;
+              return <img {...props} alt="" style={{ maxWidth: "100%" }} />;
             },
           }}
         />

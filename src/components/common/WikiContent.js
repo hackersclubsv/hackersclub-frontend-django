@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Alert, Box, Card, Link, Paper, Typography } from "@mui/material";
+import { Alert, Box, Link, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -54,7 +54,7 @@ const WikiContent = ({ content: fileName }) => {
           children={content}
           components={{
             img: ({ node, ...props }) => (
-              <img {...props} style={{ maxWidth: "100%" }} />
+              <img {...props} alt="" style={{ maxWidth: "100%" }} />
             ),
           }}
         />

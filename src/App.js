@@ -1,5 +1,4 @@
-import React, { createContext, useMemo, useReducer, useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, { useMemo, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
@@ -16,12 +15,12 @@ import UserUpdate from "./pages/ProfileUpdateTest.js";
 import UserProvider from "./contexts/UserContext";
 import Profile from "./pages/Profile.js";
 import Reauthenticate from "./services/Reauthenticate.js";
-import FullPageTest from "./components/FullPageWrapper.js";
+// import FullPageTest from "./components/FullPageWrapper.js";
 import { getTheme, ThemeContext, themeReducer } from "./config/ThemeConfig.js";
 
 const App = () => {
   const [themeColorIndex, dispatch] = useReducer(themeReducer, 0);
-  const theme = useMemo(() => getTheme(themeColorIndex));
+  const theme = useMemo(() => getTheme(themeColorIndex), [themeColorIndex]);
 
   return (
     <UserProvider>
@@ -30,7 +29,9 @@ const App = () => {
         <div className="App">
           <Router>
             <Routes>
+              {/*
               <Route path="/fullpagetest/" element={<FullPageTest />} />
+                  */}
               <Route path="*" element={<MainLayout />}>
                 <Route index element={<Home />} />
                 <Route path="home" element={<Home />} />

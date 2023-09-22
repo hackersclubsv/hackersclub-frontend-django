@@ -1,7 +1,6 @@
 import React from "react";
 import { useContext } from "react";
 import {
-  Avatar,
   Box,
   Button,
   Chip,
@@ -13,7 +12,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { UserContext } from "../contexts/UserContext";
-import Instagram from "@mui/icons-material/Instagram";
 import CustomAvatar from "../components/CustomAvatar";
 
 const handleClick = (url) => {
