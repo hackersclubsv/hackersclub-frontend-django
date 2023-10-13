@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://api.svhackersclub.com/api/',
-  // For local development
-  // baseURL: 'http://127.0.0.1:8000/api/',
+  // (Delete when finish setting up this in CI/CD pipelines -> baseURL: 'https://api.svhackersclub.com/api/',
+  // process.env is a global object in Node.js, and it is used to access application environment variables.
+  baseURL: process.env.baseURL,
 });
