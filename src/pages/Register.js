@@ -1,60 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "../api/axios";
-import { Alert, Box,  Container, Typography } from "@mui/material";
+import { Alert, Box, Container, Typography } from "@mui/material";
 import validationSchema from "../services/validations/RegisterForm.js";
-import UserFields from "../components/UserFields.js";
+import RegisterFields from "../components/RegisterFields.js";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [errors, setErrors] = useState({});
-  const [verificationCode, setVerificationCode] = useState("");
-  // isVerified is used to determine if the user has verified their email, but currently not used
+  const [otp, setOtp] = useState("");
+  // eslint-disable-next-line
   const [isVerified, setVerified] = useState(false);
-  const [verifyDisabled, setVerifyDisabled] = useState(false);
-  const [verifyCountdown, setVerifyCountdown] = useState(0);
-  const [checkDisabled, setCheckDisabled] = useState(false);
-  const [checkCountdown, setCheckCountdown] = useState(0);
+  const [sendOtpDisabled, setSendOtpDisabled] = useState(false);
+  const [sendOtpCountdown, setSendOtpCountdown] = useState(0);
   const navigate = useNavigate();
-  // Success message
   const [message, setMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("");
 
+  // The countdown timer for the "Send OTP" button
   useEffect(() => {
-    if (verifyDisabled && verifyCountdown > 0) {
-      setTimeout(() => setVerifyCountdown(verifyCountdown - 1), 1000);
-    } else if (verifyCountdown === 0) {
-      setVerifyDisabled(false);
-      // setVerifyCountdown(60);
+    if (sendOtpDisabled && sendOtpCountdown > 0) {
+      setTimeout(() => setSendOtpCountdown(sendOtpCountdown - 1), 1000);
+    } else if (sendOtpCountdown === 0) {
+      setSendOtpDisabled(false);
     }
-  }, [verifyDisabled, verifyCountdown]);
+  }, [sendOtpDisabled, sendOtpCountdown]);
 
-  useEffect(() => {
-    if (checkDisabled && checkCountdown > 0) {
-      setTimeout(() => setCheckCountdown(checkCountdown - 1), 1000);
-    } else if (checkCountdown === 0) {
-      setCheckDisabled(false);
-      // setCheckCountdown(60);
-    }
-  }, [checkDisabled, checkCountdown]);
-  const sendVerificationEmail = async (email, username, password) => {
-    formik.submitForm();
-    // Logic changed, now this btn works as submit btn (reigster btn)
-    // try {
-    //   const res = await axios.post("/register/", {
-    //     email,
-    //     username,
-    //     password,
-    //   });
-    //   if (res.status === 200) {
-    //     console.log(res.data);
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
-  };
-
-  const checkVerificationCode = async (email, code) => {
+  // The function verifies the email, the the account should be fully registered
+  const verifyOtp = async (email, code) => {
     try {
       const res = await axios.post("/register/verify_email/", {
         email,
@@ -62,40 +34,48 @@ const Register = () => {
       });
       if (res.status === 200) {
         setVerified(true);
+        // The order we call setMessages and setAlertSeverity doesn't matter, because batching, React waits until all code in the event handlers has run before procesing state updates
         setMessage(res.data.status);
         setAlertSeverity("success");
         setTimeout(() => {
           navigate("/login");
         }, 3000);
       } else {
-        setErrors({ api: res.data.message });
+        setMessage(res.data.status);
+        setAlertSeverity("error");
       }
     } catch (err) {
-      console.error(err);
+      let errorMessage = "";
+      if (err.response.data.status) {
+        errorMessage = err.response.data.status;
+      } else {
+        errorMessage = "An error occurred. Please try again.";
+      }
+      setMessage(errorMessage);
+      setAlertSeverity("error");
     }
   };
+  
+  // The function sends the OTP to the user's email, and it registers the user even if the email is not verified
+  // It's backend's logic, should be changed later
   const submitForm = async (values, formikHelpers) => {
     try {
-      const formData = new FormData();
-      Object.entries(values).forEach(([key, value]) =>
-        formData.append(key, value),
-      );
-      const res = await axios.post("/register/", formData);
-      // console.log(res.data); // Here you would usually store the JWT in local storage and redirect the user
-      // formikHelpers.resetForm();
+      // Use object descructuring and spread operator to remove confirmPassword from the passed values, we just send required fields to the backend
+      const {confirmPassword, ...credentialsToSend} = values;
+      const res = await axios.post("/register/", credentialsToSend);
       setMessage(res.data.status);
       setAlertSeverity("success");
+      setSendOtpDisabled(true);
+      setSendOtpCountdown(60);
     } catch (err) {
-      console.log(err.response.data);
       let errorMessage = "";
       if (err.response.data.username && err.response.data.username.length > 0) {
         errorMessage = err.response.data.username[0];
       } else {
         errorMessage = "An error occurred. Please try again.";
       }
-      setErrors({
-        api: errorMessage,
-      });
+      setMessage(errorMessage);
+      setAlertSeverity("error");
     } finally {
       formikHelpers.setSubmitting(false);
     }
@@ -107,11 +87,8 @@ const Register = () => {
       password: "",
       confirmPassword: "",
       email: "",
-      // bio: "",
-      // avatar: null,
-      // role: "",
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: submitForm,
   });
 
@@ -137,7 +114,7 @@ const Register = () => {
           component="h2"
           variant="body1"
           gutterBottom="true"
-          sx={{ color: "grey.800" }} // Adjust the color as you like
+          sx={{ color: "grey.800" }}
         >
           Please verify your Northeastern email before proceeding to login.
         </Typography>
@@ -148,40 +125,17 @@ const Register = () => {
           </Alert>
         )}
         <form onSubmit={formik.handleSubmit}>
-          <UserFields
+          <RegisterFields
             formik={formik}
-            showUsername={true}
-            showPassword={true}
-            showConfirmPassword={true}
-            showEmail={true}
-            showEmailVerify={true}
-            showEmailCheck={true}
-            showBio={false}
-            showRoleSelector={false}
-            showAvatarUpload={false}
-            verifyDisabled={verifyDisabled}
-            verifyCountdown={verifyCountdown}
-            setVerifyDisabled={setVerifyDisabled}
-            sendVerificationEmail={sendVerificationEmail}
-            verificationCode={verificationCode}
-            setVerificationCode={setVerificationCode}
-            checkDisabled={checkDisabled}
-            checkCountdown={checkCountdown}
-            setCheckDisabled={setCheckDisabled}
-            checkVerificationCode={checkVerificationCode}
-            errors={errors}
+            sendOtpDisabled={sendOtpDisabled}
+            sendOtpCountdown={sendOtpCountdown}
+            setSendOtpDisabled={setSendOtpDisabled}
+            setSendOtpCountdown={setSendOtpCountdown}
+            verifyOtp={verifyOtp}
+            register={formik.handleSubmit}
+            otp={otp}
+            setOtp={setOtp}
           />
-          {/* don't need it temporarily
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            disabled={formik.isSubmitting || !isVerified}
-          >
-            Register
-          </Button>
-          */}
         </form>
       </Box>
     </Container>
