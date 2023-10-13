@@ -10,7 +10,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [verificationCode, setVerificationCode] = useState("");
   // isVerified is used to determine if the user has verified their email, but currently not used
-  const [setVerified] = useState(false);
+  const [isVerified, setVerified] = useState(false);
   const [verifyDisabled, setVerifyDisabled] = useState(false);
   const [verifyCountdown, setVerifyCountdown] = useState(0);
   const [checkDisabled, setCheckDisabled] = useState(false);
