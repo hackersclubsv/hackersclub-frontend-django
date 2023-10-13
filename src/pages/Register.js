@@ -87,8 +87,14 @@ const Register = () => {
       setAlertSeverity("success");
     } catch (err) {
       console.log(err.response.data);
+      let errorMessage = "";
+      if (err.response.data.username && err.response.data.username.length > 0) {
+        errorMessage = err.response.data.username[0];
+      } else {
+        errorMessage = "An error occurred. Please try again.";
+      }
       setErrors({
-        api: err.response.data || "An error occurred. Please try again.",
+        api: errorMessage,
       });
     } finally {
       formikHelpers.setSubmitting(false);
