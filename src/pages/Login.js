@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import axios from "../api/axios";
 import {
   Alert,
   Box,
-  Checkbox,
   Container,
-  FormControlLabel,
   Grid,
   Link,
   TextField,
@@ -14,25 +12,18 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../contexts/UserContext.js";
-
-// define validation schema
-const validationSchema = yup.object({
-  email: yup.string().email().required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
+import validationSchema from "../services/validations/LoginForm.js";
 
 export default function Login() {
-  const { user, setUser } = useContext(UserContext);
-  const [rememberMe, setRememberMe] = useState(false); // <-- state for our Checkbox
+  // For object destructuring, we can omit the user property, because we don't need it here, but Array distructuring is not possible (useState returns an array)
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  {
-    /* This is the Express backend version, but we're using django now
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    setSubmitting(true);
+  // For future use, when backend is ready to send cookies
+  // eslint-disable-next-line no-unused-vars
+  const handleSubmitCookies = async (values, { setSubmitting, setErrors }) => {
     try {
       const res = await axios.post("/users/login", values, {
         withCredentials: true, // <-- never affexts same-site requests, only cross-site; defaults to false, true then allows cookies to be sent;
@@ -52,19 +43,15 @@ export default function Login() {
       setSubmitting(false);
     }
   };
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: handleSubmit,
-  });
-  */
-  }
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    setSubmitting(true);
+  // Once attempt submit, the formik will set isSubmitting to true, and we can use it to disable the submit button.
+  // So we don't need to setSubmitting(false) manually, but at last we need to set it to false.
+  // setErrors is a function that takes an object, and it will set the errors object to that object.
+  // But setError is renamed to setStatus in v2,
+  const handleSubmitLocalStorage = async (
+    values,
+    { setSubmitting, setStatus },
+  ) => {
     try {
       const res = await axios.post("/token/", values, {});
       localStorage.setItem("accessToken", res.data.access);
@@ -77,26 +64,24 @@ export default function Login() {
       });
       navigate("/home");
     } catch (err) {
-      console.error(err.response.data);
-      setErrors({
-        api: err.response.data.detail || "An error occurred. Please try again.",
-      });
+      console.error(err);
+      setStatus(
+        err.response.data.detail || "An error occurred. Please try again.",
+      );
+      // TODO: if Email is not verified, then redirect to /verify-email
     } finally {
       setSubmitting(false);
     }
   };
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: handleSubmit,
+    onSubmit: handleSubmitLocalStorage,
   });
-
-  const handleRememberMeChange = (event) => {
-    setRememberMe(event.target.checked);
-  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -111,7 +96,7 @@ export default function Login() {
         <Typography
           component="h1"
           variant="h4"
-          gutterBottom="true"
+          gutterBottom={true}
           sx={{ fontWeight: "bold", color: "grey.700" }}
         >
           Welcome back 👏
@@ -119,17 +104,17 @@ export default function Login() {
         <Typography
           component="h2"
           variant="body1"
-          gutterBottom="true"
-          sx={{ color: "grey.800" }} // Adjust the color as you like
+          gutterBottom={true}
+          sx={{ color: "grey.800" }}
         >
           Please enter your email and password
         </Typography>
         <form onSubmit={formik.handleSubmit}>
-        {formik.errors.api && (
-          <Alert severity="error" sx={{ marginBottom: 1 }}>
-            {formik.errors.api}
-          </Alert>
-        )}
+          {formik.status && (
+            <Alert severity="error" sx={{ marginBottom: 1 }}>
+              {formik.status}
+            </Alert>
+          )}
           <TextField
             variant="outlined"
             margin="normal"
