@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [otp, setOtp] = useState("");
-  // eslint-disable-next-line
-  const [isVerified, setVerified] = useState(false);
   const [sendOtpDisabled, setSendOtpDisabled] = useState(false);
   const [sendOtpCountdown, setSendOtpCountdown] = useState(0);
   const navigate = useNavigate();
@@ -33,7 +31,6 @@ const Register = () => {
         otp: code,
       });
       if (res.status === 200) {
-        setVerified(true);
         // The order we call setMessages and setAlertSeverity doesn't matter, because batching, React waits until all code in the event handlers has run before procesing state updates
         setMessage(res.data.status);
         setAlertSeverity("success");
@@ -69,6 +66,8 @@ const Register = () => {
       setSendOtpCountdown(60);
     } catch (err) {
       let errorMessage = "";
+      // These lines are wierd, as they are not common error handling structure we see in other parts of the code
+      // The Django returns Array because it's field-related error, Django stores them in ErrorList. It's bad but we have to handle it.
       if (err.response.data.username && err.response.data.username.length > 0) {
         errorMessage = err.response.data.username[0];
       } else {
@@ -105,7 +104,7 @@ const Register = () => {
         <Typography
           component="h1"
           variant="h4"
-          gutterBottom="true"
+          gutterBottom={true}
           sx={{ fontWeight: "bold", color: "grey.700" }}
         >
           Register
@@ -113,7 +112,7 @@ const Register = () => {
         <Typography
           component="h2"
           variant="body1"
-          gutterBottom="true"
+          gutterBottom={true}
           sx={{ color: "grey.800" }}
         >
           Please verify your Northeastern email before proceeding to login.

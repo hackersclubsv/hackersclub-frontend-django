@@ -5,8 +5,6 @@ const RegisterFields = ({
   formik,
   sendOtpDisabled,
   sendOtpCountdown,
-  setSendOtpDisabled,
-  setSendOtpCountdown,
   verifyOtp,
   register,
   otp,
