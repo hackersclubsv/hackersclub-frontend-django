@@ -24,11 +24,15 @@ export default function Login() {
   // For future use, when backend is ready to send cookies
   // eslint-disable-next-line no-unused-vars
   const handleSubmitCookies = async (values, { setSubmitting, setErrors }) => {
+    // This is the Express backend version, but we're using django now
+    setSubmitting(true);
+    console.log(values);
     try {
       const res = await axios.post("/users/login", values, {
         withCredentials: true, // <-- never affexts same-site requests, only cross-site; defaults to false, true then allows cookies to be sent;
       });
       const decodedToken = jwt_decode(res.data.accessToken);
+      console.log(decodedToken);
       setUser({
         ...decodedToken,
         accessToken: res.data.accessToken,
@@ -80,7 +84,7 @@ export default function Login() {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: handleSubmitLocalStorage,
+    onSubmit: handleSubmitCookies,
   });
 
   return (

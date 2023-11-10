@@ -14,6 +14,7 @@ function stringToColor(string) {
 }
 
 function stringAvatar(name, size) {
+  // if (!name) return;
   const fontSize = `${size / 2}px`;
   const splitName = name.split(" ");
 

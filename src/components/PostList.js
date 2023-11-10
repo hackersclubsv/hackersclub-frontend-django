@@ -38,33 +38,25 @@ const Posts = () => {
   ];
   const [sortValue, setSortValue] = useState("10");
 
-  const fetchPosts = useCallback(
-    async (page) => {
-      try {
-        const res = await axios.get(`/posts`, {
-          params: {
-            page: page,
-            // limit: POSTS_PER_PAGE,
-            // Add any other parameters here
-            ...(category && { category_id: category }),
-          },
-        });
-        // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
-        // @Sep.18, but now their response structure is the same
-        // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
-        if (res.data.results) {
-          setPosts(res.data.results);
-        } else {
-          setPosts(res.data);
-        }
-        setTotalPages(Math.ceil(res.data.count / 10));
-        // setTotalPages(res.data.totalItems);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    [category, setPosts],
-  );
+  const fetchPosts = useCallback(async (page) => {
+    try {
+      const res = await axios.get(`/posts`, {
+        params: {
+          page: page,
+          // limit: POSTS_PER_PAGE,
+          // Add any other parameters here
+          ...(category && { category_id: category }),
+        },
+      });
+      // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
+      // @Sep.18, but now their response structure is the same
+      // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
+      setPosts(res.data.results);
+      // setTotalPages(res.data.totalItems);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [category, setPosts]);
 
   // Fetch posts when page number changes
   useEffect(() => {
