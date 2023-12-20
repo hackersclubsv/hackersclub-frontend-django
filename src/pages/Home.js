@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import { Box, Card, Container, Grid, Typography,CardMedia,CardContent, CardActions, Button } from "@mui/material";
 import PostsList from "../components/PostList";

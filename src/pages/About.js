@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   benefits,
@@ -154,14 +153,22 @@ const About = () => {
             Please fill out this form to join us:
             <a href="https://forms.office.com/r/QgR7MwX0ZN">MS Form</a>
           </Typography>
-          <Typography variant="body1" align="center" sx={{marginTop:"20px"}}>
+          <Box
+            my={4}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <img width={300} src="QRCode_Fall2023.png" alt="QRCode" />
-          <Typography variant="h6">
+            <Typography variant="h6" align="center">
               Stay Inspired. <br />
               Stay Curious. <br />
               Stay SV Hackers Club.
-          </Typography>
-          </Typography>
+            </Typography>
+          </Box>
 
           <Typography variant="h4" gutterBottom mt={4}>
             Connect With Us
