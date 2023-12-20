@@ -1,11 +1,11 @@
 import PostsList from "../components/PostList";
 import { UserContext } from "../contexts/UserContext.js";
 import { Box, Typography } from "@mui/material";
-import React from "react";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useContext } from "react";
 
 function Community() {
-  const { user } = React.useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <div style={{ position: "relative" }}>
       {user ? (

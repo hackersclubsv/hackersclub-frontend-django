@@ -58,7 +58,7 @@ const Reauthenticate = () => {
 
     // Decode the JWT and get the user id
     const decoded = jwt_decode(res.data.access);
-    const response = await axios.get(`/users/${decoded.user_id}`);
+    const response = await axios.get(`/users/${decoded.username}`);
     setUser(response.data);
   };
 

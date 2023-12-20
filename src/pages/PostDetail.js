@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import axios from "../api/axios";
 import { useParams } from "react-router-dom";
 import {
@@ -23,7 +23,7 @@ function Post() {
   {
     /* `/comments/commentsByPost/${response.data._id}`}, */
   } // This is Express backend version
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
@@ -57,7 +57,7 @@ function Post() {
           {comments
             .filter((comment) => comment.parent === null)
             .map((rootComment, index) => (
-              <React.Fragment key={index}>
+              <>
                 <Comment comment={rootComment} />
                 {comments
                   .filter((reply) => reply.parent === rootComment.id)
@@ -66,7 +66,7 @@ function Post() {
                       <Comment comment={reply} />
                     </Box>
                   ))}
-              </React.Fragment>
+              </>
             ))}
         </List>
       </Box>
