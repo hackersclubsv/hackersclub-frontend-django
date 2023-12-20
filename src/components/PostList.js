@@ -1,7 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { useTheme } from "@mui/material/styles";
-import { alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { Add } from "@mui/icons-material";
 import {
   Box,
@@ -24,42 +23,47 @@ const Posts = () => {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState(null);
   // totalPages is currently not used, but it can be used to show the total number of pages in the pagination component
-  // const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [posts, setPosts] = useState([]);
   const theme = useTheme();
   const navigate = useNavigate();
   // The categories should be fetched from the backend dynamically, but as we only have 3 categories, we can hardcode them here
   const categories = [
     { id: null, name: "All" },
-    { id: 2, name: "Campus Life" },
-    { id: 3, name: "Job Hunting" },
-    { id: 4, name: "Tech Dojo" },
+    { id: 1, name: "Announcement" },
+    { id: 5, name: "Campus Life" },
+    { id: 4, name: "Job Hunting" },
+    { id: 6, name: "Tech Dojo" },
   ];
   const [sortValue, setSortValue] = useState("10");
 
-  const fetchPosts = useCallback(async (page) => {
-    try {
-      const res = await axios.get(`/posts`, {
-        params: {
-          page: page,
-          // limit: POSTS_PER_PAGE,
-          // Add any other parameters here
-          ...(category && { category_id: category }),
-        },
-      });
-      // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
-      // @Sep.18, but now their response structure is the same
-      // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
-      if (res.data.results) {
-      setPosts(res.data.results);
-      } else {
-        setPosts(res.data);
+  const fetchPosts = useCallback(
+    async (page) => {
+      try {
+        const res = await axios.get(`/posts`, {
+          params: {
+            page: page,
+            // limit: POSTS_PER_PAGE,
+            // Add any other parameters here
+            ...(category && { category_id: category }),
+          },
+        });
+        // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
+        // @Sep.18, but now their response structure is the same
+        // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
+        if (res.data.results) {
+          setPosts(res.data.results);
+        } else {
+          setPosts(res.data);
+        }
+        setTotalPages(Math.ceil(res.data.count / 10));
+        // setTotalPages(res.data.totalItems);
+      } catch (err) {
+        console.log(err);
       }
-      // setTotalPages(res.data.totalItems);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [category, setPosts]);
+    },
+    [category, setPosts],
+  );
 
   // Fetch posts when page number changes
   useEffect(() => {
@@ -211,7 +215,7 @@ const Posts = () => {
           justifyContent="center"
         >
           <Pagination
-            count={10}
+            count={totalPages}
             color="primary"
             variant="outlined"
             shape="rounded"
