@@ -54,6 +54,7 @@ const Reauthenticate = () => {
     if (res.data.refresh) {
       // If a new refreshToken is returned, store it in localStorage
       localStorage.setItem("refreshToken", res.data.refresh);
+      localStorage.setItem("accessToken", res.data.access);
     }
 
     // Decode the JWT and get the user id
