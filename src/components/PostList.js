@@ -28,9 +28,10 @@ const Posts = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   // The categories should be fetched from the backend dynamically, but as we only have 3 categories, we can hardcode them here
+  // Better to fetch them from the backend, so that if we add more categories, we don't need to change the frontend
   const categories = [
     { id: null, name: "All" },
-    { id: 1, name: "Announcement" },
+    { id: 1, name: "Announcements" },
     { id: 5, name: "Campus Life" },
     { id: 4, name: "Job Hunting" },
     { id: 6, name: "Tech Dojo" },
