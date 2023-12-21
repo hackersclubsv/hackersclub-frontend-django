@@ -13,7 +13,6 @@
 
 # misc
 .DS_Store
-# ignore all .env files
 .env.* 
 .env
 .idea
