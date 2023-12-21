@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useParams } from "react-router-dom";
 import {
@@ -12,12 +12,21 @@ import {
   Typography,
 } from "@mui/material";
 import PostView from "../components/PostBody";
-import Comment from "../components/CommentBody";
+import CommentSection from "../components/CommentSection";
 
 function Post() {
   const { slug } = useParams();
-  const [post, setPost] = React.useState(null);
-  const [comments, setComments] = React.useState([]);
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
+
+  const refreshComments = async () => {
+    try {
+      const commentsResponse = await axios.get(`/posts/${slug}/comments/?all=true`);
+      setComments(commentsResponse.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Fetch post details
   {
@@ -28,9 +37,7 @@ function Post() {
       try {
         const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
         setPost(response.data);
-        const commentsResponse = await axios.get(
-          `/comments/getCommentsByPostSlug/?slug=${slug}`, // Django current only supports get all comments
-        );
+        const commentsResponse = await axios.get(`/posts/${slug}/comments/?all=true`);
         setComments(commentsResponse.data);
       } catch (err) {
         console.error(err);
@@ -48,27 +55,7 @@ function Post() {
     <Container maxWidth="xl">
       <Box sx={{ my: 4 }}>
         <PostView post={post} />
-        <Typography variant="h6" component="div" sx={{ mb: 2 }}>
-          Comments
-        </Typography>
-        <List>
-          {/* We apply depth = 1 nesting to comments */}
-          {/* Only map over root comments (i.e. comments without a parent) */}
-          {comments
-            .filter((comment) => comment.parent === null)
-            .map((rootComment, index) => (
-              <>
-                <Comment comment={rootComment} />
-                {comments
-                  .filter((reply) => reply.parent === rootComment.id)
-                  .map((reply, index) => (
-                    <Box key={index} ml={4}>
-                      <Comment comment={reply} />
-                    </Box>
-                  ))}
-              </>
-            ))}
-        </List>
+        {comments && <CommentSection comments={comments} postSlug={slug} onCommentSubmitted={refreshComments} />}
       </Box>
     </Container>
   );

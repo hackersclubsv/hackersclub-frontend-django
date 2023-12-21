@@ -17,7 +17,7 @@ const PostDetail = ({ post }) => {
   const formattedDate = format(parseISO(post.created_at), "Ppp");
   return (
     <Card
-      sx={{ padding: "2em", marginBottom: "2em", backgroundColor: "#F3F8FF", borderRadius: "1em" }}
+      sx={{ padding: "2em", marginBottom: "2em", bgcolor: "#F3F8FF", borderRadius: "1em" }}
     >
       <CardHeader
         title={post.title}
