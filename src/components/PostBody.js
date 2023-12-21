@@ -16,17 +16,20 @@ import { format, parseISO } from "date-fns";
 const PostDetail = ({ post }) => {
   const formattedDate = format(parseISO(post.created_at), "Ppp");
   return (
-    <Card sx={{ paddingBottom: "2em", marginBottom: "2em" }}>
+    <Card
+      sx={{ padding: "2em", marginBottom: "2em", backgroundColor: "#F3F8FF", borderRadius: "1em" }}
+    >
       <CardHeader
         title={post.title}
         subheader={`Author: ${post.author}, Created: ${formattedDate}`}
+        sx={{ textAlign: "center", fontSize: "2em", fontWeight: "bold" }}
       />
       <CardContent>
         {/* space-between: main axis (horizontal) the first item is at the start, the last item is at the end, the remaining items are distributed evenly in between. */}
         {/* center: aligns items along the vertical axis, in the middle */}
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="subtitle" color="text.secondary">
               Category: {post.category_display}
             </Typography>
           </Grid>
@@ -47,8 +50,7 @@ const PostDetail = ({ post }) => {
           </Grid>
         </Grid>
       </CardContent>
-      <CardContent>
-        <Typography variant="body1" color="text.primary"></Typography>
+      <CardContent sx={{ lineHeight:"1.8em", fontSize:"1.2em" }}>
         <ReactMarkdown
           children={post.content}
           components={{
