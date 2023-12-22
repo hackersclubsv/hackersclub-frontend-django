@@ -1,13 +1,22 @@
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
-import { Box, Card, Container, Grid, Typography,CardMedia,CardContent, CardActions, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import PostsList from "../components/PostList";
 import { welcomemessage } from "../assets/page_contents/welcome";
 
 function Home() {
   const { user } = useContext(UserContext);
 
-  // Assuming "exampleposts" are available posts may be from context or API
   const exampleposts = [];
 
   const WelcomeContent = () => (
@@ -17,34 +26,51 @@ function Home() {
           Welcome to Silicon Valley Hackers Club!
         </Typography>
       </Box>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Grid item xs={6} md={2}>
-          <Card elevation={3}>
-            <CardMedia
-              component="img"
-              alt="welcome"
-              image="SVHC_LOGO_500.png"
-              style={{ display: "block", height: "100%", width: "100%" }}
-            />
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Card elevation={3}>
-            <CardContent>
-              {welcomemessage.map((message, index) => (
-                <Typography key={index} variant="body1" paragraph>
-                  {message}
-                </Typography>
-              ))}
-            </CardContent>
-            <CardActions>
-              <Button size="small" color="primary">
-                <a href="/about">Learn More</a>
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
+
+      <Box
+        sx={{
+          mx: "auto",
+          mt: 4,
+          display: "flex",
+          alignItems: "center",
+          boxShadow: 3,
+          borderRadius: 2,
+        }}
+      >
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <CardMedia
+            component="img"
+            alt="welcome"
+            image="SVHC_LOGO_500.png"
+            sx={{
+              width: 200,
+              height: "auto",
+              margin: 2,
+              objectFit: "contain",
+              display: { xs: "none", sm: "block" },
+            }}
+          />
+          <Box sx={{ flex: 1, pt: 2, pr: 4 }}>
+            {welcomemessage.map((message, index) => (
+              <Typography key={index} variant="h6" paragraph sx={{
+                textAlign: "justify",
+              }}>
+                {message}
+              </Typography>
+            ))}
+            <Button variant="outlined" color="primary" sx={{ mb: 2 }}>
+              Learn More
+            </Button>
+          </Box>
+        </Card>
+      </Box>
     </Container>
   );
 
