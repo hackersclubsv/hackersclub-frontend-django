@@ -21,7 +21,10 @@ function Post() {
 
   const refreshComments = async () => {
     try {
-      const commentsResponse = await axios.get(`/posts/${slug}/comments/?all=true`);
+      const commentsResponse = await axios.get(
+        `/comments/commentsByPost/${post._id}`,
+        { withCredentials: true },
+      );
       setComments(commentsResponse.data);
     } catch (err) {
       console.error(err);
@@ -37,7 +40,10 @@ function Post() {
       try {
         const response = await axios.get(`/posts/${slug}`); // Replace with your actual API URL
         setPost(response.data);
-        const commentsResponse = await axios.get(`/posts/${slug}/comments/?all=true`);
+        const commentsResponse = await axios.get(
+          `/comments/commentsByPost/${response.data._id}`,
+          { withCredentials: true },
+        );
         setComments(commentsResponse.data);
       } catch (err) {
         console.error(err);
@@ -55,7 +61,13 @@ function Post() {
     <Container maxWidth="xl">
       <Box sx={{ my: 4 }}>
         <PostView post={post} />
-        {comments && <CommentSection comments={comments} postSlug={slug} onCommentSubmitted={refreshComments} />}
+        {comments && (
+          <CommentSection
+            comments={comments}
+            postId={post._id}
+            onCommentSubmitted={refreshComments}
+          />
+        )}
       </Box>
     </Container>
   );

@@ -65,7 +65,7 @@ const Reauthenticate = () => {
 
   // Side effect that triggers when this compunent is mounted (when the page is refreshed).
   useEffect(() => {
-    reauthWithLocalStorage();
+    reauthWithCookies();
     // this is a static function, it doesn't need any dependencies, that's why we disable the rule (warning)
     // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, []);

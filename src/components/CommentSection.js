@@ -15,7 +15,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function Comment({ comment, onReplyClick }) {
-  const formattedDate = formatDistanceToNow(new Date(comment.created_at));
+  const formattedDate = formatDistanceToNow(new Date(comment.created));
 
   return (
     <Card sx={{ mt: 2, bgcolor: "#F3F8FF", borderRadius: "1em" }}>
@@ -31,7 +31,7 @@ function Comment({ comment, onReplyClick }) {
             size="small"
             color="primary"
             variant="outlined"
-            onClick={() => onReplyClick(comment.id)}
+            onClick={() => onReplyClick(comment._id)}
           >
             Reply
           </Button>
@@ -43,7 +43,7 @@ function Comment({ comment, onReplyClick }) {
               color: "primary.main",
             }}
           >
-            {comment.user}
+            {comment.userId.username}
           </Typography>
         </Box>
         <Typography variant="body2" color="text.secondary">
@@ -52,7 +52,7 @@ function Comment({ comment, onReplyClick }) {
       </Box>
       <CardContent sx={{ paddingTop: 0 }}>
         <ReactMarkdown
-          children={comment.content}
+          children={comment.text}
           components={{
             code({ node, inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
@@ -82,20 +82,22 @@ function Comment({ comment, onReplyClick }) {
 
 function handleNestedComments(comments) {
   const commentMap = new Map(
-    comments.map((comment) => [comment.id, { ...comment, replies: [] }]),
+    comments.map((comment) => [comment._id, { ...comment, replies: [] }]),
   );
   const rootComments = [];
   comments.forEach((comment) => {
-    if (comment.parent === null) {
-      rootComments.push(commentMap.get(comment.id));
+    if (comment.parentId === null) {
+      rootComments.push(commentMap.get(comment._id));
     } else {
-      commentMap.get(comment.parent).replies.push(commentMap.get(comment.id));
+      commentMap
+        .get(comment.parentId)
+        .replies.push(commentMap.get(comment._id));
     }
   });
   return rootComments;
 }
 
-function CommentSection({ comments, postSlug, onCommentSubmitted }) {
+function CommentSection({ comments, postId, onCommentSubmitted }) {
   const [editorOpen, setEditorOpen] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
   const [editorValue, setEditorValue] = useState("");
@@ -116,20 +118,15 @@ function CommentSection({ comments, postSlug, onCommentSubmitted }) {
     e.preventDefault();
 
     const newComment = {
-      parent: replyTo,
-      content: editorValue,
+      parentId: replyTo,
+      text: editorValue,
+      postId: postId,
     };
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.post(
-        `/posts/${postSlug}/comments/`,
-        newComment,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
+      // if user is not logged in, redirect to login page
+
+      // const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.post(`/comments`, newComment, { withCredentials: true});
       if (response.status === 200 || response.status === 201) {
         // refresh comments
         setEditorOpen(false);
@@ -147,7 +144,7 @@ function CommentSection({ comments, postSlug, onCommentSubmitted }) {
       <div key={index}>
         <Box ml={depth * 4}>
           <Comment comment={comment} onReplyClick={handleReplyClick} />
-          {editorOpen && replyTo === comment.id && (
+          {editorOpen && replyTo === comment._id && (
             <>
               <MarkdownEditor value={editorValue} onChange={setEditorValue} />
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

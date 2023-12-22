@@ -51,6 +51,7 @@ const Posts = () => {
       // django api response structure is different from express api response structure. Dj: res.data.results, Express: res.data
       // @Sep.18, but now their response structure is the same
       // If rest_framework.pagination.PageNumberPagination is used, the response structure is different from the default response structure
+      setTotalPages(res.data.totalPages);
       setPosts(res.data.results);
       // setTotalPages(res.data.totalItems);
     } catch (err) {

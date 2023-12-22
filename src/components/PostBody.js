@@ -39,7 +39,7 @@ const PostDetail = ({ post }) => {
                 {post.tags.map((tag, index) => (
                   <Chip
                     key={index}
-                    label={tag}
+                    label={tag.name}
                     color="primary"
                     variant="outlined"
                     sx={{ margin: "0.5em" }}
