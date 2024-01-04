@@ -4,11 +4,8 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
-  CardContent,
   CardMedia,
   Container,
-  Grid,
   Typography,
 } from "@mui/material";
 import PostsList from "../components/PostList";

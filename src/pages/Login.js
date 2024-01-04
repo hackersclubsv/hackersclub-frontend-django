@@ -16,23 +16,19 @@ import jwt_decode from "jwt-decode";
 import { UserContext } from "../contexts/UserContext.js";
 import validationSchema from "../services/validations/LoginForm.js";
 
-export default function Login() {
+function Login() {
   // For object destructuring, we can omit the user property, because we don't need it here, but Array distructuring is not possible (useState returns an array)
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // For future use, when backend is ready to send cookies
-  // eslint-disable-next-line no-unused-vars
   const handleSubmitCookies = async (values, { setSubmitting, setErrors }) => {
     // This is the Express backend version, but we're using django now
     setSubmitting(true);
-    console.log(values);
     try {
       const res = await axios.post("/users/login", values, {
         withCredentials: true, // <-- never affexts same-site requests, only cross-site; defaults to false, true then allows cookies to be sent;
       });
       const decodedToken = jwt_decode(res.data.accessToken);
-      console.log(decodedToken);
       setUser({
         ...decodedToken,
         accessToken: res.data.accessToken,
@@ -43,36 +39,6 @@ export default function Login() {
       setErrors({
         api: err.response.data || "An error occurred. Please try again.",
       });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  // Once attempt submit, the formik will set isSubmitting to true, and we can use it to disable the submit button.
-  // So we don't need to setSubmitting(false) manually, but at last we need to set it to false.
-  // setErrors is a function that takes an object, and it will set the errors object to that object.
-  // But setError is renamed to setStatus in v2,
-  const handleSubmitLocalStorage = async (
-    values,
-    { setSubmitting, setStatus },
-  ) => {
-    try {
-      const res = await axios.post("/token/", values, {});
-      localStorage.setItem("accessToken", res.data.access);
-      localStorage.setItem("refreshToken", res.data.refresh);
-      const decodedToken = jwt_decode(res.data.access);
-      setUser({
-        ...decodedToken,
-        accessToken: res.data.access,
-        refreshToken: res.data.refresh,
-      });
-      navigate("/home");
-    } catch (err) {
-      console.error(err);
-      setStatus(
-        err.response.data.detail || "An error occurred. Please try again.",
-      );
-      // TODO: if Email is not verified, then redirect to /verify-email
     } finally {
       setSubmitting(false);
     }
@@ -189,3 +155,5 @@ export default function Login() {
     </Container>
   );
 }
+
+export default Login;
