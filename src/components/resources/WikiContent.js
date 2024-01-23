@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Box, Link, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -14,24 +14,21 @@ import places_to_visit from "../../assets/wiki/places_to_visit.md";
 import foods_near_campus from "../../assets/wiki/foods_near_campus.md";
 import tech_attractions_in_SV from "../../assets/wiki/tech_attractions_in_SV.md";
 
+const contents = {
+  getting_started,
+  campus_useful_links,
+  learning_resources,
+  useful_jobHunting_sites,
+  event_hackers_club,
+  frequently_asked_question,
+  housing_in_sv,
+  places_to_visit,
+  foods_near_campus,
+  tech_attractions_in_SV,
+};
+
 const WikiContent = ({ content: fileName }) => {
   const [content, setContent] = useState("");
-  const contents = useMemo(
-    () => ({
-      getting_started,
-      campus_useful_links,
-      learning_resources,
-      useful_jobHunting_sites,
-      event_hackers_club,
-      frequently_asked_question,
-      housing_in_sv,
-      places_to_visit,
-      foods_near_campus,
-      tech_attractions_in_SV,
-    }),
-    [],
-  );
-
 
   useEffect(() => {
     if (!fileName) {
@@ -56,9 +53,7 @@ const WikiContent = ({ content: fileName }) => {
             img: ({ node, ...props }) => (
               <img {...props} alt="" style={{ maxWidth: "100%" }} />
             ),
-            p: ({ node, ...props }) => (
-              <Typography {...props} paragraph />
-            ),
+            p: ({ node, ...props }) => <Typography {...props} paragraph />,
           }}
         />
       ) : (
@@ -77,9 +72,6 @@ const WikiContent = ({ content: fileName }) => {
           </Link>
         </Typography>
       </Alert>
-
-
-
     </Box>
   );
 };
