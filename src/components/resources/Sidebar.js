@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, ListItem, Box, Container } from "@mui/material";
 import { SidebarData } from './SidebarData';
 

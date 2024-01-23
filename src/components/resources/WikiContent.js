@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Alert, Box, Link, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -55,6 +55,9 @@ const WikiContent = ({ content: fileName }) => {
           components={{
             img: ({ node, ...props }) => (
               <img {...props} alt="" style={{ maxWidth: "100%" }} />
+            ),
+            p: ({ node, ...props }) => (
+              <Typography {...props} paragraph />
             ),
           }}
         />

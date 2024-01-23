@@ -1,6 +1,6 @@
 import { Container, Grid, Box } from "@mui/material";
-import Sidebar from "../components/common/Sidebar";
-import WikiContent from "../components/common/WikiContent";
+import Sidebar from "../components/resources/Sidebar";
+import WikiContent from "../components/resources/WikiContent";
 import { useState } from "react";
 
 const Resources = () => {
