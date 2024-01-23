@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../config/ThemeConfig.js";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,8 +20,8 @@ const pages = ["Home", "Resources", "Community", "About"];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const { dispatch } = useContext(ThemeContext);
@@ -55,7 +55,7 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     if (user === null) {
       navigate("/home");
     }
