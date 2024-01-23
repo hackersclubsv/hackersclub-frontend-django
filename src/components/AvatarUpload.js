@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
 import axios from "../api/axios";

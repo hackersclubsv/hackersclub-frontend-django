@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer } from "react";
+import { useMemo, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";

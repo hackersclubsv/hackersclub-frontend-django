@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../config/ThemeConfig.js";
 import { ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header.js";

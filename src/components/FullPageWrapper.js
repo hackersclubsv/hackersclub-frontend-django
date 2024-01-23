@@ -1,4 +1,3 @@
-import React from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Resources from "../pages/Resources";
 import Community from "../pages/Community";
