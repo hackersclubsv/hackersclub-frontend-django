@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from "react";
+import { useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
@@ -20,7 +20,7 @@ import { getTheme, ThemeContext, themeReducer } from "./config/ThemeConfig.js";
 
 const App = () => {
   const [themeColorIndex, dispatch] = useReducer(themeReducer, 0);
-  const theme = useMemo(() => getTheme(themeColorIndex), [themeColorIndex]);
+  const theme = getTheme(themeColorIndex);
 
   return (
     <UserProvider>
